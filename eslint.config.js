@@ -1,6 +1,6 @@
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import pluginReact, { rules } from 'eslint-plugin-react';
+import pluginReact from 'eslint-plugin-react';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -9,6 +9,7 @@ export default [
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
+    settings: { react: { version: 'detect' } }, // ✅ React 버전 자동 감지 추가
     rules: {
       'react/react-in-jsx-scope': 'off',
     },
