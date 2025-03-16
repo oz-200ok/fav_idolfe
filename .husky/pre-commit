@@ -4,3 +4,6 @@
 npx lint-staged
 
 echo "echo '✅ Husky pre-commit 실행됨!'" >> .husky/pre-commit
+echo '✅ Husky pre-commit 실행됨!'
+echo '✅ Husky pre-commit 실행됨!'
+echo '✅ Husky pre-commit 실행됨!'
