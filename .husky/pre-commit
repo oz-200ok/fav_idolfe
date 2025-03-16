@@ -3,5 +3,4 @@
 
 npx lint-staged
 
-exec < /dev/tty && gitmoji --hook $1
 echo "echo '✅ Husky pre-commit 실행됨!'" >> .husky/pre-commitecho '✅ Husky pre-commit 실행됨!'
