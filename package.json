@@ -6,10 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint --cache .",
+    "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky install",
-    "format": "prettier --cache --write ."
+    "prepare": "husky install"
   },
   "dependencies": {
     "@toast-ui/calendar": "^2.1.3",
