@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@toast-ui/calendar": "^2.1.3",
+    "axios": "^1.8.3",
+    "Husky": "npm:husky@^8.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.3.0",
@@ -28,7 +30,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "prettier": "^3.5.3",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.26.1",
