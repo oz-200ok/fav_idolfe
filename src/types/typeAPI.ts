@@ -1,5 +1,5 @@
 // export 붙은 건 외부에서 사용할 타입
-// 안 붙은 건, 여기 내에서만 사용할 타입 
+// 안 붙은 건, 여기 내에서만 사용할 타입
 
 /**
  * 로그인 API 타입
@@ -9,41 +9,41 @@ export type T_Login = {
   refresh_token: string;
   expires_in: number;
   user: {
-      id: number;
-      email: string;
-    }
-}
+    id: number;
+    email: string;
+  };
+};
 
 /**
  * 소셜 로그인 API 타입
  */
-export type T_SocialLogin = { token : string; }
+export type T_SocialLogin = { token: string };
 
 /**
  * 회원가입 API 타입
  */
-export type T_Register = { 
+export type T_Register = {
   message: string;
   data: {
-      user_id: number;
-      email: string;
-      is_verified: boolean;
-      resend_available_in: number;
-     }
-}
+    user_id: number;
+    email: string;
+    is_verified: boolean;
+    resend_available_in: number;
+  };
+};
 
 /**
  * 이메일 인증 API 타입
  */
-export type T_VerifyEmail = { 
+export type T_VerifyEmail = {
   message: string;
   data: {
-      id: number;
-      name: string;
-      email: string;
-      phone: null | string;
-     }
-}
+    id: number;
+    name: string;
+    email: string;
+    phone: null | string;
+  };
+};
 
 /**
  * 이메일 찾기 API 타입
@@ -52,41 +52,42 @@ export type T_FindEmail = {
   status: string;
   message: string;
   data: {
-      email: string;
-     }
-}
+    email: string;
+  };
+};
 
 /**
  * 비밀번호 찾기 API 타입
  */
-export type T_FindPassword =  { 
-    message: string;
-}
+export type T_FindPassword = {
+  message: string;
+};
 
 /**
  * 비밀번호 재설정 API 타입
  */
 export type T_ResetPassword = {
   message: string;
-}
+};
 
 /**
  * 내 프로필 API 타입
  */
 export type T_UserProfile = {
   data: {
-        id: number;
-        name: string;
-        email: string;
-        phone: null | string;
-} }
+    id: number;
+    name: string;
+    email: string;
+    phone: null | string;
+  };
+};
 
 /**
  * 프로필 정보 수정 API 타입
  */
-export type T_UserProfileEdit = { 
+export type T_UserProfileEdit = {
   message: string;
-}
+};
 
 /**
  * 닉네임, 이메일, 전화번호
@@ -95,32 +96,32 @@ export type T_UserProfileEdit = {
 export type T_CheckDuplicate = {
   message: string;
   data: {
-      username: string;
-      is_duplicate: boolean;
-  }
-}
+    username: string;
+    is_duplicate: boolean;
+  };
+};
 
 /**
  * 회원탈퇴 API 타입
  */
 export type T_Userdelete = {
   message: string;
-}
+};
 
 /**
  * 그룹 추가 API 타입
  */
-export type T_GroupAdd = { 
+export type T_GroupAdd = {
   agency_name: string;
   group_name: string;
   sns_links: {
-      instagram: string;
-  },
+    instagram: string;
+  };
   group_color: string;
   group_image: string;
   member_count: number;
-  members: T_GroupMemberAdd[]
-}
+  members: T_GroupMemberAdd[];
+};
 
 /**
  * 관리자 기능
@@ -188,7 +189,7 @@ export type T_GroupScheduleCheck = {
 type T_GroupMember = {
   member_id: number;
   name: string;
-}
+};
 
 /**
  * 그룹 일정 추가 API 타입
@@ -275,5 +276,5 @@ export type T_UserGroupSchedule = {
   data: {
     schedule_id: number;
     // schedules: [{일정정보}] // fix: 일정정보 가져오는 값을 알 수 없음.
-  }
-}
+  };
+};
