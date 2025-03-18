@@ -1,0 +1,79 @@
+form {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px; // 입력 필드 간 간격 일정하게
+
+    label {
+      font-size: 10px; // 더 작은 폰트 크기
+      font-weight: 300; // 얇은 폰트
+      color: #666; // 연한 색상
+      margin-bottom: 6px; // label과 input 사이 간격 일정하게
+    }
+
+    input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .inline-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      input {
+        flex: 1;
+      }
+
+      button {
+        padding: 8px 12px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        white-space: nowrap;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+
+  p {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  .submit-btn {
+    margin-top: 15px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #218838;
+    }
+  }
+}
