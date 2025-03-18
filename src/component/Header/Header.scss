@@ -1,0 +1,123 @@
+//  헤더 전체 스타일
+.header {
+  display: flex;
+  width: 100vw;
+  height: 71px;
+  padding: 16px 15px;
+  align-items: center;
+  gap: 48px;
+  border-bottom: 1px solid #dde1e6;
+  background: #fff;
+}
+// 로고 스타일
+.logo img {
+  width: 128px;
+  height: 52px;
+}
+//네비게이션메뉴스타일
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+//네비게이션링크컨테이너
+.nav_Links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+//버튼기본스타일
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: normal;
+  border-radius: 5px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.login_Button {
+  width: 88px;
+  height: 28px;
+  background: #6a5096;
+  color: #fff;
+  border: none;
+}
+.signup_Button {
+  width: 88px;
+  height: 28px;
+  background: #fff;
+  border: 1px solid #6a5096;
+  color: #6a5096;
+}
+.page_Button {
+  width: 118px;
+  height: 28px;
+  background: #fff;
+  border: 1px solid #6a5096;
+  color: #6a5096;
+}
+.logout_Button {
+  width: 39px;
+  height: 27px;
+  background: #6a5096;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+
+  img {
+    width: 21.1px;
+    height: 21px;
+  }
+}
+.add_Button {
+  width: 88px;
+  height: 28px;
+  background: #6a5096;
+  border: 1px solid #6a5096;
+  color: #fff;
+}
+
+// 검색창 전체 스타일
+.search {
+  display: flex;
+  align-items: center; // 아이콘과 입력창이 수평으로 정렬되도록
+  width: 299px;
+  height: 28px;
+  padding: 0 10px; // 왼쪽 오른쪽 여백 설정
+  justify-content: flex-start;
+  background: #f7f7f7;
+  border-radius: 5px;
+  border: 1px solid #f7f7f7;
+  gap: 2px; // 아이콘과 입력창 사이의 간격
+
+  // 검색 아이콘
+  .search_Icon {
+    width: 21.1px;
+    height: 21px;
+    flex-shrink: 0;
+    margin-right: 5px;
+  }
+  //입력창
+  input {
+    flex-grow: 1;
+    width: 100%; // 입력창이 남은 공간을 채우도록
+    height: 100%; // 높이는 검색창 높이에 맞추기
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: #9d9d9d;
+    outline: none; // 포커스 시 기본 윤곽선 없애기
+    // padding-left: 5px; // 아이콘과의 간격을 맞추기 위해 약간 왼쪽 여백 추가
+  }
+}
+a {
+  text-decoration: none;
+}
