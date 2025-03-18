@@ -27,7 +27,6 @@ function Header() {
   return (
     <header className={style.header}>
       {/* 로고 */}
-      <p>dkdkdkdkdkdkdk</p>
       <div className={style.logo}>
         <Link to="/">
           <img src={logo} alt="I log" />
