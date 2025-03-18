@@ -9,8 +9,10 @@ const Sidebar: React.FC<SidebarProps> = ({ userType }) => {
   const isAdmin = userType === "admin";
 
   return (
+    
     <aside className="sidebar">
       {/* 상단 헤더 */}
+      <p>슬픔이</p>
       <div className="sidebar__header">
         <span>{isAdmin ? "그룹 관리" : "최애 캘린더"}</span>
         <button className="sidebar__add">+</button>
