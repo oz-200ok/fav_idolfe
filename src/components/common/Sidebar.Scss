@@ -1,0 +1,89 @@
+@import "../variables.scss"; // 공통 변수 파일
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 357px;
+  height: 1080px;
+  background: #d9c2ff; // 배경색
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #6a5096;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  &__add {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6a5096;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+
+    .sidebar__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      font-size: 16px;
+      color: #6a5096;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__edit {
+    background: #6a5096;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  &__view {
+    position: absolute;
+    left: 67px;
+    bottom: 36px;
+    width: 223px;
+    height: 63px;
+    background: #6a5096;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+// 반응형 설정
+@media (max-width: 768px) {
+  .sidebar {
+    width: 250px;
+    padding: 20px;
+  }
+
+  .sidebar__view {
+    width: 200px;
+  }
+}
