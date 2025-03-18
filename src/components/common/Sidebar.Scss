@@ -1,19 +1,17 @@
-@import "../variables.scss"; // 공통 변수 파일
-
 .sidebar {
   position: fixed;
   left: 0;
   top: 0;
-  width: 357px;
-  height: 1080px;
+  width: 300px;
+  height: 100%;
   background: #d9c2ff; // 배경색
   padding: 30px;
   display: flex;
   flex-direction: column;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 999;
 
-  &__header {
+
+  &_header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,7 +23,33 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
-  &__add {
+  &_toggle {
+    background: #d9c2ff;  // 프로젝트 포인트 컬러 적용
+    color: #6a5096;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 10%;  // 동그란 버튼 모양
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+
+    &:hover {
+      background: #5c4080;  // hover 시 조금 더 어두운 색상
+      color: white;
+    }
+
+    &:active {
+      background: #4a2f70;  // 클릭 시 더 어두운 색상
+      color: white;
+    }
+  }
+
+  &_add {
     background: none;
     border: none;
     font-size: 24px;
@@ -33,13 +57,13 @@
     color: #6a5096;
   }
 
-  &__list {
+  &_list {
     list-style: none;
     padding: 0;
     margin: 0;
     flex-grow: 1;
 
-    .sidebar__item {
+    .sidebar_item {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -50,7 +74,7 @@
     }
   }
 
-  &__edit {
+  &_edit {
     background: #6a5096;
     color: white;
     border: none;
@@ -60,30 +84,18 @@
     cursor: pointer;
   }
 
-  &__view {
+  &_view {
     position: absolute;
-    left: 67px;
-    bottom: 36px;
-    width: 223px;
-    height: 63px;
+    left: 60px;
+    bottom: 55px;
+    width: 180px;
+    height: 45px;
+    padding: 10px;
     background: #6a5096;
     color: white;
     border: none;
     border-radius: 10px;
     font-size: 16px;
-    font-weight: bold;
     cursor: pointer;
-  }
-}
-
-// 반응형 설정
-@media (max-width: 768px) {
-  .sidebar {
-    width: 250px;
-    padding: 20px;
-  }
-
-  .sidebar__view {
-    width: 200px;
   }
 }
