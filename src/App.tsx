@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import Join from './pages/Join.tsx';
 import Loginpage from './pages/Loginpage.tsx';
 import Mypage from './pages/Mypage.tsx';
-import Main from './pages/Main.tsx';
+import Main from './pages/임시.tsx';
+// import Main from './pages/Main.tsx';
 
 function App() {
   return (
