@@ -1,0 +1,31 @@
+//  헤더 전체 스타일
+.header {
+  display: flex;
+  width: 1920px;
+  height: 71px;
+  padding: 16px 80px;
+  align-items: center;
+  gap: 48px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #dde1e6;
+  background: #fff;
+}
+//로고스타일
+.logo img {
+  width: 128px;
+  height: 52px;
+  flex-shrink: 0;
+}
+//네비게이션메뉴스타일
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+//네비게이션링크컨테이너
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+//버튼기본스타일
