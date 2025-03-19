@@ -17,7 +17,7 @@ function Header() {
   const [searchQuery, setSearchQuery] = useState('');
 
   // 검색어 업데이트 함수
-  const handleSearchChange = (event) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 
