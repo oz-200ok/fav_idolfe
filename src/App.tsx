@@ -4,7 +4,7 @@ import Join from './pages/Join.tsx';
 import Loginpage from './pages/Loginpage.tsx';
 import Mypage from './pages/Mypage.tsx';
 import Main from './pages/Main.tsx';
-import Header from './component/Header/index.tsx';
+import Header from './components/Header/index.tsx';
 
 function App() {
   return (
