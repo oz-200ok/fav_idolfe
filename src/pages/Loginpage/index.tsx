@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { I_LoginForm, I_LoginError } from './Loginpage';
 import './Loginpage.scss';
-import NaverLogin from '../../component/NaverLogin';
-import KakaoLogin from '../../component/KakaoLogin';
+import NaverLogin from '../../components/NaverLogin';
+import KakaoLogin from '../../components/KakaoLogin';
 
 function Loginpage() {
   const navigate = useNavigate();
