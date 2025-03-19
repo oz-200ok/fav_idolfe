@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Sidebar.scss';
 
 interface SidebarProps {
-  userType: 'guest' | 'user' | 'admin'; // 일반 사용자 or 관리자
+  userType?: 'guest' | 'user' | 'admin'; // 일반 사용자 or 관리자
 }
 
 const SideBar: React.FC<SidebarProps> = ({ userType }) => {
