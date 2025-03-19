@@ -1,38 +1,44 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { I_LoginForm, I_LoginError } from './Loginpage';
 import './Loginpage.scss';
+import NaverLogin from '../../component/NaverLogin';
+import KakaoLogin from '../../component/KakaoLogin';
 
 function Loginpage() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState<I_LoginForm>({
+    email: '',
+    password: '',
+  });
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<I_LoginError | null>(null);
 
-  const handlerEmail = (e) => {
+  const handlerEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const handlerPassword = (e) => {
+  const handlerPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const handlerSubmit = (e) => {
+  const handlerSubmit = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault(); // 기본 제출 동작(새로고침) 방지 회원가입 페이지에도 추가
 
     if (!email || !password) {
-      setError('이메일과 비밀번호를 입력하세요');
+      setError({ message: '이메일과 비밀번호를 입력하세요' });
       return;
     }
 
     if (!validateEmail(email)) {
-      setError('올바른 이메일 형식을 입력하세요');
+      setError({ message: '올바른 이메일 형식을 입력하세요' });
       return;
     }
 
-    setError(''); // 에러 초기화 (성공 시)
+    setError(null); // 에러 초기화 (성공 시)
   };
 
-  const validateEmail = (email) => {
+  const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
@@ -83,8 +89,8 @@ function Loginpage() {
         </form>
         <div className="social_login">
           <p>다른 로그인</p>
-          <button className="kakao_login">카카오톡</button>
-          <button className="naver_login">네이버</button>
+          <NaverLogin />
+          <KakaoLogin />
         </div>
       </section>
     </div>
