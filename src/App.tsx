@@ -4,6 +4,7 @@ import Join from './pages/Join.tsx';
 import Loginpage from './pages/Loginpage.tsx';
 import Mypage from './pages/Mypage.tsx';
 import Main from './pages/Main.tsx';
+import SearchPage from './pages/SearchPage/index.tsx';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path="/join" element={<Join />} />
       <Route path="/loginpage" element={<Loginpage />} />
       <Route path="/mypage" element={<Mypage />} />
+      <Route path="/searchPage/:keyword" element={<SearchPage />} />
     </Routes>
   );
 }

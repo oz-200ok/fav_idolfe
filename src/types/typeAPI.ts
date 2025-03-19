@@ -109,21 +109,6 @@ export type T_Userdelete = {
 };
 
 /**
- * 그룹 추가 API 타입
- */
-export type T_GroupAdd = {
-  agency_name: string;
-  group_name: string;
-  sns_links: {
-    instagram: string;
-  };
-  group_color: string;
-  group_image: string;
-  member_count: number;
-  members: T_GroupMemberAdd[];
-};
-
-/**
  * 관리자 기능
  */
 
