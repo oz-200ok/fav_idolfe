@@ -3,7 +3,7 @@ import './common.scss'; // 변경된 부분
 import down from '../../assets/chevron-down.png';
 import up from '../../assets/chevron-up.png';
 
-const Sidebar = () => {
+function SideBar() {
   // 🔥 타입 없이 상태 관리 (초기값: 'guest' 그 외 user / admin)
   const [userType, setUserType] = useState('admin');
 
@@ -50,6 +50,5 @@ const Sidebar = () => {
       {isAdmin && <button className="sidebar_view">관리 그룹 보기</button>}
     </aside>
   );
-};
-
-export default Sidebar;
+}
+export default SideBar;

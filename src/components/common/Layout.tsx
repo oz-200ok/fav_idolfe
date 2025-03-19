@@ -1,15 +1,15 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Sidebar from './sidebar.tsx';
 import './common.scss';
+import SideBar from './sidebar';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Header />
       <div className="main_content">
-        <Sidebar />
+        <SideBar />
         <main>{children}</main>
         <Footer />
       </div>
