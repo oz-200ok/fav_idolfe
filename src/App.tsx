@@ -4,7 +4,8 @@ import Join from './pages/Join.tsx';
 import Loginpage from './pages/Loginpage.tsx';
 import Mypage from './pages/Mypage.tsx';
 import Main from './pages/Main.tsx';
-import Footer from './components/Footer/Footer.tsx';
+import Footer from './components/common/Footer/Footer.tsx';
+import SideBar from './components/common/SideBar/index.tsx';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/loginpage" element={<Loginpage />} />
         <Route path="/mypage" element={<Mypage />} />
       </Routes>
+      <SideBar />
       <Footer />
     </>
   );
