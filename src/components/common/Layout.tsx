@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import './common.scss';
-import SideBar from './sidebar';
+import SideBar from './SideBar.tsx';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
