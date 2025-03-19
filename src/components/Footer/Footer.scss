@@ -1,0 +1,48 @@
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1920px; // 화면 max
+    height: 50px;
+    background: #4a4a4a;
+    color: white;
+    padding: 0 40px;
+    font-size: 14px;
+    position: fixed; // 고정
+    bottom: 0;
+  
+    &__content {
+      flex: 1;
+      text-align: left;
+    }
+  
+    &__links {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+  
+      a {
+        color: white;
+        text-decoration: none;
+        transition: 0.3s;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+  
+      .highlight {
+        font-weight: bold;
+      }
+    }
+  
+    &__copyright {
+      flex: 1;
+      text-align: right;
+    }
+  }
+  
+  
