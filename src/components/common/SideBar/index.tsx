@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Sidebar.scss';
+import './sidebar.scss';
 
 interface SidebarProps {
   userType?: 'guest' | 'user' | 'admin'; // 일반 사용자 or 관리자
