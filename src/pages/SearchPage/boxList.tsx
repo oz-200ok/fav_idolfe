@@ -1,36 +1,19 @@
-// 필요정보 -> 그룹이미지, 그룹이름, 멤버들, 소속사, 인스타링크 / 구독유무
-type groupType = {
-  // api 명세서에 아직 없어서 임의로 만든 타입정의
-  group_id: number;
-  agency_name: string;
-  group_name: string;
-  sns_links: {
-    instagram: string;
-  };
-  group_color: string;
-  group_image: string;
-  member_count: number;
-  members: string[];
-};
+import { subList } from './data';
+import { T_group } from './type';
 
-export function BoxList({ group }: { group: groupType[] }) {
-  console.log(group);
+// 그룹 박스 생성
+export function BoxList({ group }: { group: T_group }) {
   return (
-    <div className="div_boxlist">
-      {group.map((list, index) => {
-        return (
-          <div className="div_box" key={index}>
-            <img alt={list.group_image} />
-            <GroupInfo {...list} />
-            <Sub id={list.group_id} />
-          </div>
-        );
-      })}
+    <div className="div_box">
+      <img alt={group.group_image} />
+      <GroupInfo {...group} />
+      <Sub id={group.group_id} />
     </div>
   );
 }
 
-function GroupInfo(list: groupType) {
+// 그룹 세부정보 (이름, 멤버, 소속사, 링크)
+function GroupInfo(list: T_group) {
   let member = '';
   list.members.forEach((item) => (member = member + ' ' + item));
   return (
@@ -43,38 +26,9 @@ function GroupInfo(list: groupType) {
   );
 }
 
-type SubProps = { id: number };
-
-function Sub({ id }: SubProps) {
-  const subList = [
-    {
-      group_id: 1,
-      notification: false,
-    },
-    {
-      group_id: 2,
-      notification: true,
-    },
-    {
-      group_id: 3,
-      notification: true,
-    },
-    {
-      group_id: 4,
-      notification: false,
-    },
-    {
-      group_id: 5,
-      notification: false,
-    },
-    {
-      group_id: 6,
-      notification: false,
-    },
-  ];
-
+// 각 그룹 구독 유무 체크
+function Sub({ id }: { id: number }) {
   const filterSub = subList.filter((item) => item.group_id === id);
-  console.log(filterSub);
   return (
     <>
       {filterSub.map((item, index) => {
