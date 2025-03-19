@@ -1,8 +1,7 @@
-import "./Naverlogin.scss";
+import './Naverlogin.scss';
 
 const NAVER_CLIENT_ID = import.meta.env.VITE_NAVER_CLIENT_ID;
 const NAVER_REDIRECT_URI = import.meta.env.VITE_NAVER_REDIRECT_URI;
-
 
 const NaverLogin = () => {
   const handleLogin = () => {
