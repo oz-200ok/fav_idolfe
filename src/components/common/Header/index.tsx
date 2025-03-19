@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.scss';
-import logo from '../../assets/9.png';
-import searchIcon from '../../assets/search.png';
-import logoutIcon from '../../assets/logout.png';
+import logo from '../../../assets/9.png';
+import searchIcon from '../../../assets/search.png';
+import logoutIcon from '../../../assets/logout.png';
 
 //헤더 컴포넌트 정의
 function Header() {

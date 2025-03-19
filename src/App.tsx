@@ -12,7 +12,6 @@ import SideBar from './components/common/SideBar';
 function App() {
   return (
     <>
-      <Header /> {/* ✅ Header 추가 */}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/join" element={<Join />} />
@@ -21,6 +20,7 @@ function App() {
       </Routes>
       <Footer /> {/* ✅ Footer 추가 */}
       <SideBar /> {/* ✅ SideBar 추가 */}
+      <Header /> {/* ✅ Header 추가 */}
     </>
   );
 }
