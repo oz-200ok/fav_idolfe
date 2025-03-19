@@ -36,6 +36,7 @@ const SideBar: React.FC<SidebarProps> = ({ userType }) => {
             <>
               <li className="sidebar_item">구독한 아이돌 1</li>
               <li className="sidebar_item">구독한 아이돌 2</li>
+              <li className="sidebar_item">구독한 아이돌 3</li>
             </>
           )}
         </ul>
