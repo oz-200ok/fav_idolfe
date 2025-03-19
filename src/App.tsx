@@ -3,25 +3,18 @@ import Join from './pages/Join.tsx';
 import Loginpage from './pages/Loginpage.tsx';
 import Mypage from './pages/Mypage.tsx';
 import Main from './pages/Main.tsx';
-
-// ✅ Header + Footer + SideBar 모두 유지!
-import Header from './components/common/Header';
-import Footer from './components/common/Footer';
-import SideBar from './components/common/SideBar';
+import Layout from './components/common/Layout.tsx';
 
 function App() {
   return (
-    <>
+    <Layout>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/join" element={<Join />} />
         <Route path="/loginpage" element={<Loginpage />} />
         <Route path="/mypage" element={<Mypage />} />
       </Routes>
-      <Footer /> {/* ✅ Footer 추가 */}
-      <SideBar /> {/* ✅ SideBar 추가 */}
-      <Header /> {/* ✅ Header 추가 */}
-    </>
+    </Layout>
   );
 }
 

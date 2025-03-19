@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import './sidebar.scss';
+import { useState } from 'react';
+import './common.scss'; // 변경된 부분
+import down from '../../assets/chevron-down.png';
+import up from '../../assets/chevron-up.png';
 
-interface SidebarProps {
-  userType?: 'guest' | 'user' | 'admin'; // 일반 사용자 or 관리자
-}
+const Sidebar = () => {
+  // 🔥 타입 없이 상태 관리 (초기값: 'guest' 그 외 user / admin)
+  const [userType, setUserType] = useState('admin');
 
-const SideBar: React.FC<SidebarProps> = ({ userType }) => {
   const isAdmin = userType === 'admin';
   const [isListOpen, setIsListOpen] = useState(true);
 
@@ -17,7 +18,11 @@ const SideBar: React.FC<SidebarProps> = ({ userType }) => {
           className="sidebar_toggle"
           onClick={() => setIsListOpen(!isListOpen)}
         >
-          {isListOpen ? 'ˆ' : 'ˇ'}
+          {isListOpen ? (
+            <img src={down} alt="down" />
+          ) : (
+            <img src={up} alt="up" />
+          )}
         </button>
       </div>
 
@@ -47,4 +52,4 @@ const SideBar: React.FC<SidebarProps> = ({ userType }) => {
   );
 };
 
-export default SideBar;
+export default Sidebar;
