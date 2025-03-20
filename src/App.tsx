@@ -7,14 +7,17 @@ import Layout from './components/common/Layout.tsx';
 
 function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/join" element={<Join />} />
-        <Route path="/loginpage" element={<Loginpage />} />
-        <Route path="/mypage" element={<Mypage />} />
-      </Routes>
-    </Layout>
+    <Routes>
+      {/* ✅ Layout을 적용할 페이지 */}
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Main />} /> {/* 메인 페이지 */}
+        <Route path="join" element={<Join />} />
+        <Route path="mypage" element={<Mypage />} />
+      </Route>
+
+      {/* ❌ Layout 없이 렌더링할 페이지 */}
+      <Route path="/loginpage" element={<Loginpage />} />
+    </Routes>
   );
 }
 
