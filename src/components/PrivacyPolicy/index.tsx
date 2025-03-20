@@ -1,4 +1,4 @@
-import './PrivacyPolicy.scss'; // SCSS 파일을 임포트
+import './Privacypolicy.scss'; // SCSS 파일을 임포트
 
 const PrivacyPolicy = () => {
   return (
