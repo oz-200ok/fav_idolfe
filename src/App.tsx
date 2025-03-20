@@ -13,6 +13,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/join" element={<Join />} />
         <Route path="/mypage" element={<Mypage />} />
+        <p> 잘 됐으면 이게 보여야함</p>
       </Route>
       <Route path="/loginpage" element={<Loginpage />} />
     </Routes>
