@@ -1,4 +1,4 @@
-import './Kakaologin.scss';
+import './Loginkakao.scss';
 import kakao_logo from '../../assets/kakao-logo.png';
 
 const KAKAO_CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
