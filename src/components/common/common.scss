@@ -216,6 +216,7 @@ a {
 
   &_edit {
     background: #6a5096;
+    font-weight: 400;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -268,10 +269,11 @@ a {
     justify-content: center;
     gap: 15px;
 
-    a {
+    p {
       color: white;
       text-decoration: none;
       transition: 0.3s;
+      cursor: pointer;
 
       &:hover {
         text-decoration: underline;

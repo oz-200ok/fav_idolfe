@@ -26,13 +26,13 @@
     padding-bottom: 35px;
     margin-bottom: 20px;
     border-bottom: 1px solid #30303040;
-    
+
     .nickname-wrapper {
       display: flex;
       align-items: end;
       gap: 5px;
-      width: fit-content; // ✅ 줄바꿈 방지
-      white-space: nowrap; // ✅ 텍스트가 강제로 줄바꿈되지 않도록
+      width: fit-content; 
+      white-space: nowrap; 
       margin-bottom: 6px;
 
       .nickname {

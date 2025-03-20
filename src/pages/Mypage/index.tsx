@@ -51,7 +51,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/user-info');
+                  navigate('/privacypolicy');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />
@@ -123,7 +123,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/user-info');
+                  navigate('/privacypolicy');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />

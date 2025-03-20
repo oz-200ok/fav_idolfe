@@ -4,6 +4,7 @@ import Loginpage from './pages/Loginpage';
 import Mypage from './pages/Mypage';
 import Main from './pages/Main.tsx';
 import Layout from './components/common/Layout.tsx';
+import PrivacyPolicy from './components/PrivacyPolicy/index.tsx';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/" element={<Main />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
       </Route>
       <Route path="/join" element={<Join />} />
       <Route path="/loginpage" element={<Loginpage />} />
