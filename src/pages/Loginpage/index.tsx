@@ -73,16 +73,21 @@ function Loginpage() {
               {error && <p>{error.message}</p>}
               <div className="login_side">
                 <div className="rememberMe">
-                  <input id="rememberMe" type="checkbox" name="rememberMe" />
+                  <input
+                    id="rememberMe"
+                    type="checkbox"
+                    name="rememberMe"
+                    className="check_input"
+                  />
                   <label htmlFor="rememberMe">아이디 저장</label>
+                  <p
+                    onClick={() => {
+                      navigate('/idpasswordsearch');
+                    }}
+                  >
+                    아이디 / 비밀번호 찾기
+                  </p>
                 </div>
-                <p
-                  onClick={() => {
-                    navigate('/idpasswordsearch');
-                  }}
-                >
-                  아이디 / 비밀번호 찾기
-                </p>
               </div>
               <button type="submit">로그인</button>
             </div>

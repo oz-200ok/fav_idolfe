@@ -1,5 +1,5 @@
 import './Naverlogin.scss';
-
+import naver_logo from '../../assets/naver-logo.png';
 const NAVER_CLIENT_ID = import.meta.env.VITE_NAVER_CLIENT_ID;
 const NAVER_REDIRECT_URI = import.meta.env.VITE_NAVER_REDIRECT_URI;
 
@@ -12,6 +12,7 @@ const NaverLogin = () => {
 
   return (
     <button className="naver-login-btn" onClick={handleLogin}>
+      <img src={naver_logo} alt="네이버 로고" />
       네이버 로그인
     </button>
   );

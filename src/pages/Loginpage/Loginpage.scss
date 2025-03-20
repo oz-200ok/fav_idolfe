@@ -1,4 +1,4 @@
-// 전체 페이지 레이아웃
+/* 전체 페이지 레이아웃 */
 .container {
   display: flex;
   flex-direction: column;
@@ -11,14 +11,15 @@
 section {
   width: 400px;
   background: white;
-  padding: 2rem;
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-// 로그인 박스 스타일
-.login_form {
+/* 로그인 타이틀*/
+
+.login_title {
   h1 {
     font-size: 1.8rem;
     font-weight: bold;
@@ -26,16 +27,20 @@ section {
   }
 
   p {
-    color: #777;
+    color: #a8a8a8;
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
   }
-
+}
+/* 로그인 폼 스타일 */
+.login_form {
   label {
+    font-size: 12px;
+    color: #6a5096;
     display: block;
     text-align: left;
     margin-bottom: 5px;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   input {
@@ -50,32 +55,45 @@ section {
     &:focus {
       outline: none;
       border-color: #6c63ff;
-      box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+      box-shadow: 0 0 2px rgba(108, 99, 255, 0.5);
+    }
+
+    &::placeholder {
+      font-size: 14px;
+      color: #a8a8a8;
     }
   }
 
   .login_side {
     display: flex;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 
     .rememberMe {
-      width: 130px;
       display: flex;
-    }
+      justify-content: left;
 
-    label {
-      width: 100px;
-      font-size: 12px;
-      font-weight: 500;
+      .check_input {
+        width: 20px;
+        margin-right: 10px;
+      }
+
+      label {
+        width: 100px;
+        font-size: 12px;
+        font-weight: 500;
+      }
     }
 
     p {
+      display: inline;
       font-size: 12px;
       color: #6c63ff;
       cursor: pointer;
       font-weight: 500;
+      margin-left: 80px;
 
       &:hover {
         text-decoration: underline;
@@ -86,7 +104,7 @@ section {
   button {
     width: 100%;
     padding: 12px;
-    background: #544fc5;
+    background: #6a5096;
     color: white;
     font-size: 1rem;
     border: none;
@@ -112,36 +130,7 @@ section {
     margin-top: 18px;
     font-size: 13px;
     color: #777;
-  }
-
-  button {
-    width: 48%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 10px;
-    background: white;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    &:hover {
-      background: #f0f0f0;
-    }
-
-    &.kakao_login {
-      background: #fee500;
-      color: black;
-      margin-right: 12px;
-    }
-
-    &.naver_login {
-      background: #03c75a;
-      color: white;
-    }
+    margin-bottom: 10px;
   }
 }
 

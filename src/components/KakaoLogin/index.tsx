@@ -1,3 +1,6 @@
+import './Kakaologin.scss';
+import kakao_logo from '../../assets/kakao-logo.png';
+
 const KAKAO_CLIENT_ID = import.meta.env.VITE_KAKAO_CLIENT_ID;
 const KAKAO_REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
 
@@ -8,7 +11,12 @@ const handleKakaoLogin = () => {
 };
 
 const KakaoLogin = () => {
-  return <button onClick={handleKakaoLogin}>카카오 로그인</button>;
+  return (
+    <button onClick={handleKakaoLogin} className="kakao-login-btn">
+      <img src={kakao_logo} alt="카카오로고" />
+      카카오 로그인
+    </button>
+  );
 };
 
 export default KakaoLogin;
