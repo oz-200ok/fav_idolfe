@@ -14,28 +14,30 @@ function Loginpage() {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<I_LoginError | null>(null);
 
-  const handlerEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
   const handlerPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+  const handlerEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail((prev) => ({
+      ...prev,
+      email: e.target.value,
+    }));
+  };
 
-  const handlerSubmit = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault(); // 기본 제출 동작(새로고침) 방지 회원가입 페이지에도 추가
+  const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    if (!email || !password) {
+    if (!email.email || !password) {
       setError({ message: '이메일과 비밀번호를 입력하세요' });
       return;
     }
 
-    if (!validateEmail(email)) {
+    if (!validateEmail(email.email)) {
       setError({ message: '올바른 이메일 형식을 입력하세요' });
       return;
     }
 
-    setError(null); // 에러 초기화 (성공 시)
+    setError(null);
   };
 
   const validateEmail = (email: string) => {
@@ -57,7 +59,7 @@ function Loginpage() {
               name="email"
               placeholder="이메일"
               autoComplete="email"
-              value={email}
+              value={email.email}
               onChange={handlerEmail}
             />
             <label htmlFor="password">비밀번호</label>
@@ -70,7 +72,7 @@ function Loginpage() {
               value={password}
               onChange={handlerPassword}
             />
-            {error && <p>{error}</p>}
+            {error && <p>{email.email}</p>}
             <div className="login_side">
               <div className="rememberMe">
                 <input id="rememberMe" type="checkbox" name="rememberMe" />
