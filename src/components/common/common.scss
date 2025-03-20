@@ -10,7 +10,7 @@ main {
   overflow: auto; /* 스크롤 가능하도록 설정*/
   margin-left: calc(max(23vw, 300px));
   margin-top: 75px;
-  padding: 5px;
+  padding: 0px;
   width: 80vw; /* 메인 영역을 80%로 꽉 차게 설정 */
   min-height: 100vh; /* 필요하면 높이도 설정 */
   flex-grow: 1;
@@ -216,6 +216,7 @@ a {
 
   &_edit {
     background: #6a5096;
+    font-weight: 400;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -268,10 +269,11 @@ a {
     justify-content: center;
     gap: 15px;
 
-    a {
+    p {
       color: white;
       text-decoration: none;
       transition: 0.3s;
+      cursor: pointer;
 
       &:hover {
         text-decoration: underline;
