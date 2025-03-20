@@ -7,14 +7,15 @@ import Layout from './components/common/Layout.tsx';
 
 function App() {
   return (
-    <Layout>
-      <Routes>
+    <Routes>
+      {/* 🔥 Layout을 적용할 부모 Route 추가 */}
+      <Route element={<Layout />}>
         <Route path="/" element={<Main />} />
         <Route path="/join" element={<Join />} />
-        <Route path="/loginpage" element={<Loginpage />} />
         <Route path="/mypage" element={<Mypage />} />
-      </Routes>
-    </Layout>
+      </Route>
+      <Route path="/loginpage" element={<Loginpage />} />
+    </Routes>
   );
 }
 
