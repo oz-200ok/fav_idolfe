@@ -67,25 +67,28 @@ const GroupEdit = () => {
           />
         </div>
 
-        <label>그룹 이름</label>
+        <label>그룹명</label>
         <input
           type="text"
           value={groupName}
           onChange={(e) => setGroupName(e.target.value)}
+          placeholder="그룹명을 입력해주세요"
         />
 
-        <label>소속</label>
+        <label>소속사</label>
         <input
           type="text"
           value={agency}
           onChange={(e) => setAgency(e.target.value)}
+          placeholder="소속사를 입력해주세요"
         />
 
-        <label>SNS 링크</label>
+        <label>인스타그램</label>
         <input
           type="text"
           value={snsLink}
           onChange={(e) => setSnsLink(e.target.value)}
+          placeholder="인스타그램 주소를 입력해주세요"
         />
       </div>
 
@@ -104,20 +107,20 @@ const GroupEdit = () => {
               onChange={handleMemberImageUpload}
             />
           </div>
-          <input
-            type="text"
-            placeholder="멤버 이름"
-            value={memberName}
-            onChange={(e) => setMemberName(e.target.value)}
-          />
-          <button onClick={handleAddMember} className="add_button">
-            +
-          </button>
+          <div className="member_info_add">
+            <input
+              type="text"
+              placeholder="멤버 이름"
+              value={memberName}
+              onChange={(e) => setMemberName(e.target.value)}
+            />
+            <button onClick={handleAddMember} className="add_button">
+              +
+            </button>
+          </div>
         </div>
 
-        <div className="divider"></div>
-
-        <h3>추가된 멤버</h3>
+        <h3 className="add_member_title">추가된 멤버</h3>
         <div className="member_list">
           {members.map((member) => (
             <div key={member.id} className="member">

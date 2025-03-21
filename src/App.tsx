@@ -7,6 +7,8 @@ import SearchPage from './pages/SearchPage/index.tsx';
 import Layout from './components/common/Layout.tsx';
 import PrivacyPolicy from './components/PrivacyPolicy/index.tsx';
 
+import GroupAddpage from './pages/GroupAddpage/Admin.tsx';
+
 function App() {
   return (
     <Routes>
@@ -16,10 +18,11 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/join" element={<Join />} />
-        <Route path="/loginpage" element={<Loginpage />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/searchPage/:keyword" element={<SearchPage />} />
+        <Route path="/groupaddpage" element={<GroupAddpage />} />
       </Route>
+      <Route path="/loginpage" element={<Loginpage />} />
     </Routes>
   );
 }

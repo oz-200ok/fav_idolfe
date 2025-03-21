@@ -22,7 +22,7 @@ export function GroupPlusButton({
     <>
       {groupList && group.length > groupList?.length && (
         <button
-          className="button_groupPlus"
+          className="common_btn button_groupPlus"
           onClick={() => {
             setGroupList([
               ...groupList,

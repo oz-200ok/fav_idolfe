@@ -34,7 +34,7 @@ function Sub({ id }: { id: number }) {
       {filterSub.map((item, index) => {
         const trueORfalse = item.notification;
         return (
-          <button key={index} className={`button_${!trueORfalse}`}>
+          <button key={index} className={`common_btn button_${!trueORfalse}`}>
             {trueORfalse ? '구독 중' : '구독하기'}
           </button>
         );

@@ -1,13 +1,13 @@
 import { useParams } from 'react-router-dom';
-import './style.scss';
+import './Searchpage.scss';
 import { useEffect, useState } from 'react';
 import { T_group } from './type';
 import {
   GroupPlusButton,
   ListMexPlus,
-} from '../../components/SearchPage/GroupPlus';
-import { group, recommendGroup } from '../../components/SearchPage/data';
-import { BoxList } from '../../components/SearchPage/boxList';
+} from '../../components/SearchGroupPlus/GroupPlus';
+import { group, recommendGroup } from '../../components/SearchGroupPlus/data';
+import { BoxList } from '../../components/SearchBoxList/boxList';
 
 export default function SearchPage() {
   // Search API 호출은 나중에 연결해주기
@@ -26,9 +26,10 @@ export default function SearchPage() {
 
   return (
     <div className="div_container">
-      <p className="p_inputSearch">{`"${검색어}"`}검색결과</p>
-      <p className="p_SearchListCount">(검색결과 총 {group.length}건)</p>
-      <hr />
+      <div className="Search_title">
+        <p className="p_inputSearch">{`"${검색어}"`}검색결과</p>
+        <p className="p_SearchListCount">(검색결과 총 {group.length}건)</p>
+      </div>
 
       <div className="div_boxlist">
         {groupList?.map((list, index) => {

@@ -3,18 +3,42 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  max-width: 900px;
   gap: 20px;
-  padding: 90px;
-  margin: 50px auto;
-  background: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  position: relative;
 
+  /* 그룹 공통 */
   &_left,
   &_right {
     flex: 1;
     min-width: 300px;
+    padding: 0 100px;
+    margin-top: 50px;
+
+    h3 {
+      font-weight: 400;
+      font-size: 18px;
+    }
+  }
+
+  /* 그룹 왼쪽 */
+  .group_edit_left {
+    padding-top: 30px;
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-bottom: 30px;
+      &::placeholder {
+        color: #d3d3d3; /* 글자 색 */
+        font-size: 14px;
+      }
+    }
+  }
+
+  &_left {
+    border-right: 1px solid #ccc;
+    padding-bottom: 80px;
   }
 
   &_image {
@@ -22,6 +46,7 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto 20px auto; /* 상단 여백 유지 + 수평 가운데 정렬 */
+    margin-bottom: 50px;
     width: 120px; /* 크기 유지 */
     height: 120px;
     border-radius: 50%;
@@ -56,48 +81,89 @@
 
   label {
     display: block;
-    font-weight: bold;
+    font-weight: 400;
+    font-size: 14px;
     margin-bottom: 5px;
   }
 
-  input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    margin-bottom: 15px;
-  }
+  /* 그룹 오른쪽 */
 
-  .member_add {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .group_edit_right {
+    padding-top: 20px;
 
-  .member_add_image {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: #f0f0f0;
-    position: relative;
-    cursor: pointer;
-
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
+    .add_member_title {
+      margin-top: 40px;
     }
 
-    input {
-      display: none;
+    .member_add {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #ccc;
+
+      .member_add_image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80px;
+        height: 80px;
+        max-height: 80px;
+        border-radius: 50%;
+        background: #f0f0f0;
+        position: relative;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          min-width: 80px;
+          height: 100%;
+          max-height: 80px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        input {
+          display: none;
+        }
+      }
+
+      .member_info_add {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        width: 250px;
+
+        input {
+          width: 200px;
+          margin: 0;
+          margin-left: 20px;
+        }
+      }
+
+      /* 📌 추가 버튼 */
+      .add_button {
+        background: #6a5096;
+        color: white;
+        font-size: 18px;
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 10%;
+        cursor: pointer;
+      }
     }
   }
 
+  /* 추가된 멤버 */
+
+  .member_list {
+    .member {
+      margin-top: 20px;
+    }
+  }
   .member_add_placeholder {
     position: absolute;
     top: 50%;
@@ -106,18 +172,6 @@
     color: #6a5096;
     font-size: 24px;
     font-weight: bold;
-  }
-
-  /* 📌 추가 버튼 */
-  .add_button {
-    background: #6a5096;
-    color: white;
-    font-size: 18px;
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 10%;
-    cursor: pointer;
   }
 
   .member_add input {
@@ -152,12 +206,8 @@
     justify-content: center;
   }
 
-  /* 구분선 */
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
+  .add_member_title {
+    margin-top: 40px;
   }
 
   /* 추가된 멤버 */
@@ -205,7 +255,7 @@
   &_actions {
     position: absolute;
     bottom: 20px;
-    right: 20px;
+    right: 60px;
     display: flex;
     gap: 10px;
 
