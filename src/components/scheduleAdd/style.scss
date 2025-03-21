@@ -1,111 +1,124 @@
 .dev_centainer {
+  display: flex;
+  justify-content: space-between;
+
+  background-color: #f1f1f1;
+  width: 999px;
+  height: 731px;
+
+  padding: 20px;
+
+  hr {
+    width: 210px;
+    color: #6a5096;
+  }
+
+  input {
+    border: none;
+    background-color: #d9d9d9;
+    width: 653px;
+    padding: 10px;
+  }
+
+  label {
+    display: inline-block;
+    margin: 10px;
+  }
+
+  button {
+    border: none;
+  }
+
+  .input_title {
+    height: 40px;
+  }
+
+  .input_schedule {
+    height: 500px;
+  }
+
+  .div_setDay {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 0;
+  }
 
-    background-color: #f1f1f1;
-    width: 999px;
-    height: 731px;
+  .div_day {
+    display: flex;
+    justify-content: center;
 
-    padding: 20px;
+    * {
+      margin: 0 5px;
+    }
+  }
 
-    hr {
-        width: 210px;
-        color: #6A5096;
+  .button_icon {
+    background-color: #6a5096;
+    width: 24px;
+    height: 24px;
+  }
+
+  .div_listBox {
+    background-color: white;
+    width: 278px;
+    height: 300px;
+    margin-bottom: 20px;
+    padding: 10px;
+
+    > p {
+      font-size: 20px;
     }
 
-    input {
-        border: none;
-        background-color: #d9d9d9;
-        width: 653px;
-        padding: 10px;
+    > hr {
+      margin: 5px 0;
     }
 
-    img {
+    .ul_memberBox {
+      display: flex;
+      flex-wrap: wrap;
+
+      > button {
+        border-radius: 100%;
+        max-width: 44px;
+        max-height: 44px;
+        width: 100px;
+        height: 100px;
+        margin: 5px;
+      }
+
+      > img {
         border-radius: 100%;
         background-color: #d9d9d9;
         max-width: 44px;
         min-height: 44px;
-        margin: 5px;
+      }
     }
 
-    label {
-        display: inline-block;
-        margin: 10px;
+    .p_memberAdded {
+        font-size: 16px;
+        color: rgba(0,0,0,0.2)
     }
+  }
 
-    button {
-        border: none;
+  .div_cancelDone {
+    display: flex;
+    justify-content: space-between;
+
+    * {
+      font-size: 20px;
+      color: white;
+      border-radius: 0;
+      background-color: #6a5096;
+      height: 55px;
     }
+  }
 
-    .input_title {
-        height: 40px;
-    }
+  .button_cancel {
+    width: 108px;
+  }
 
-    .input_schedule {
-        height: 500px;
-    }
-
-    .div_setDay {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 25px 0;
-    }
-
-    .div_day {
-        display: flex;
-        justify-content: center;
-
-        * {
-            margin: 0 5px;
-        }
-    }
-
-    .button_icon {
-        background-color: #6A5096;
-        width: 24px;
-        height: 24px;
-    }
-
-    .div_listBox {
-        background-color: white;
-        width: 278px;
-        height: 300px;
-        margin-bottom: 20px;
-        padding: 10px;
-
-        > p {
-            font-size: 20px;
-        }
-
-        > hr {
-            margin: 5px 0;
-        }
-
-        .ul_memberBox {
-            display: flex;
-            flex-wrap: wrap;
-        }
-    }
-
-    .div_cancelDone {
-        display: flex;
-        justify-content: space-between;
-
-        * {
-            font-size: 20px;
-            color: white;
-            border-radius: 0;
-            background-color: #6A5096;
-            height: 55px;
-        }
-    }
-
-    .button_cancel {
-        width: 108px;
-    }
-
-    .button_done {
-        width: 156px;
-    }
+  .button_done {
+    width: 156px;
+  }
 }

@@ -1,14 +1,14 @@
 export default function DayTimeUI() {
   return (
     <div className="div_setDay">
-      <DayTime type='시작'/>
+      <DayTime type="시작" />
       <p>~</p>
-      <DayTime type='종료'/>
-      </div>
+      <DayTime type="종료" />
+    </div>
   );
 }
 
-export function DayTime({type}:{type:string}) {
+export function DayTime({ type }: { type: string }) {
   return (
     <div className="div_day">
       <p>{type}시간</p>
