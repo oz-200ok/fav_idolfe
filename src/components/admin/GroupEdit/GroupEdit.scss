@@ -45,7 +45,7 @@
   &_placeholder {
     position: absolute; /*  부모인 .group_edit_image 기준으로 정렬 */
     top: 50%;
-    left: 50%;
+    left: 50%; 
     transform: translate(-50%, -50%); /* 정확히 중앙 정렬 */
     color: #6a5096; /* 글자 색 */
     font-weight: bold;
