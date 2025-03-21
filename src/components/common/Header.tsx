@@ -101,9 +101,16 @@ function Header() {
             <Link to="/add">
               <button className="add_Button">일정추가</button>
             </Link>
-            <Link to="/admin">
-              <button className="page_Button">관리자페이지</button>
-            </Link>
+
+            <button
+              className="page_Button"
+              onClick={() => {
+                navigate('/mypage');
+              }}
+            >
+              관리자페이지
+            </button>
+
             <button onClick={handleLogout} className="logout_Button">
               <img src={logoutIcon} alt="로그아웃" className="logout_Icon" />
             </button>

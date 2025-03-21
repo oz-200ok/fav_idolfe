@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import Join from './pages/Join.tsx';
 import Loginpage from './pages/Loginpage';
-import Mypage from './pages/Mypage.tsx';
 import Main from './pages/Main.tsx';
 import Layout from './components/common/Layout.tsx';
 import PrivacyPolicy from './components/PrivacyPolicy/index.tsx';
 
 import GroupAddpage from './pages/GroupAddpage/Admin.tsx';
+import Mypage from './pages/Mypage/index.tsx';
 
 function App() {
   return (
@@ -15,9 +15,11 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Main />} />
         <Route path="/join" element={<Join />} />
-        <Route path="/mypage" element={<Mypage />} />
         <Route path="/groupaddpage" element={<GroupAddpage />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+        <Route path="/mypage" element={<Mypage />} />
       </Route>
+
       <Route path="/loginpage" element={<Loginpage />} />
     </Routes>
   );
