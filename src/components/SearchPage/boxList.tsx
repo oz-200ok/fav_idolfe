@@ -1,5 +1,5 @@
+import { T_group } from '../../pages/SearchPage/type';
 import { subList } from './data';
-import { T_group } from './type';
 
 // 그룹 박스 생성
 export function BoxList({ group }: { group: T_group }) {

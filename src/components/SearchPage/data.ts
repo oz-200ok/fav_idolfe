@@ -432,16 +432,7 @@ export const group = [
     group_color: 'pink',
     group_image: '소녀시대 이미지 링크',
     member_count: 8,
-    members: [
-      '수영',
-      '써니',
-      '서현',
-      '윤아',
-      '태연',
-      '효연',
-      '티파니',
-      '유리',
-    ],
+    members: ['수영', '써니', '서현', '윤아', '태연', '효연', '티파니', '유리'],
   },
   {
     group_id: 4,
@@ -507,7 +498,6 @@ export const recommendGroup = [
     members: ['웬디', '예리', '아이린', '슬기', '조이'],
   },
 ];
-
 
 export const subList = [
   {

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { T_group } from './type';
+import { T_group } from '../../pages/SearchPage/type';
 
 // 그룹 리스트 추가
 export function ListMexPlus(group: T_group[], length: number): T_group[] {

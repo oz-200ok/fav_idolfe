@@ -2,7 +2,10 @@ import { useParams } from 'react-router-dom';
 import './style.scss';
 import { useEffect, useState } from 'react';
 import { T_group } from './type';
-import { GroupPlusButton, ListMexPlus } from '../../components/SearchPage/GroupPlus';
+import {
+  GroupPlusButton,
+  ListMexPlus,
+} from '../../components/SearchPage/GroupPlus';
 import { group, recommendGroup } from '../../components/SearchPage/data';
 import { BoxList } from '../../components/SearchPage/boxList';
 
@@ -32,9 +35,13 @@ export default function SearchPage() {
           return <BoxList group={list} key={index} />;
         })}
       </div>
-      <GroupPlusButton group={group} groupList={groupList} setGroupList={setGroupList}/>
+      <GroupPlusButton
+        group={group}
+        groupList={groupList}
+        setGroupList={setGroupList}
+      />
       <hr />
-      
+
       <div className="div_boxlist">
         {recommendGroup.map((list, index) => {
           return <BoxList group={list} key={index} />;
