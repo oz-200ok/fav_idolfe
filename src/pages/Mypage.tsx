@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
-function Main() {
+function Mypage() {
   return (
     <>
-      <p> Main </p>
+      <p> 마이페이지 </p>
       <nav>
         <Link to="/">홈</Link>
         <Link to="/join">회원가입 페이지</Link>
@@ -14,4 +14,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Mypage;
