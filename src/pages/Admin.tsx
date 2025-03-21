@@ -1,5 +1,5 @@
-import GroupEdit from "../components/admin/GroupEdit/GroupEdit";
-import "./Admin.scss";
+import GroupEdit from '../components/admin/GroupEdit/GroupEdit';
+import './Admin.scss';
 
 const Admin = () => {
   return (

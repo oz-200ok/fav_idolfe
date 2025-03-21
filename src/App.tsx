@@ -3,6 +3,7 @@ import Join from './pages/Join.tsx';
 import Loginpage from './pages/Loginpage';
 import Mypage from './pages/Mypage';
 import Main from './pages/Main.tsx';
+import SearchPage from './pages/SearchPage/index.tsx';
 import Layout from './components/common/Layout.tsx';
 import PrivacyPolicy from './components/PrivacyPolicy/index.tsx';
 
@@ -14,9 +15,11 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/" element={<Main />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+        <Route path="/join" element={<Join />} />
+        <Route path="/loginpage" element={<Loginpage />} />
+        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/searchPage/:keyword" element={<SearchPage />} />
       </Route>
-      <Route path="/join" element={<Join />} />
-      <Route path="/loginpage" element={<Loginpage />} />
     </Routes>
   );
 }
