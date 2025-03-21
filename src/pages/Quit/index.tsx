@@ -17,7 +17,9 @@ const quitPage = () => {
           회원님과 관련된 정보들을 성공적으로 삭제하였습니다. <br />
           함께 하지 못해 아쉬워요 ;({' '}
         </p>
-        <button onClick={goHome} className='home_Button'>홈으로</button>
+        <button onClick={goHome} className="home_Button">
+          홈으로
+        </button>
       </div>
     </div>
   );
