@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import uploadIcon from '../assets/upload.png';
-import './AdminUpload.scss';
+import './Adminupload.scss';
 
 function AdminUpload() {
   //이미지 미리보기 저장 기본값=없음
