@@ -6,7 +6,7 @@ import up from '../../assets/chevron-up.png';
 function SideBar() {
   // 🔥 타입 없이 상태 관리 (초기값: 'guest' 그 외 user / admin)
   // 상태값에 _(언더스코어) 를 붙이면 아직 사용 안 하지만 나중에 사용할거야! 라고 알려주는 느낌임
-  const [userType, _setUserType] = useState('user');
+  const [userType, _setUserType] = useState('admin');
 
   const isAdmin = userType === 'admin';
   const [isListOpen, setIsListOpen] = useState(true);
