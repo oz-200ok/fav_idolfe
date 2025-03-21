@@ -23,6 +23,6 @@ function App() {
       <Route path="/loginpage" element={<Loginpage />} />
     </Routes>
   );
-}
+} 
 
 export default App;
