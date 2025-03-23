@@ -9,7 +9,7 @@ import logoutIcon from '../../assets/logout.png';
 //헤더 컴포넌트 정의
 function Header() {
   //현재 로그인 상태를 저장할 state  [유저상태 전역으로 관리]
-  const [userRole, setUserRole] = useState('guest');
+  const [userRole, setUserRole] = useState('admin');
   // 기본값: "guest" = 로그인 전  "user" = 일반 사용자 로그인 후 "admin" = 관리자 로그인 후
   // 검색 입력 값 상태
   const [searchQuery, setSearchQuery] = useState('');
@@ -101,9 +101,16 @@ function Header() {
             <Link to="/add">
               <button className="add_Button">일정추가</button>
             </Link>
-            <Link to="/admin">
-              <button className="page_Button">관리자페이지</button>
-            </Link>
+
+            <button
+              className="page_Button"
+              onClick={() => {
+                navigate('/mypage');
+              }}
+            >
+              관리자페이지
+            </button>
+
             <button onClick={handleLogout} className="logout_Button">
               <img src={logoutIcon} alt="로그아웃" className="logout_Icon" />
             </button>
