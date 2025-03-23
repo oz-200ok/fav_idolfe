@@ -22,25 +22,14 @@ function KakaoCallBack() {
 
   const getKakaoToken = async (code: string) => {
     try {
-      console.log('🚀 전송하는 파라미터:');
-      console.log(
-        new URLSearchParams({
-          grant_type: 'authorization_code',
-          client_id: import.meta.env.VITE_KAKAO_CLIENT_ID,
-          redirect_uri: import.meta.env.VITE_KAKAO_REDIRECT_URI,
-          code: code,
-        }).toString(),
-      );
-      console.log('client_id:', import.meta.env.VITE_KAKAO_CLIENT_ID);
-      console.log('redirect_uri:', import.meta.env.VITE_KAKAO_REDIRECT_URI);
-      console.log('code:', code);
-
       const response = await axios.post(
         'https://kauth.kakao.com/oauth/token',
         new URLSearchParams({
           grant_type: 'authorization_code',
           client_id: import.meta.env.VITE_KAKAO_CLIENT_ID,
           redirect_uri: import.meta.env.VITE_KAKAO_REDIRECT_URI,
+          client_secret: import.meta.env.VITE_KAKAO_CLIENT_SECRET,
+
           code: code,
         }),
         {
@@ -50,15 +39,35 @@ function KakaoCallBack() {
         },
       );
 
-      const accessToken = response.data.access_token;
+      const kakaoAccessToken = response.data.access_token;
 
-      localStorage.setItem('token', accessToken);
+      sendTokenToBackend(kakaoAccessToken);
+
+      localStorage.setItem('token', kakaoAccessToken);
 
       navigate('/');
     } catch (error) {
       console.log('토큰 요청 실패 ❌', error);
     }
     return <div> 로그인 처리 중입니다...</div>;
+  };
+
+  const sendTokenToBackend = async (accessToken: string) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/auth/social/kakao',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      const myJwtToken = response.data.token;
+      localStorage.setItem('token', myJwtToken);
+    } catch (error) {
+      console.log('백엔드 로그인 실패!');
+    }
   };
 
   return <></>;
