@@ -8,6 +8,7 @@ import PrivacyPolicy from './components/PrivacyPolicy/index.tsx';
 import GroupAddpage from './pages/GroupAddpage/Admin.tsx';
 import Mypage from './pages/Mypage/index.tsx';
 import KakaoCallBack from './components/KakaoCallback/index.tsx';
+import NaverCallback from './components/NaverCallback/index.tsx';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
 
       <Route path="/loginpage" element={<Loginpage />} />
       <Route path="/auth/kakao/callback" element={<KakaoCallBack />} />
+      <Route path="/auth/naver/callback" element={<NaverCallback />} />
     </Routes>
   );
 }

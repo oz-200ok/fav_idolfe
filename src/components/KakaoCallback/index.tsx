@@ -39,6 +39,17 @@ function KakaoCallBack() {
         },
       );
 
+
+            /** 백엔드에서 토큰을 어떤 이름으로 주는지 확인이 필요
+       *  아래 처럼 줄 수 있기 때문에...
+       * {
+          "access": "eyJ0eXAiOiJKV1QiLCJhbGci...",
+          "refresh": "eyJ0eXAiOiJKV1QiLCJhbGci..."
+        }
+          
+       */
+      // 백엔드가 어떻게 데이터를 주는지 확인 필수!!!!!!!
+      console.log(response.data)
       const kakaoAccessToken = response.data.access_token;
 
       sendTokenToBackend(kakaoAccessToken);
@@ -55,7 +66,8 @@ function KakaoCallBack() {
   const sendTokenToBackend = async (accessToken: string) => {
     try {
       const response = await axios.post(
-        'http://localhost:8000/auth/social/kakao',
+        // 백엔드 서버 주소 필요
+        'http://100.26.111.172/ilog/account/social-login/',
         {},
         {
           headers: {
