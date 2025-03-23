@@ -39,8 +39,7 @@ function KakaoCallBack() {
         },
       );
 
-
-            /** 백엔드에서 토큰을 어떤 이름으로 주는지 확인이 필요
+      /** 백엔드에서 토큰을 어떤 이름으로 주는지 확인이 필요
        *  아래 처럼 줄 수 있기 때문에...
        * {
           "access": "eyJ0eXAiOiJKV1QiLCJhbGci...",
@@ -49,7 +48,7 @@ function KakaoCallBack() {
           
        */
       // 백엔드가 어떻게 데이터를 주는지 확인 필수!!!!!!!
-      console.log(response.data)
+      console.log(response.data);
       const kakaoAccessToken = response.data.access_token;
 
       sendTokenToBackend(kakaoAccessToken);
