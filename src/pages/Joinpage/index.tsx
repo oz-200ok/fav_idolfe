@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
 import './joinpage.scss';
 //import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
+import Header from '../../components/common/Header';
+import Footer from '../../components/common/Footer';
 
 function JoinPage() {
   const {
@@ -57,9 +58,7 @@ function JoinPage() {
 
   return (
     <>
-      <nav>
-        <Link to="/">홈</Link>
-      </nav>
+      <Header />
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1> 회원가입 </h1>
         <div className="input-group">
@@ -201,6 +200,7 @@ function JoinPage() {
           회원가입 하기
         </button>
       </form>
+      <Footer />
     </>
   );
 }

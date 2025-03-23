@@ -1,16 +1,16 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './joinIntro.scss';
+import Header from '../../components/common/Header';
+import Footer from '../../components/common/Footer';
 
 function JoinIntro() {
   const navigate = useNavigate();
   return (
     <>
-      <nav>
-        <Link to="/">홈</Link>
-      </nav>
-      <section>
+      <Header />
+      <form>
         <h1> 회원가입 </h1>
-        <p> 원하시는 방식을 선택해주세요!</p>
+        <p> 원하시는 방식을 선택해주세요</p>
         <div className="btn_container">
           <button
             onClick={() => {
@@ -27,7 +27,8 @@ function JoinIntro() {
             Naver로 회원가입 하기
           </button>
         </div>
-      </section>
+      </form>
+      <Footer />
     </>
   );
 }

@@ -53,7 +53,7 @@ function Header() {
             <button
               className="signup_Button"
               onClick={() => {
-                navigate('/join');
+                navigate('/joinIntro');
               }}
             >
               회원가입
