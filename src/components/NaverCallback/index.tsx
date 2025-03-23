@@ -22,6 +22,7 @@ function NaverCallback() {
           state: stateToken,
         },
       );
+
       /** CORS 정책으로 인해 프론트에서 네이버 서버에 직접 코드 발급은 불가능 함 
        // const response = await axios.post(
        //   'https://nid.naver.com/oauth2.0/token',
