@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
       <div className="footer__links">
         <a href="/service">전체 서비스</a>
         <a href="/terms">이용약관</a>
-        <a href="/privacy" className="highlight">
+        <a href="/privacypolicy" className="highlight">
           개인정보 처리방침
         </a>
         <a href="/search">검색</a>
