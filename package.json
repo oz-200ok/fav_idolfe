@@ -11,9 +11,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@toast-ui/calendar": "^2.1.3",
     "axios": "^1.8.3",
     "Husky": "npm:husky@^8.0.3",
+    "moment": "^2.30.1",
+    "react-calendar": "^5.1.0",
     "react-router-dom": "^7.3.0",
     "sass": "^1.85.1"
   },
