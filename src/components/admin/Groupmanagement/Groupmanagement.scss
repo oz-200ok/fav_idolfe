@@ -1,123 +1,123 @@
 .group-management {
-    padding: 20px;
-    background: #f4f4f4;
-    min-height: 100vh;
+  padding: 20px;
+  background: #f4f4f4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &_title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    width: 80%;
+    text-align: left;
+  }
+
+  &_container {
+    width: 80%;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  &_card {
+    display: flex;
     align-items: center;
-  
-    &_title {
-      font-size: 22px; 
-      font-weight: bold;
-      margin-bottom: 20px;
-      width: 80%;
-      text-align: left;
-    }
-  
-    &_container {
-      width: 80%;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-  
-    &_card {
+    background: white;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    gap: 12px;
+    flex: 1;
+    min-width: 320px;
+    max-width: 380px; // 카드 크기 조정
+
+    &-image {
+      width: 70px; // 크기 줄임
+      height: 70px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: black; // sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠
       display: flex;
       align-items: center;
-      background: white;
-      padding: 12px; 
-      border-radius: 12px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      gap: 12px;
-      flex: 1;
-      min-width: 320px;
-      max-width: 380px; // 카드 크기 조정
-  
-      &-image {
-        width: 70px; // 크기 줄임
-        height: 70px;
-        border-radius: 50%;
-        overflow: hidden;
-        background: black; // sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 10px; 
-        text-align: center;
-        flex-shrink: 0; //  사이즈 줄어들지 않도록 고정
-  
-        img {
-          width: 70%; // sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠
-          height: 70%; // sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠 밑에꺼 나중에 활성화
+      justify-content: center;
+      font-size: 10px;
+      text-align: center;
+      flex-shrink: 0; //  사이즈 줄어들지 않도록 고정
+
+      img {
+        width: 70%; // sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠
+        height: 70%; // sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠 밑에꺼 나중에 활성화
         //   object-fit: cover;
         //   aspect-ratio: 1 / 1; //  가로 세로 비율 유지
         //   border-radius: 50%;
-        }
       }
-  
-      &-info {
-        flex: 1;
-        h3 {
-          font-size: 16px; // 제목 글씨 크기 조정
-          font-weight: bold;
-        }
-        p {
-          font-size: 12px;  
-          color: #555;
-        }
-        a {
-          font-size: 11px; 
-          color: #6a5096;
-          text-decoration: none;
-          display: flex;
-          align-items: center;
-          margin-top: 3px;
-        }
+    }
+
+    &-info {
+      flex: 1;
+      h3 {
+        font-size: 16px; // 제목 글씨 크기 조정
+        font-weight: bold;
       }
-  
-      &-buttons {
+      p {
+        font-size: 12px;
+        color: #555;
+      }
+      a {
+        font-size: 11px;
+        color: #6a5096;
+        text-decoration: none;
         display: flex;
-        flex-direction: column;
-        gap: 4px;
-  
-        button {
-          padding: 6px 10px; // 버튼 크기 조정
-          border: none;
-          border-radius: 5px;
-          font-size: 13px; // 버튼 글씨 크기 줄임
-          cursor: pointer;
-          transition: 0.3s;
-  
-          &:first-child {
-            background: #6a5096;
-            color: white;
-          }
-          &:last-child {
-            background: #ddd;
-            color: black;
-          }
-  
-          &:hover {
-            opacity: 0.8;
-          }
+        align-items: center;
+        margin-top: 3px;
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      button {
+        padding: 6px 10px; // 버튼 크기 조정
+        border: none;
+        border-radius: 5px;
+        font-size: 13px; // 버튼 글씨 크기 줄임
+        cursor: pointer;
+        transition: 0.3s;
+
+        &:first-child {
+          background: #6a5096;
+          color: white;
+        }
+        &:last-child {
+          background: #ddd;
+          color: black;
+        }
+
+        &:hover {
+          opacity: 0.8;
         }
       }
     }
-  
-    /* ✅ 그룹 추가 버튼 스타일 */
-    &_edit {
-      margin-top: 40px; /* 버튼 위치 조정 */
-      padding: 12px 24px;
-      background: #6a5096;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-  
-      &:hover {
-        background: #5a3e85;
-      }
+  }
+
+  /* ✅ 그룹 추가 버튼 스타일 */
+  &_edit {
+    margin-top: 40px; /* 버튼 위치 조정 */
+    padding: 12px 24px;
+    background: #6a5096;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background: #5a3e85;
     }
+  }
 }
