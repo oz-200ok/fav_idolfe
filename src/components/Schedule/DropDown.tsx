@@ -15,7 +15,7 @@ export default function DropDown(props: T_Dropdown) {
 
   // 정렬하니까 더 보기 어려워지는 거 같은데 이거 맞아요?
   return (
-    <ul className='div_randerDropDown'>
+    <ul className="div_randerDropDown">
       <li
         onClick={() => {
           typeChange('월');

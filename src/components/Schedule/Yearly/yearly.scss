@@ -21,6 +21,11 @@
     height: 275px;
     padding: 20px !important;
     margin: 6px;
+
+    .react-calendar__viewContainer {
+      flex-wrap: wrap;
+    }
+
   }
 
   .react-calendar__month-view {

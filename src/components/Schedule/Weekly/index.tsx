@@ -14,7 +14,7 @@ export default function Schedule() {
         next2Label={null}
         prev2Label={null}
         onChange={onChange}
-        className="calendar_pos"
+        className="calendar_weekly"
         value={value}
         calendarType="gregory"
         onClickDay={() => {

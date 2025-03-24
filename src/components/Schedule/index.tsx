@@ -17,8 +17,9 @@ export default function Schedule() {
   }
 
   return (
-    <div className='div_scheduleContainer'>
-      <button className='button_dropDown'
+    <div className="div_scheduleContainer">
+      <button
+        className="button_dropDown"
         onClick={() => {
           setDropDownView(!dropDownView);
         }}
