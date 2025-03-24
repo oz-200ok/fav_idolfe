@@ -20,6 +20,16 @@ export default function Schedule() {
         onClickDay={() => {
           console.log(123);
         }}
+        tileContent={
+          <>
+            <hr className="hr_hrBar" />
+            <ul>
+            <p>일정이에용</p>
+            <p>테스트일정</p>
+            <p>CSS는 나중에...</p>
+            </ul>
+          </>
+        }
       />
     </div>
   );

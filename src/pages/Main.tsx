@@ -4,7 +4,7 @@ import Schedule from '../components/Schedule';
 function Main() {
   return (
     <>
-    <Schedule />
+      <Schedule />
       {/* <p> Main </p>
       <nav>
         <Link to="/">홈</Link>

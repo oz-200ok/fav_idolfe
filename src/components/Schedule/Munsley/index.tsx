@@ -9,13 +9,15 @@ export default function Schedule() {
   return (
     <div>
       <Calendar
-      next2Label={null}
-      prev2Label={null}
+        next2Label={null}
+        prev2Label={null}
         locale="ko"
         onChange={onChange}
         value={value}
         calendarType="gregory"
-        onClickDay={()=>{console.log(123)}}
+        onClickDay={() => {
+          console.log(123);
+        }}
       />
     </div>
   );

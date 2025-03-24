@@ -9,7 +9,7 @@ export default function Schedule() {
   const emptyArray = new Array(12).fill('123');
 
   return (
-    <div className='div_schedule'>
+    <div className="div_schedule">
       {console.log(value)}
       {emptyArray.map((item, index) => {
         return (
