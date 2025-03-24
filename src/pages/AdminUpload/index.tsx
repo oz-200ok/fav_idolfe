@@ -9,8 +9,8 @@ function AdminUpload() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   //이미지 업로드 시 실행함수
-  const handleImageChange = (event) => {
-    const file = event.target.files[0]; //파일선택
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]; //파일선택
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -19,8 +19,8 @@ function AdminUpload() {
       reader.readAsDataURL(file); //파일 url로 변환하여 읽음
     }
   };
-
   //이미지 등록버튼클릭
+  // event: React.MouseEvent<HTMLButtonElement>
   const handleRegister = () => {
     if (preview) {
       setIsModalOpen(true); // 모달 창 열기
