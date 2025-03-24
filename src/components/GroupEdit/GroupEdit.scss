@@ -1,0 +1,280 @@
+.group_edit {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 20px;
+
+  /* 그룹 공통 */
+  &_left,
+  &_right {
+    flex: 1;
+    min-width: 300px;
+    padding: 0 100px;
+    margin-top: 50px;
+
+    h3 {
+      font-weight: 400;
+      font-size: 18px;
+    }
+  }
+
+  /* 그룹 왼쪽 */
+  .group_edit_left {
+    padding-top: 30px;
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-bottom: 30px;
+      &::placeholder {
+        color: #d3d3d3; /* 글자 색 */
+        font-size: 14px;
+      }
+    }
+  }
+
+  &_left {
+    border-right: 1px solid #ccc;
+    padding-bottom: 80px;
+  }
+
+  &_image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto; /* 상단 여백 유지 + 수평 가운데 정렬 */
+    margin-bottom: 50px;
+    width: 120px; /* 크기 유지 */
+    height: 120px;
+    border-radius: 50%;
+    background: #f0f0f0; /* 이미지 없을 때 빈 배경 */
+    position: relative; /* "이미지 추가" 텍스트를 정렬 */
+    cursor: pointer;
+
+    img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    input {
+      display: none;
+    }
+  }
+
+  &_placeholder {
+    position: absolute; /*  부모인 .group_edit_image 기준으로 정렬 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 정확히 중앙 정렬 */
+    color: #6a5096; /* 글자 색 */
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  label {
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  /* 그룹 오른쪽 */
+
+  .group_edit_right {
+    padding-top: 20px;
+
+    .add_member_title {
+      margin-top: 40px;
+    }
+
+    .member_add {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #ccc;
+
+      .member_add_image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80px;
+        height: 80px;
+        max-height: 80px;
+        border-radius: 50%;
+        background: #f0f0f0;
+        position: relative;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          min-width: 80px;
+          height: 100%;
+          max-height: 80px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        input {
+          display: none;
+        }
+      }
+
+      .member_info_add {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        width: 250px;
+
+        input {
+          width: 200px;
+          margin: 0;
+          margin-left: 20px;
+        }
+      }
+
+      /* 📌 추가 버튼 */
+      .add_button {
+        background: #6a5096;
+        color: white;
+        font-size: 18px;
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 10%;
+        cursor: pointer;
+      }
+    }
+  }
+
+  /* 추가된 멤버 */
+
+  .member_list {
+    .member {
+      margin-top: 20px;
+    }
+  }
+  .member_add_placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #6a5096;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .member_add input {
+    margin-top: 15px;
+    width: 180px;
+    height: 40px; /* 버튼과 동일한 높이 설정 */
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s ease;
+
+    &:focus {
+      border-color: #6a5096;
+      box-shadow: 0px 0px 5px rgba(106, 80, 150, 0.4);
+    }
+  }
+
+  /* 추가(+) 버튼 */
+  .add_button {
+    background: #6a5096;
+    color: white;
+    font-size: 18px;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .add_member_title {
+    margin-top: 40px;
+  }
+
+  /* 추가된 멤버 */
+  .member_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    .member {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .member_name {
+        font-size: 14px;
+        color: #6a5096;
+        margin-top: 5px;
+      }
+
+      .member_remove {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        background: rgba(255, 255, 255, 0.7);
+        color: #6a5096;
+        border: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  }
+
+  /* 하단 버튼 */
+  &_actions {
+    position: absolute;
+    bottom: 20px;
+    right: 60px;
+    display: flex;
+    gap: 10px;
+
+    .delete {
+      background: #ccc;
+      color: black;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .save {
+      background: #6a5096;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  }
+}

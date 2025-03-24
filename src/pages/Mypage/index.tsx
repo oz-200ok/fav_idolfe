@@ -72,7 +72,7 @@ function Mypage() {
       ) : (
         <div className="mypage_container">
           <div className="mypage_title">
-            <h2>마이페이지</h2>
+            <h2>관리자페이지</h2>
             <p>원하시는 서비스를 선택해주세요</p>
           </div>
           <div className="user_info">
@@ -96,7 +96,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/group-add');
+                  navigate('/groupaddpage');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />

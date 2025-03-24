@@ -7,6 +7,7 @@ const KAKAO_REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
 const handleKakaoLogin = () => {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}`;
 
+  //이 방식 자체가 브라우저에서 자동으로 GET 요청을 보내는 거야! ✅
   window.location.href = KAKAO_AUTH_URL; // ✅ 카카오 로그인 페이지로 이동
 };
 
