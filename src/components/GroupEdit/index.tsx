@@ -1,13 +1,7 @@
 import { useState } from 'react';
-import LabeledInput from './LabeledInput'; // 컴포넌트 import 수정
+import LabeledInput from './GroupEditInput'; // 컴포넌트 import 수정
 import './GroupEdit.scss';
-
-interface MemberType {
-  id: number;
-  name: string;
-  image: string;
-  imageFile?: File | null;
-}
+import { MemberType, InputFieldType } from './GroupEdit.ts';
 
 const GroupEdit = () => {
   const [groupName, setGroupName] = useState('');
@@ -62,7 +56,7 @@ const GroupEdit = () => {
   };
 
   // 공통 input 필드 배열
-  const inputFields = [
+  const inputFields: InputFieldType[] = [
     {
       label: '그룹명',
       value: groupName,
@@ -82,6 +76,7 @@ const GroupEdit = () => {
       placeholder: '인스타그램 주소를 입력해주세요',
     },
   ];
+  
 
   return (
     <div className="group_edit">
