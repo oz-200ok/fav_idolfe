@@ -7,7 +7,12 @@ interface LabeledInputProps {
   placeholder?: string;
 }
 
-const LabeledInput: React.FC<LabeledInputProps> = ({ label, value, onChange, placeholder }) => {
+const LabeledInput: React.FC<LabeledInputProps> = ({
+  label,
+  value,
+  onChange,
+  placeholder,
+}) => {
   return (
     <div className="labeled-input">
       <label>{label}</label>

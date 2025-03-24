@@ -8,7 +8,7 @@ function JoinIntro() {
   return (
     <>
       <Header />
-      <form>
+      <form className="join_intro_form">
         <h1> 회원가입 </h1>
         <p> 원하시는 방식을 선택해주세요</p>
         <div className="btn_container">
