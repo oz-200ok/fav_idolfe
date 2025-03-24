@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'; // 페이지 이동을 위한 훅 추가
-import './GroupManagement.scss';
+import './Groupmanagement.scss';
 import instagramIcon from '../../../assets/instagram.png'; // 인스타그램 아이콘 추가
 import type { GroupType } from './GroupManagement.types';
 
