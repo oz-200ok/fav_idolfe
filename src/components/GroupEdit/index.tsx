@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import LabeledInput from './GroupEditInput'; // 컴포넌트 import 수정
+import LabeledInput from './LabeledInput'; // 컴포넌트 import 수정
 import './GroupEdit.scss';
-import { MemberType, InputFieldType } from './GroupEdit.ts';
+import { MemberType, InputFieldType } from './GroupEdit';
 
 const GroupEdit = () => {
   const [groupName, setGroupName] = useState('');
