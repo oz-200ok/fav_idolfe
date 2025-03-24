@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import LabeledInput from './LabeledInput'; // 컴포넌트 import 수정
+import GroupEditInput from './GroupEditInput'; // 컴포넌트 import 수정
 import './GroupEdit.scss';
 import { MemberType, InputFieldType } from './GroupEdit';
 
@@ -92,7 +92,7 @@ const GroupEdit = () => {
 
         {/* 공통 input 필드 렌더링 */}
         {inputFields.map((field, idx) => (
-          <LabeledInput
+          <GroupEditInput
             key={idx}
             label={field.label}
             value={field.value}
