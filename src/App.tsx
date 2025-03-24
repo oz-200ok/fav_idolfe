@@ -10,6 +10,9 @@ import Mypage from './pages/Mypage/index.tsx';
 import KakaoCallBack from './components/KakaoCallback/index.tsx';
 import NaverCallback from './components/NaverCallback/index.tsx';
 
+import QuitPage from './pages/Quit/index.tsx';
+import QuitModal from './pages/QuitModal/index.tsx';
+
 function App() {
   return (
     <Routes>
@@ -20,13 +23,15 @@ function App() {
         <Route path="/groupaddpage" element={<GroupAddpage />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/mypage" element={<Mypage />} />
-      </Route>
+        <Route path="/quit_modal" element={<QuitModal />} />
 
+      </Route>
+              <Route path="/quit_page" element={<QuitPage />} />
       <Route path="/loginpage" element={<Loginpage />} />
       <Route path="/auth/kakao/callback" element={<KakaoCallBack />} />
       <Route path="/auth/naver/callback" element={<NaverCallback />} />
     </Routes>
   );
-} 
+}
 
 export default App;
