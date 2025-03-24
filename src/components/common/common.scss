@@ -260,15 +260,14 @@ a {
     text-align: left;
   }
 
-  &__links {
-    flex: 1;
+  &_links {
     display: flex;
     justify-content: center;
     gap: 15px;
 
-    a {
+    p {
+      display: inline-block;
       color: white;
-      text-decoration: none;
       transition: 0.3s;
 
       &:hover {
@@ -286,19 +285,19 @@ a {
     text-align: right;
   }
   @media (max-width: 900px) {
-    .footer__copyright {
+    .footer_copyright {
       display: none;
     }
   }
 
   @media (max-width: 700px) {
-    .footer__content {
+    .footer_content {
       display: none;
     }
   }
 
   @media (max-width: 400px) {
-    .footer__links {
+    .footer_links {
       justify-content: center;
       width: 100%;
     }

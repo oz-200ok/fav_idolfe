@@ -30,7 +30,6 @@ const GroupManagement = () => {
 
   return (
     <div className="group-management">
-      <h2 className="group-management_title">관리 그룹</h2>
       <div className="group-management_container">
         {groups.map((group) => (
           <div className="group-management_card" key={group.id}>
@@ -77,7 +76,7 @@ const GroupManagement = () => {
       {/* 새 그룹 추가 버튼 클릭 시 그룹 추가 페이지로 이동 */}
       <button
         className="group-management_edit"
-        onClick={() => navigate('/groupaddpage')}
+        onClick={() => navigate('/group_add_page')}
       >
         + 새 그룹 추가
       </button>

@@ -50,7 +50,16 @@ function SideBar() {
         </ul>
       )}
 
-      {isAdmin && <button className="sidebar_view">관리 그룹 보기</button>}
+      {isAdmin && (
+        <button
+          className="sidebar_view"
+          onClick={() => {
+            navigate('/group_management_page');
+          }}
+        >
+          관리 그룹 보기
+        </button>
+      )}
     </aside>
   );
 }
