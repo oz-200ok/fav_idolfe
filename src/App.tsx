@@ -5,7 +5,7 @@ import Main from './pages/Main.tsx';
 import Layout from './components/common/Layout.tsx';
 import PrivacyPolicy from './components/PrivacyPolicy/index.tsx';
 
-import GroupAddpage from './pages/GroupAddpage/Admin.tsx';
+import GroupAddpage from './pages/GroupAddpage/index.tsx';
 import Mypage from './pages/Mypage/index.tsx';
 import KakaoCallBack from './components/KakaoCallback/index.tsx';
 import NaverCallback from './components/NaverCallback/index.tsx';

@@ -1,5 +1,5 @@
 import GroupEdit from '../../components/admin/GroupEdit';
-import './Admin.scss';
+import './GroupAddpage.scss';
 
 const GroupAddpage = () => {
   return (
