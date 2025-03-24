@@ -1,4 +1,4 @@
-import GroupManagement from '../../components/admin/GroupManagement/index';
+import GroupManagement from '../../components/admin/GroupManagement';
 import './GroupManagementPage.scss';
 
 const GroupManagementPage = () => {
