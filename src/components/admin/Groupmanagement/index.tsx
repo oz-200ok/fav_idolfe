@@ -1,12 +1,13 @@
-import { useNavigate } from "react-router-dom"; // ✅ 페이지 이동을 위한 훅 추가
+import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 훅 추가
 import "./GroupManagement.scss";
-import instagramIcon from "../../../assets/instagram.png"; // ✅ 인스타그램 아이콘 추가
+import instagramIcon from "../../../assets/instagram.png"; // 인스타그램 아이콘 추가
+import type { GroupType } from "./GroupManagement.ts";
 
 const GroupManagement = () => {
-  const navigate = useNavigate(); // ✅ 페이지 이동을 위한 함수
+  const navigate = useNavigate(); // 페이지 이동을 위한 함수
 
   // 예시 데이터 (추후 API 연동)
-  const groups = [
+  const groups: GroupType[] = [
     {
       id: 1,
       name: "에스파(aespa)",
@@ -62,7 +63,7 @@ const GroupManagement = () => {
       </div>
 
       {/* 새 그룹 추가 버튼 클릭 시 그룹 추가 페이지로 이동 */}
-      <button className="group-management_edit" onClick={() => navigate("/admin/manage/edit")}>
+      <button className="group-management_edit" onClick={() => navigate("/groupaddpage")}>
         + 새 그룹 추가
       </button>
     </div>
