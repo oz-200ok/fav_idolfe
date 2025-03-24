@@ -1,0 +1,56 @@
+.quit_Page{
+  position: fixed;
+  top: 0;
+  left: 23vw; // 사이드바 크기
+  width: calc(100vw - 23vw); 
+  height: 100vh;
+  background-color: #f4f4f9; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.quit_Container {
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 1000px;
+  height: 600px;
+  padding: 40px;
+  position: absolute;
+}
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.quit_Button,.cancel_Button {
+  margin: 25px;
+  width: 300px;
+  height: 88px;
+  background-color: #6a5096;
+  color: #f6f6f6;
+  font-size: 30px;
+  gap: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.quit_Button:hover,.cancel_Button:hover{
+  background-color: white;
+  border: #6a5096 1px solid;
+  color: #6a5096;
+}
+.quit_Title{
+  font-size: 40px;
+  text-align: center;
+  margin: 20px;
+}
+.quit_Text{
+  color: #a8a8a8;
+  font-size: 30px;
+  margin: 20px;
+}
