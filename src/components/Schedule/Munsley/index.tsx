@@ -9,6 +9,8 @@ export default function Schedule() {
   return (
     <div>
       <Calendar
+      next2Label={null}
+      prev2Label={null}
         locale="ko"
         onChange={onChange}
         value={value}

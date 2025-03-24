@@ -1,0 +1,18 @@
+
+.react-calendar__month-view{
+    position: relative !important;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    background-color: transparent !important;
+    height: 100px !important;
+}
+
+.react-calendar__month-view__days {
+    flex-wrap: nowrap !important;
+    height: 600px !important;
+}
+
+.react-calendar__tile {
+    height: 100% !important;
+}

@@ -1,14 +1,10 @@
 import { Link } from 'react-router-dom';
-import Weekly from '../components/Schedule/Weekly';
-import Munsley from '../components/Schedule/Munsley';
-import Yearly from '../components/Schedule/Yearly';
+import Schedule from '../components/Schedule';
 
 function Main() {
   return (
     <>
-      <Munsley />
-      <Weekly />
-      <Yearly />
+    <Schedule />
       {/* <p> Main </p>
       <nav>
         <Link to="/">홈</Link>
