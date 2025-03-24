@@ -24,9 +24,8 @@ function App() {
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/quit_modal" element={<QuitModal />} />
-
       </Route>
-              <Route path="/quit_page" element={<QuitPage />} />
+      <Route path="/quit_page" element={<QuitPage />} />
       <Route path="/loginpage" element={<Loginpage />} />
       <Route path="/auth/kakao/callback" element={<KakaoCallBack />} />
       <Route path="/auth/naver/callback" element={<NaverCallback />} />

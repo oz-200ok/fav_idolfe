@@ -14,7 +14,7 @@ function QuitModal() {
     }
   };
   const handleCancel = () => {
-    navigate('mypage');
+    navigate('/mypage');
   };
   return (
     <div className="quit_Page">
