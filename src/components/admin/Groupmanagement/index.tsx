@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 훅 추가
 import "./GroupManagement.scss";
 import instagramIcon from "../../../assets/instagram.png"; // 인스타그램 아이콘 추가
-import type { GroupType } from "./GroupManagement.ts";
+import type { GroupType } from "./GroupManagement";
 
 const GroupManagement = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 함수
@@ -21,7 +21,7 @@ const GroupManagement = () => {
       name: "라이즈(riize)",
       members: ["원빈", "쇼타로","은석","성찬","소희","앤톤"],
       agency: "SM",
-      sns: "https://www.instagram.com/@riize_official",
+      sns: "https://www.instagram.com/riize_official",
       image: "https://i.namu.wiki/i/VeRqyeR9EVx18nfxs3QUZkCfin5Fq5t3Z9mq3bMoSgXJNVhm4aZ68-VF0KbATbBAn3K-1M828anK8mIqkSqDIg.svg",
     },
   ];
