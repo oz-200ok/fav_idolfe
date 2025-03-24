@@ -59,12 +59,13 @@ function JoinPage() {
   return (
     <>
       <Header />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="join_form" onSubmit={handleSubmit(onSubmit)}>
         <h1> 회원가입 </h1>
         <div className="input-group">
           <label htmlFor="email">아이디</label>
           <div className="inline-group">
             <input
+              className="join_input"
               id="email"
               placeholder="이메일을 입력해주세요"
               autoComplete="email"
@@ -91,6 +92,7 @@ function JoinPage() {
         <div className="input-group">
           <label htmlFor="password">비밀번호</label>
           <input
+            className="join_input"
             id="password"
             type="password"
             placeholder="비밀번호를 입력해주세요"
@@ -137,6 +139,7 @@ function JoinPage() {
         <div className="input-group">
           <label htmlFor="passwordConfirm">비밀번호 확인</label>
           <input
+            className="join_input"
             id="passwordConfirm"
             type="password"
             placeholder="확인을 위해 비밀번호를 다시 입력해주세요"
@@ -153,6 +156,7 @@ function JoinPage() {
         <div className="input-group">
           <label htmlFor="name">이름</label>
           <input
+            className="join_input"
             id="name"
             placeholder="이름을 입력해주세요"
             {...register('name', {
@@ -166,6 +170,7 @@ function JoinPage() {
           <label htmlFor="nickname">닉네임</label>
           <div className="inline-group">
             <input
+              className="join_input"
               id="nickname"
               placeholder="닉네임을 입력해주세요"
               {...register('nickname', {
@@ -180,6 +185,7 @@ function JoinPage() {
             <label htmlFor="phone">전화번호</label>
             <div className="inline-group">
               <input
+                className="join_input"
                 id="phone"
                 placeholder="전화번호를 입력해주세요"
                 {...register('phone', {
