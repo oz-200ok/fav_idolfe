@@ -27,6 +27,6 @@ function App() {
       <Route path="/auth/naver/callback" element={<NaverCallback />} />
     </Routes>
   );
-}
+} 
 
 export default App;
