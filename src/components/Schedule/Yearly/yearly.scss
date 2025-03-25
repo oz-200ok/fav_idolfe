@@ -13,14 +13,6 @@
   padding: 3px;
   margin: 20px;
 
-  .react-calendar__navigation__label {
-    padding: 0 5px;
-    width: 100%;
-    max-width: 200px;
-    font-size: 16px;
-    font-weight: bold;
-  }
-
   .react-calendar {
     display: flex;
     flex-direction: column;
@@ -29,6 +21,18 @@
     height: 232px;
     padding: 20px !important;
     margin: 6px;
+    
+  .react-calendar__navigation {
+    flex-basis: 20px;
+    
+    .react-calendar__navigation__label {
+      padding: 0 5px;
+      width: 100%;
+      max-width: 200px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
 
     .react-calendar__viewContainer {
       flex-wrap: wrap;
