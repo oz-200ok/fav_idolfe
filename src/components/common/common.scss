@@ -10,7 +10,7 @@ main {
   margin-left: calc(max(23vw, 300px));
   margin-top: 75px;
   width: 80vw; /* 메인 영역을 80%로 꽉 차게 설정 */
-  min-height: 100vh; /* 필요하면 높이도 설정 */
+  min-height: 80vh; /* 필요하면 높이도 설정 */
   flex-grow: 1;
 }
 
@@ -260,15 +260,14 @@ a {
     text-align: left;
   }
 
-  &__links {
-    flex: 1;
+  &_links {
     display: flex;
     justify-content: center;
     gap: 15px;
 
-    a {
+    p {
+      display: inline-block;
       color: white;
-      text-decoration: none;
       transition: 0.3s;
 
       &:hover {
@@ -286,19 +285,19 @@ a {
     text-align: right;
   }
   @media (max-width: 900px) {
-    .footer__copyright {
+    .footer_copyright {
       display: none;
     }
   }
 
   @media (max-width: 700px) {
-    .footer__content {
+    .footer_content {
       display: none;
     }
   }
 
   @media (max-width: 400px) {
-    .footer__links {
+    .footer_links {
       justify-content: center;
       width: 100%;
     }

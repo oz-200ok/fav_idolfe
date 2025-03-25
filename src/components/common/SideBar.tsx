@@ -54,7 +54,7 @@ function SideBar() {
         <button
           className="sidebar_view"
           onClick={() => {
-            navigate('/groupaddpage');
+            navigate('/group_management_page');
           }}
         >
           관리 그룹 보기
