@@ -1,0 +1,59 @@
+.quit_suc_container {
+  width: 600px;
+  margin: 300px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  /* 상단 */
+
+  .quit_suc_topview {
+    padding-bottom: 40px;
+    border-bottom: 1px solid #9d9d9d60;
+
+    .quit_suc_title {
+      font-weight: bold;
+      color: #303030;
+      margin-bottom: 10px;
+    }
+
+    .quit_suc_text {
+      font-size: 20px;
+      color: #9d9d9d;
+      font-weight: 400;
+    }
+  }
+
+  .quit_message {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 40px 0 50px;
+
+    .quit_suc {
+      font-size: 18px;
+      color: #505050;
+    }
+
+    .quit_suc_message {
+      font-size: 15px;
+      color: #b5b5b5;
+      margin-top: 13px;
+    }
+  }
+
+  .home_btn {
+    width: 600px;
+    height: 50px;
+    background-color: #6a5096;
+    border: none;
+    color: #f6f6f6;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(108, 99, 255, 0.5);
+    }
+  }
+}
