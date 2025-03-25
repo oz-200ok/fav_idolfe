@@ -35,8 +35,8 @@ export default function Schedule() {
         prevLabel={null}
         value={valueData}
         formatMonthYear={(locale, date) => {
-          console.log(locale)
-          return `${date.getFullYear()}년`
+          console.log(locale);
+          return `${date.getFullYear()}년`;
         }}
         onActiveStartDateChange={({ action, value }) =>
           yearChangeHandle({ action, value })
@@ -45,7 +45,7 @@ export default function Schedule() {
 
       <div className="div_schedule">
         {emptyArray.map((item, index) => {
-          console.log(item)
+          console.log(item);
           if (!valueData) return;
           if (valueData instanceof Date) {
             const date = new Date(valueData.getFullYear(), index, 1);
