@@ -3,9 +3,10 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../schedule.scss';
 import './weekly.scss';
+import { Value } from 'react-calendar/dist/cjs/shared/types';
 
 export default function Schedule() {
-  const [value, onChange] = useState(new Date());
+  const [value, onChange] = useState<Value>(new Date());
 
   return (
     <div>

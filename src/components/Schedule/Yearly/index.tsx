@@ -1,22 +1,27 @@
-import { useEffect, useState } from 'react';
-import Calendar, { OnArgs } from 'react-calendar';
+import { useState } from 'react';
+import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../schedule.scss';
 import './yearly.scss';
 import ViewYearly from './ViewYearly';
+import { Action, Value } from 'react-calendar/dist/cjs/shared/types';
 
 export default function Schedule() {
-  const [value, onChange] = useState(new Date());
+  const [valueData, onChange] = useState<Value | Date>(new Date());
   const emptyArray = new Array(12).fill('');
 
-  function yearChangeHandle({ action, value }: OnArgs) {
+  type T_YearChangeHandle = {
+    action: Action;
+    value: Date | Value | null;
+  };
+
+  function yearChangeHandle({ action, value }: T_YearChangeHandle) {
     if (!value) return;
-    switch (action) {
-      case 'next2':
-        onChange(new Date(Number(value.getFullYear() + 1), 1, 1));
-        break;
-      case 'prev2':
-        onChange(new Date(Number(value.getFullYear() - 1), 1, 1));
+    if (value instanceof Date) {
+      const numChangeYear = Number(value.getFullYear());
+      if (action === 'next2') return onChange(new Date(numChangeYear + 1, 1));
+      else if (action === 'prev2')
+        return onChange(new Date(numChangeYear - 1, 1));
     }
   }
 
@@ -28,7 +33,7 @@ export default function Schedule() {
         className="calendar_yearlyHearder"
         nextLabel={null}
         prevLabel={null}
-        value={value}
+        value={valueData}
         formatMonthYear={(locale, date) => `${date.getFullYear()}년`}
         onActiveStartDateChange={({ action, value }) =>
           yearChangeHandle({ action, value })
@@ -37,8 +42,11 @@ export default function Schedule() {
 
       <div className="div_schedule">
         {emptyArray.map((item, index) => {
-          const date = new Date(value.getFullYear(), index, 1);
-          return <ViewYearly key={index} value={date} onChange={onChange} />;
+          if (!valueData) return;
+          if (valueData instanceof Date) {
+            const date = new Date(valueData.getFullYear(), index, 1);
+            return <ViewYearly key={index} value={date} onChange={onChange} />;
+          }
         })}
       </div>
     </div>
