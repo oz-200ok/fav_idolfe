@@ -16,6 +16,8 @@ import QuitModal from './pages/QuitModal/index.tsx';
 import SearchPage from './pages/SearchPage/index.tsx';
 import GroupManagementPage from './pages/GroupManagementPage/index.tsx';
 import Modal from './components/scheduleAdd/modal.tsx';
+import GuestPage from './pages/GuestPage/index.tsx';
+import './App.scss';
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
           element={<GroupManagementPage />}
         />
       </Route>
+      {/* ✅ 전체화면 전용, Layout 없이! */}
+      <Route path="/guest" element={<GuestPage />} />
       <Route path="/joinpage" element={<JoinPage />} />
       <Route path="/joinintro" element={<JoinIntro />} />
       <Route path="/loginpage" element={<Loginpage />} />
