@@ -13,6 +13,7 @@ import QuitPage from './pages/Quit/index.tsx';
 import QuitModal from './pages/QuitModal/index.tsx';
 import SearchPage from './pages/SearchPage/index.tsx';
 import GroupManagementPage from './pages/GroupManagementPage/index.tsx';
+import Modal from './components/scheduleAdd/modal.tsx';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
       <Route path="/login_page" element={<Loginpage />} />
       <Route path="/auth/kakao/callback" element={<KakaoCallBack />} />
       <Route path="/auth/naver/callback" element={<NaverCallback />} />
+      <Route path="/test1" element={<Modal />} />
     </Routes>
   );
 }
