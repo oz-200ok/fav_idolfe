@@ -67,7 +67,7 @@ export function LIST({ memberAdded }: { memberAdded: Set<string> }) {
   return (
     <ul className="ul_memberBox">
       {[...memberAdded].map((member, index) => {
-        console.log(123 );
+        console.log(123);
         return (
           <button onClick={() => {}} key={index}>
             <img src="" alt={member} />
@@ -84,7 +84,7 @@ export function LIST({ memberAdded }: { memberAdded: Set<string> }) {
   );
 }
 
-type aer = {
+type T_memberClickHandle = {
   member: string;
   type: string;
   memberAdded: Set<string>;
@@ -96,7 +96,7 @@ export function memberClickHandle({
   type,
   memberAdded,
   setMemberAdded,
-}: aer) {
+}: T_memberClickHandle) {
   switch (type) {
     case 'add':
       setMemberAdded(new Set(memberAdded).add(member));
