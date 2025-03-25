@@ -2,10 +2,12 @@ import { useState } from 'react';
 import './common.scss'; // 변경된 부분
 import down from '../../assets/chevron-down.png';
 import up from '../../assets/chevron-up.png';
+import { useNavigate } from 'react-router-dom';
 
 function SideBar() {
   // 🔥 타입 없이 상태 관리 (초기값: 'guest' 그 외 user / admin)
   // 상태값에 _(언더스코어) 를 붙이면 아직 사용 안 하지만 나중에 사용할거야! 라고 알려주는 느낌임
+  const navigate = useNavigate();
   const [userType, _setUserType] = useState('admin');
 
   const isAdmin = userType === 'admin';
@@ -48,7 +50,16 @@ function SideBar() {
         </ul>
       )}
 
-      {isAdmin && <button className="sidebar_view">관리 그룹 보기</button>}
+      {isAdmin && (
+        <button
+          className="sidebar_view"
+          onClick={() => {
+            navigate('/group_management_page');
+          }}
+        >
+          관리 그룹 보기
+        </button>
+      )}
     </aside>
   );
 }
