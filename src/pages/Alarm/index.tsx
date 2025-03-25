@@ -34,6 +34,15 @@ const Alarm = () => {
       isSubscribed: true, //구독안한 아이돌 화면에 안보이게
       isAlarmOn: true, //알림상태
     },
+    {
+      id: 4,
+      name: '아이브',
+      member: '안유진, 가을, 레이, 장원영, 리즈, 이서',
+      agency: '스타쉽',
+      image: ive,
+      isSubscribed: false, //구독안한 아이돌 화면에 안보이게
+      isAlarmOn: true, //알림상태
+    },
   ]);
 
   //알람버튼 클릭 상태변경
@@ -47,10 +56,11 @@ const Alarm = () => {
   return (
     <div className="sub_page">
       <h1 className="sub_title">알림 설정 페이지</h1>
+      <div className='idol_card_container'>
       {idols
         .filter((idol) => idol.isSubscribed) //구독한 아이돌만 보기
         .map((idol) => (
-          <div className='idol_card_container'>
+          
           <div key={idol.id} className="idol_card">
             {/* 로고 */}
             <img src={idol.image} alt={idol.name} className="idol_img" />
@@ -71,8 +81,8 @@ const Alarm = () => {
               <span className="slider"></span>
             </label>
           </div>
-          </div>
         ))}
+        </div>
     </div>
   );
 };
