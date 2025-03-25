@@ -7,7 +7,8 @@ import DropDown from './DropDown';
 export type T_Schedule = '월' | '주' | '연';
 
 export default function Schedule() {
-  const [scheduleType, setScheduleType] = useState<T_Schedule>('주');
+  const [value, onChange] = useState(new Date())
+  const [scheduleType, setScheduleType] = useState<T_Schedule>('연');
   const [dropDownView, setDropDownView] = useState<boolean>(false);
 
   function randerSchedule() {
