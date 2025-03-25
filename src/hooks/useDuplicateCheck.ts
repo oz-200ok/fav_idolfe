@@ -9,12 +9,9 @@ export const useDuplicateCheck = () => {
 
   const DuplicateCheck = async (type: Type, value: string) => {
     try {
-      const response = await axios.get(
-        'http://100.26.111.172/account/check-duplicate/',
-        {
-          params: { type, value },
-        },
-      );
+      const response = await axios.get('/account/check-duplicate/', {
+        params: { type: 'email', value: email },
+      });
       console.log('✅ API 응답 결과:', response.data);
     } catch (error) {
       console.log('찾을 수 없는 데이터 입니다');
