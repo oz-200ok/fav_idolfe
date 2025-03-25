@@ -1,56 +1,58 @@
 .group-management {
   padding: 20px;
-
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  &_container {
+  .group-management_container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
   }
 
-  &_card {
+  .group-management_card {
     display: flex;
     align-items: center;
     background: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    gap: 20px;
-    flex: 1;
+    gap: 10px;
+    width: 400px;
     min-width: 320px;
-    max-width: 380px; // 카드 크기 조정
 
-    &-image {
-      width: 70px; // 크기 줄임
+
+    .group-management_card-image {
+      width: 70px; /* 크기 줄임 */
       height: 70px;
       border-radius: 50%;
       overflow: hidden;
-      background: black; // sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠
+      background: black; /* sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠 */
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 10px;
       text-align: center;
-      flex-shrink: 0; //  사이즈 줄어들지 않도록 고정
+      flex-shrink: 0; /* 사이즈 줄어들지 않도록 고정 */
 
       img {
-        width: 70%; // sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠
-        height: 70%; // sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠 밑에꺼 나중에 활성화
-        //   object-fit: cover;
-        //   aspect-ratio: 1 / 1; //  가로 세로 비율 유지
-        //   border-radius: 50%;
+        width: 70%; /* sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠 */
+        height: 70%; /* sm이 투명배경에 흰 글씨로고라서 잠시 바꿔둠 밑에꺼 나중에 활성화 */
+        /**
+        object-fit: cover;
+        aspect-ratio: 1 / 1; //가로 세로 비율 유지
+        border-radius: 50%;
+        */
       }
     }
 
-    &-info {
+    .group_management_card_info {
       flex: 1;
+
       h3 {
-        font-size: 16px; // 제목 글씨 크기 조정
+        font-size: 16px; /* 제목 글씨 크기 조정 */
         font-weight: bold;
       }
       p {
@@ -67,37 +69,38 @@
       }
     }
 
-    &-buttons {
+    .group_management_card_btns {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 10px;
 
       button {
-        padding: 6px 10px; // 버튼 크기 조정
+        padding: 6px 10px; /* 버튼 크기 조정 */
         border: none;
         border-radius: 5px;
-        font-size: 13px; // 버튼 글씨 크기 줄임
+        font-size: 13px; /* 버튼 글씨 크기 줄임 */
         cursor: pointer;
         transition: 0.3s;
-
-        &:first-child {
-          background: #6a5096;
-          color: white;
-        }
-        &:last-child {
-          background: #ddd;
-          color: black;
-        }
 
         &:hover {
           opacity: 0.8;
         }
       }
+
+      .schedule_add {
+        background: #6a5096;
+        color: white;
+      }
+
+      .schedule_download {
+        background: #ddd;
+        color: black;
+      }
     }
   }
 
   /* ✅ 그룹 추가 버튼 스타일 */
-  &_edit {
+  .group_management_edit {
     margin-top: 40px; /* 버튼 위치 조정 */
     padding: 12px 24px;
     background: #6a5096;

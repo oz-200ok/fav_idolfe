@@ -26,6 +26,15 @@ const GroupManagement = () => {
       image:
         'https://i.namu.wiki/i/VeRqyeR9EVx18nfxs3QUZkCfin5Fq5t3Z9mq3bMoSgXJNVhm4aZ68-VF0KbATbBAn3K-1M828anK8mIqkSqDIg.svg',
     },
+    {
+      id: 2,
+      name: '라이즈(riize)',
+      members: ['원빈', '쇼타로', '은석', '성찬', '소희', '앤톤'],
+      agency: 'SM',
+      sns: 'https://www.instagram.com/riize_official',
+      image:
+        'https://i.namu.wiki/i/VeRqyeR9EVx18nfxs3QUZkCfin5Fq5t3Z9mq3bMoSgXJNVhm4aZ68-VF0KbATbBAn3K-1M828anK8mIqkSqDIg.svg',
+    },
   ];
 
   return (
@@ -49,7 +58,7 @@ const GroupManagement = () => {
             </div>
 
             {/* 그룹 정보 */}
-            <div className="group-management_card-info">
+            <div className="group_management_card_info">
               <h3>{group.name}</h3>
               <p>{group.members.join(', ')}</p>
               <p>소속사: {group.agency}</p>
@@ -65,9 +74,9 @@ const GroupManagement = () => {
             </div>
 
             {/* 버튼 */}
-            <div className="group-management_card-buttons">
-              <button className="schedule-add">일괄 일정 추가</button>
-              <button className="schedule-download">일괄 일정 다운</button>
+            <div className="group_management_card_btns">
+              <button className="schedule_add">일괄 일정 추가</button>
+              <button className="schedule_download">일괄 일정 다운</button>
             </div>
           </div>
         ))}
@@ -75,7 +84,7 @@ const GroupManagement = () => {
 
       {/* 새 그룹 추가 버튼 클릭 시 그룹 추가 페이지로 이동 */}
       <button
-        className="group-management_edit"
+        className="group_management_edit"
         onClick={() => navigate('/group_add_page')}
       >
         + 새 그룹 추가

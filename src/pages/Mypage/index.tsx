@@ -105,7 +105,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/group_list');
+                  navigate('/group_management_page');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />
