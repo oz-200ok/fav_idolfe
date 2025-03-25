@@ -13,6 +13,7 @@ import QuitPage from './pages/Quit/index.tsx';
 import QuitModal from './pages/QuitModal/index.tsx';
 import SearchPage from './pages/SearchPage/index.tsx';
 import GroupManagementPage from './pages/GroupManagementPage/index.tsx';
+import Alarm from './pages/Alarm/index.tsx';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           path="/group_management_page"
           element={<GroupManagementPage />}
         />
+        <Route path="/schedule_alarm" element={<Alarm />} />
       </Route>
 
       <Route path="/quit_page" element={<QuitPage />} />
