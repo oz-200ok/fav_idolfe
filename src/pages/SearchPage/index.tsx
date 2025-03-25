@@ -2,10 +2,7 @@ import { useParams } from 'react-router-dom';
 import './Searchpage.scss';
 import { useEffect, useState } from 'react';
 import { T_group } from './type';
-import {
-  GroupPlusButton,
-  ListMexPlus,
-} from '../../components/SearchGroupPlus';
+import { GroupPlusButton, ListMexPlus } from '../../components/SearchGroupPlus';
 import { group, recommendGroup } from '../../components/SearchGroupPlus/data';
 import { BoxList } from '../../components/SearchBoxList/boxList';
 
