@@ -16,7 +16,7 @@ export default function ViewYearly(props: T_ViewYearly) {
       onChange={props.onChange}
       value={props.value}
       calendarType="gregory"
-      formatMonthYear={(locale, date) => `${date.getMonth()+1}`} // Month는 0부터 시작
+      formatMonthYear={(locale, date) => `${date.getMonth() + 1}`} // Month는 0부터 시작
       formatDay={(locale, date) =>
         date.toLocaleString('en', { day: 'numeric' })
       }

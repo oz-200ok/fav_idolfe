@@ -8,11 +8,13 @@ import { formatDate } from 'react-calendar/dist/cjs/shared/dateFormatter';
 
 export default function Schedule() {
   const [value, onChange] = useState(new Date());
-  const emptyArray = new Array(12).fill(null);
+  const emptyArray = new Array(12).fill("");
 
-  useEffect(()=>{console.log('value 변경됨', value)},[value])
-  function yearChangeHandle () {
-    onChange()
+  useEffect(() => {
+    console.log('value 변경됨', value);
+  }, [value]);
+  function yearChangeHandle() {
+    onChange();
   }
 
   return (
@@ -25,7 +27,7 @@ export default function Schedule() {
         prevLabel={null}
         value={value}
         formatMonthYear={(locale, date) => `${date.getFullYear()}년`}
-        onActiveStartDateChange={()=>console.log('test')}
+        onActiveStartDateChange={() => console.log('test')}
       />
 
       <div className="div_schedule">
