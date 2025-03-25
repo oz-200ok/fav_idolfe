@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react';
-import Calendar from 'react-calendar';
+import Calendar, { OnArgs } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../schedule.scss';
 import './yearly.scss';
 import ViewYearly from './ViewYearly';
-import { formatDate } from 'react-calendar/dist/cjs/shared/dateFormatter';
 
 export default function Schedule() {
   const [value, onChange] = useState(new Date());
-  const emptyArray = new Array(12).fill("");
+  const emptyArray = new Array(12).fill('');
 
-  useEffect(() => {
-    console.log('value 변경됨', value);
-  }, [value]);
-  function yearChangeHandle() {
-    onChange();
+  function yearChangeHandle({ action, value }: OnArgs) {
+    if (!value) return;
+    switch (action) {
+      case 'next2':
+        onChange(new Date(Number(value.getFullYear() + 1), 1, 1));
+        break;
+      case 'prev2':
+        onChange(new Date(Number(value.getFullYear() - 1), 1, 1));
+    }
   }
 
   return (
@@ -27,12 +30,15 @@ export default function Schedule() {
         prevLabel={null}
         value={value}
         formatMonthYear={(locale, date) => `${date.getFullYear()}년`}
-        onActiveStartDateChange={() => console.log('test')}
+        onActiveStartDateChange={({ action, value }) =>
+          yearChangeHandle({ action, value })
+        }
       />
 
       <div className="div_schedule">
         {emptyArray.map((item, index) => {
-          return <ViewYearly key={index} value={value} onChange={onChange} />;
+          const date = new Date(value.getFullYear(), index, 1);
+          return <ViewYearly key={index} value={date} onChange={onChange} />;
         })}
       </div>
     </div>
