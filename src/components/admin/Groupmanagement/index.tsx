@@ -43,7 +43,7 @@ const GroupManagement = () => {
         {groups.map((group) => (
           <div className="group-management_card" key={group.id}>
             {/* 그룹 로고 */}
-            <div className="group-management_card-image">
+            <div className="group-management_card_image">
               {group.image ? (
                 <img src={group.image} alt={group.name} />
               ) : (
