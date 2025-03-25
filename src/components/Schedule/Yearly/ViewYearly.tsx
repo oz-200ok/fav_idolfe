@@ -1,8 +1,10 @@
+import { Dispatch, SetStateAction } from 'react';
 import Calendar from 'react-calendar';
+import { Value } from 'react-calendar/dist/cjs/shared/types';
 
 type T_ViewYearly = {
-  value: any;
-  onChange: any;
+  value: Value | Date;
+  onChange: Dispatch<SetStateAction<Value>>;
 };
 export default function ViewYearly(props: T_ViewYearly) {
   return (
@@ -16,10 +18,14 @@ export default function ViewYearly(props: T_ViewYearly) {
       onChange={props.onChange}
       value={props.value}
       calendarType="gregory"
-      formatMonthYear={(locale, date) => `${date.getMonth() + 1}`} // Month는 0부터 시작
-      formatDay={(locale, date) =>
-        date.toLocaleString('en', { day: 'numeric' })
-      }
+      formatMonthYear={(locale, date) => {
+        console.log(locale);
+        return `${date.getMonth() + 1}`;
+      }} // Month는 0부터 시작
+      formatDay={(locale, date) => {
+        console.log(locale);
+        return date.toLocaleString('en', { day: 'numeric' });
+      }}
     />
   );
 }

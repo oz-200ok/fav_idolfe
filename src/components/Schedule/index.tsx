@@ -7,7 +7,8 @@ import DropDown from './DropDown';
 export type T_Schedule = '월' | '주' | '연';
 
 export default function Schedule() {
-  const [value, onChange] = useState(new Date());
+  const [value, onChange] = useState<Date>(new Date());
+  console.log(value, onChange);
   const [scheduleType, setScheduleType] = useState<T_Schedule>('연');
   const [dropDownView, setDropDownView] = useState<boolean>(false);
 
