@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Main() {
   return (
     <>
-    <Schedule />
+      <Schedule />
       <p> Main </p>
       <nav>
         <Link to="/">홈</Link>
