@@ -10,9 +10,13 @@ function NaverCallback() {
 
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
-    if (!code) return;
 
-    getNaverToken(code);
+    const fetchNaver = async (code: string) => {
+      if (!code) return;
+
+      await getNaverToken(code);
+    };
+    fetchNaver(code);
   }, []);
 
   const getNaverToken = async (code: string) => {
