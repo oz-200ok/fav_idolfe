@@ -14,7 +14,7 @@ export type T_Value<T> = {
 
 export default function Schedule() {
   const [value, onChange] = useState<Date>(new Date());
-  const [scheduleType, setScheduleType] = useState<T_Schedule>('주');
+  const [scheduleType, setScheduleType] = useState<T_Schedule>('월');
   const [dropDownView, setDropDownView] = useState<boolean>(false);
 
   function randerSchedule(props: T_Value<Date | Value>) {
