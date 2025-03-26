@@ -14,7 +14,7 @@ function NaverCallback() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      console.log('그냥 죽여')
+      console.log('그냥 죽여');
       const res = await axiosInstance.get('/account/me');
       console.log('잘뜨남', res.data);
     };

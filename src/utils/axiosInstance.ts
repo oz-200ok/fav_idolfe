@@ -11,7 +11,7 @@ const instance = axios.create({
 //config - axios 내부에서 만들어서 인터셉터 함수로 넘겨주는 것.
 
 instance.interceptors.request.use((config) => {
-  console.log('💡 인터셉터 config:', config); 
+  console.log('💡 인터셉터 config:', config);
   const token = localStorage.getItem('access_token');
 
   if (token) {
