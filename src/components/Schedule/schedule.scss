@@ -5,12 +5,16 @@
   padding: 20px;
 }
 
-.react-calendar__navigation__label {
-  padding: 0 5px;
-  width: 100%;
-  max-width: 200px;
-  font-size: 32px;
-  font-weight: bold;
+.react-calendar__navigation {
+  z-index: 999 !important;
+
+  .react-calendar__navigation__label {
+    padding: 0 5px;
+    width: 100%;
+    max-width: 200px;
+    font-size: 32px;
+    font-weight: bold;
+  }
 }
 
 .react-calendar__month-view {
@@ -64,13 +68,20 @@
   }
 }
 
+.calendar_yearlyHearder {
+  height: 60px;
+  .react-calendar__viewContainer {
+    display: none !important;
+  }
+}
+
 .div_scheduleContainer {
   position: relative;
 
   .button_dropDown {
     position: absolute;
     top: 40px;
-    right: 40px;
+    right: 45px;
 
     background-color: white;
     border: 1px solid #6a5096;

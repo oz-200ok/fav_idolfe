@@ -1,38 +1,37 @@
-import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../schedule.scss';
 import './weekly.scss';
 import { Value } from 'react-calendar/src/shared/types.js';
+import { T_Value } from '..';
 
-export default function Schedule() {
-  const [value, onChange] = useState<Value>(new Date());
-
+export default function Weekly(props: T_Value<Value>) {
   return (
     <div>
       <Calendar
         locale="ko"
         next2Label={null}
         prev2Label={null}
-        onChange={onChange}
+        onChange={props.onChange}
         className="calendar_weekly"
-        value={value}
+        value={props.value}
         showNeighboringMonth={false}
-        defaultActiveStartDate={new Date(2025, 1)}
         calendarType="gregory"
-        onClickDay={() => {
-          console.log(123);
+        tileContent={({ date }) => {
+          const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+          const dayOfWeek = date.getDay(); // 0 - 6 (일 - 토)
+          return (
+            <>
+              <div>{daysOfWeek[dayOfWeek]}요일</div>
+              <hr className="hr_hrBar" />
+              <ul>
+                <div>　</div>
+                <div>　</div>
+                <div>　</div>
+              </ul>
+            </>
+          );
         }}
-        tileContent={
-          <>
-            <hr className="hr_hrBar" />
-            <ul>
-              <p>일정이에용</p>
-              <p>테스트일정</p>
-              <p>CSS는 나중에...</p>
-            </ul>
-          </>
-        }
       />
     </div>
   );
