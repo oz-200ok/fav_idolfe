@@ -19,7 +19,7 @@ function KakaoCallBack() {
     fetchkakao(code);
   }, []);
 
-  const getKakaoToken = async (code: string) => {
+  const getKakaoToken = async (code: string | null) => {
     console.log(code);
     try {
       const response = await axios.post(
