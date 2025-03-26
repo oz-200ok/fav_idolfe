@@ -1,8 +1,10 @@
+import Schedule from '@/components/Schedule';
 import { Link } from 'react-router-dom';
 
 function Main() {
   return (
     <>
+    <Schedule />
       <p> Main </p>
       <nav>
         <Link to="/">홈</Link>
