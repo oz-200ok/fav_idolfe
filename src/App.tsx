@@ -15,6 +15,7 @@ import SearchPage from './pages/SearchPage/index.tsx';
 import GroupManagementPage from './pages/GroupManagementPage/index.tsx';
 import Modal from './components/scheduleAdd/modal.tsx';
 import Alarm from './pages/Alarm/index.tsx';
+import AdminUpload from './pages/AdminUpload/index.tsx';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           element={<GroupManagementPage />}
         />
         <Route path="/schedule_alarm" element={<Alarm />} />
+        <Route path="/admin_upload" element={<AdminUpload />} />
       </Route>
 
       <Route path="/quit_page" element={<QuitPage />} />
