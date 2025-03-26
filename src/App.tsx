@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import JoinIntro from './pages/JoinIntro';
 import Loginpage from './pages/Loginpage';
 import Main from './pages/Main.tsx';
 import Layout from './components/common/Layout.tsx';
@@ -8,6 +9,7 @@ import GroupAddpage from './pages/GroupAddpage/index.tsx';
 import Mypage from './pages/Mypage/index.tsx';
 import KakaoCallBack from './components/KakaoCallback/index.tsx';
 import NaverCallback from './components/NaverCallback/index.tsx';
+import JoinPage from './pages/Joinpage/index.tsx';
 
 import QuitPage from './pages/Quit/index.tsx';
 import QuitModal from './pages/QuitModal/index.tsx';
@@ -39,6 +41,9 @@ function App() {
       </Route>
       {/* ✅ 전체화면 전용, Layout 없이! */}
       <Route path="/guest" element={<GuestPage />} />
+      <Route path="/joinpage" element={<JoinPage />} />
+      <Route path="/joinintro" element={<JoinIntro />} />
+      <Route path="/loginpage" element={<Loginpage />} />
 
       <Route path="/quit_page" element={<QuitPage />} />
       <Route path="/login_page" element={<Loginpage />} />
