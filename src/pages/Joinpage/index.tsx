@@ -1,10 +1,19 @@
 import './joinpage.scss';
 //import { z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+//import { useEffect, useState } from 'react';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
 import { useDuplicateCheck } from '../../hooks/useDuplicateCheck';
+
+export interface JoinFormValues {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  name: string;
+  username: string;
+  phone: string;
+}
 
 function JoinPage() {
   const {
@@ -12,12 +21,12 @@ function JoinPage() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm<JoinFormValues>();
 
   const password = watch('password', '');
   const email = watch('email', '');
-  const username = watch('username', '');
-  const phone = watch('phone', '');
+  //const username = watch('username', '');
+  //const phone = watch('phone', '');
 
   const { DuplicateCheck } = useDuplicateCheck();
 
@@ -29,7 +38,7 @@ function JoinPage() {
       return;
     }
 
-    DuplicateCheck('email', email); // 👉 예시: 이메일을 하드코딩해서라도 테스트!
+    DuplicateCheck(email); // 👉 예시: 이메일을 하드코딩해서라도 테스트!
   };
 
   const passwordStrength = (() => {
@@ -71,7 +80,7 @@ function JoinPage() {
     return '';
   })();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: JoinFormValues) => {
     // 로직 추가 예정
     console.log(data);
   };
