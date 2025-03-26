@@ -16,6 +16,8 @@ import GroupManagementPage from './pages/GroupManagementPage/index.tsx';
 import Modal from './components/scheduleAdd/modal.tsx';
 import GuestPage from './pages/GuestPage/index.tsx';
 import './App.scss';
+import Alarm from './pages/Alarm/index.tsx';
+import AdminUpload from './pages/AdminUpload/index.tsx';
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
           path="/group_management_page"
           element={<GroupManagementPage />}
         />
+        <Route path="/schedule_alarm" element={<Alarm />} />
+        <Route path="/admin_upload" element={<AdminUpload />} />
       </Route>
       {/* ✅ 전체화면 전용, Layout 없이! */}
       <Route path="/guest" element={<GuestPage />} />
