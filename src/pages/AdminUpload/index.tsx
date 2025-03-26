@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import uploadIcon from '../assets/upload.png';
+import uploadIcon from '../../assets/upload.png';
 import './Adminupload.scss';
 
 function AdminUpload() {
@@ -33,14 +33,14 @@ function AdminUpload() {
       <div className="divider"></div>
       <p className="guide">관리자 인증을 위한 이미지를 업로드 해주세요.</p>
       {/* 이미지 업로드입력 */}
-      <label className="upload_Area">
+      <label className="upload_area">
         {/* 이미지가 있으면 미리보기, 없으면 기본 ui */}
         {preview ? (
           <img src={preview} alt="미리보기" className="preview_image" />
         ) : (
           <>
-            <img src={uploadIcon} alt="upload" className="upload_Icon" />
-            <p className="upload_Text">이미지 업로드</p>{' '}
+            <img src={uploadIcon} alt="upload" className="upload_icon" />
+            <p className="upload_text">이미지 업로드</p>{' '}
           </>
         )}
         <input
@@ -52,18 +52,18 @@ function AdminUpload() {
       </label>
 
       {/* 이미지 등록버튼 */}
-      <button onClick={handleRegister} className="register_Button">
+      <button onClick={handleRegister} className="register_button">
         이미지 등록
       </button>
       {/* 모달 */}
       {isModalOpen && (
-        <div className="modal_Overlay">
+        <div className="modal_overlay">
           <div className="modal">
-            <h1 className="modal_Title">이미지 등록이 완료되었습니다.</h1>
-            <p className="modal_Text">승인 후 이메일로 알림을 보내드립니다.</p>
+            <h1 className="modal_title">이미지 등록이 완료되었습니다.</h1>
+            <p className="modal_text">승인 후 이메일로 알림을 보내드립니다.</p>
             <button
               onClick={() => setIsModalOpen(false)}
-              className="modal_Button"
+              className="modal_button"
             >
               확인
             </button>
