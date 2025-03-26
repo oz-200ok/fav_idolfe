@@ -1,5 +1,6 @@
 import { useAuth } from '@/context/AuthContext';
 import axios from 'axios';
+import axiosInstance from '@utils/axiosInstance';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -33,7 +34,9 @@ function KakaoCallBack() {
 
       saveToken({ accessToken: access_token, refreshToken: refresh_token });
 
-      console.log(access_token, refresh_token);
+      const res = await axiosInstance.get('/account/me/');
+
+      console.log('잘 되남', res.data);
 
       navigate('/');
     } catch (error) {
