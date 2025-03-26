@@ -18,6 +18,7 @@ import GuestPage from './pages/GuestPage/index.tsx';
 import './App.scss';
 import Alarm from './pages/Alarm/index.tsx';
 import AdminUpload from './pages/AdminUpload/index.tsx';
+import { useEffect } from 'react';
 
 function App() {
   return (
