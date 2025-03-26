@@ -14,6 +14,8 @@ import QuitModal from './pages/QuitModal/index.tsx';
 import SearchPage from './pages/SearchPage/index.tsx';
 import GroupManagementPage from './pages/GroupManagementPage/index.tsx';
 import Modal from './components/scheduleAdd/modal.tsx';
+import GuestPage from './pages/GuestPage/index.tsx';
+import './App.scss';
 import Alarm from './pages/Alarm/index.tsx';
 import AdminUpload from './pages/AdminUpload/index.tsx';
 
@@ -35,6 +37,8 @@ function App() {
         <Route path="/schedule_alarm" element={<Alarm />} />
         <Route path="/admin_upload" element={<AdminUpload />} />
       </Route>
+      {/* ✅ 전체화면 전용, Layout 없이! */}
+      <Route path="/guest" element={<GuestPage />} />
 
       <Route path="/quit_page" element={<QuitPage />} />
       <Route path="/login_page" element={<Loginpage />} />

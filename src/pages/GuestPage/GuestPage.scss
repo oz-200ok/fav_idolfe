@@ -1,0 +1,140 @@
+.splash_screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  overflow: hidden;
+  position: relative;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+/* 슬로건 이미지 */
+.slogan_image {
+  width: 700px;
+  height: 100px;
+  margin-bottom: 30px;
+  background: linear-gradient(
+    130deg,
+    #6a5096 0%,
+    #a083c9 45%,
+    #ffffff 50%,
+    #a083c9 55%,
+    #6a5096 100%
+  );
+  background-size: 200% auto;
+  animation:
+    sloganFadeIn 1.2s ease-in forwards,
+    sloganMoveDown 2s ease-out forwards,
+    shineLogo 3s infinite linear;
+  opacity: 0;
+
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+/* 로고 */
+.guest_logo-container {
+  position: relative;
+  margin-top: 20px;
+}
+
+.guest_logo {
+  width: 500px;
+  height: auto;
+  opacity: 0;
+  animation: logoFadeIn 1.2s ease-out forwards;
+  animation-delay: 3.2s;
+}
+
+/* 로그인 버튼 */
+.login_button {
+  margin-top: 100px;
+  width: 300px;
+  padding: 0.75rem 2rem;
+  background-color: #6a5096;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: fadeInUp 1.2s ease-in-out forwards;
+  animation-delay: 4.4s;
+  opacity: 0;
+  box-shadow: 0 4px 12px rgba(106, 80, 150, 0.3);
+
+  &:hover {
+    background-color: #7a62a6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(106, 80, 150, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* 애니메이션 정의 */
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes sloganFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sloganMoveDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(40px);
+  }
+}
+
+@keyframes shineLogo {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes logoFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
