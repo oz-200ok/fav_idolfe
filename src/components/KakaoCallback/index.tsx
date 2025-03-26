@@ -11,7 +11,7 @@ function KakaoCallBack() {
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
 
-    const fetchkakao = async (code: string) => {
+    const fetchkakao = async (code: string | null) => {
       if (!code) return;
       await getKakaoToken(code);
     };
