@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../schedule.scss';
-import { Value } from 'react-calendar/dist/cjs/shared/types';
+import { Value } from 'react-calendar/src/shared/types.js';
 
 export default function Schedule() {
   const [value, onChange] = useState<Value>(new Date());

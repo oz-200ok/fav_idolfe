@@ -39,5 +39,3 @@ export default function Schedule() {
     </div>
   );
 }
-
-// 드롭다운 버튼은 css로 위치조정 필요

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import Calendar from 'react-calendar';
-import { Value } from 'react-calendar/dist/cjs/shared/types';
+import { Value } from 'react-calendar/src/shared/types.js';
 
 type T_ViewYearly = {
   value: Value | Date;

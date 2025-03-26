@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import '../schedule.scss';
 import './yearly.scss';
 import ViewYearly from './ViewYearly';
-import { Action, Value } from 'react-calendar/dist/cjs/shared/types';
+import { Action, Value } from 'react-calendar/src/shared/types.js';
 
 export default function Schedule() {
   const [valueData, onChange] = useState<Value | Date>(new Date());
