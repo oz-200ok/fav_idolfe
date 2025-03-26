@@ -10,11 +10,16 @@
   }
 
   .react-calendar__month-view__days {
+    overflow-y: hidden !important;
+    overflow: scroll;
+
+    justify-content: start;
     flex-wrap: nowrap !important;
     height: 600px !important;
   }
 
   .react-calendar__tile {
+
     flex-direction: column;
     align-items: center !important;
     width: 100% !important;
@@ -22,6 +27,10 @@
     height: 100% !important;
     padding: 15px !important;
     margin: 3px !important;
+
+    &:disabled {
+      display: none;
+    }
 
     .hr_hrBar {
       color: #6a5096;

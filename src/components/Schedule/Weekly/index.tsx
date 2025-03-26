@@ -17,6 +17,8 @@ export default function Schedule() {
         onChange={onChange}
         className="calendar_weekly"
         value={value}
+        showNeighboringMonth={false}
+        defaultActiveStartDate={new Date(2025, 1)}
         calendarType="gregory"
         onClickDay={() => {
           console.log(123);
