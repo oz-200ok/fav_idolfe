@@ -11,7 +11,7 @@ function NaverCallback() {
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
 
-    const fetchNaver = async (code: string) => {
+    const fetchNaver = async (code: string | null) => {
       if (!code) return;
 
       await getNaverToken(code);
