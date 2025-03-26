@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export const useDuplicateCheck = () => {
-  const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
-  const [checkMsg, setCheckMsg] = useState('');
+  const [isAvailable, _setIsAvailable] = useState<boolean | null>(null);
+  const [checkMsg, _setCheckMsg] = useState('');
 
   //type Type = 'email' | 'username' | 'phone';
 
