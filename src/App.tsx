@@ -1,14 +1,21 @@
 import { Routes, Route } from 'react-router-dom';
-import Join from './pages/Join.tsx';
 import Loginpage from './pages/Loginpage';
 import Main from './pages/Main.tsx';
 import Layout from './components/common/Layout.tsx';
 import PrivacyPolicy from './components/PrivacyPolicy/index.tsx';
 
-import GroupAddpage from './pages/GroupAddpage/Admin.tsx';
+import GroupAddpage from './pages/GroupAddpage/index.tsx';
 import Mypage from './pages/Mypage/index.tsx';
 import KakaoCallBack from './components/KakaoCallback/index.tsx';
 import NaverCallback from './components/NaverCallback/index.tsx';
+
+import QuitPage from './pages/Quit/index.tsx';
+import QuitModal from './pages/QuitModal/index.tsx';
+import SearchPage from './pages/SearchPage/index.tsx';
+import GroupManagementPage from './pages/GroupManagementPage/index.tsx';
+import Modal from './components/scheduleAdd/modal.tsx';
+import GuestPage from './pages/GuestPage/index.tsx';
+import './App.scss';
 
 function App() {
   return (
@@ -16,15 +23,24 @@ function App() {
       {/* 🔥 Layout을 적용할 부모 Route 추가 */}
       <Route element={<Layout />}>
         <Route path="/" element={<Main />} />
-        <Route path="/join" element={<Join />} />
-        <Route path="/groupaddpage" element={<GroupAddpage />} />
-        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/my_page" element={<Mypage />} />
+        <Route path="/quit_modal" element={<QuitModal />} />
+        <Route path="/search_page" element={<SearchPage />} />
+        <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+        <Route path="/group_add_page" element={<GroupAddpage />} />
+        <Route
+          path="/group_management_page"
+          element={<GroupManagementPage />}
+        />
       </Route>
+      {/* ✅ 전체화면 전용, Layout 없이! */}
+      <Route path="/guest" element={<GuestPage />} />
 
-      <Route path="/loginpage" element={<Loginpage />} />
+      <Route path="/quit_page" element={<QuitPage />} />
+      <Route path="/login_page" element={<Loginpage />} />
       <Route path="/auth/kakao/callback" element={<KakaoCallBack />} />
       <Route path="/auth/naver/callback" element={<NaverCallback />} />
+      <Route path="/test1" element={<Modal />} />
     </Routes>
   );
 }

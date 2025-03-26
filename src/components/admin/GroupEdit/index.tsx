@@ -1,20 +1,14 @@
 import { useState } from 'react';
 import LabeledInput from './LabeledInput'; // 컴포넌트 import 수정
 import './GroupEdit.scss';
-
-interface MemberType {
-  id: number;
-  name: string;
-  image: string;
-  imageFile?: File | null;
-}
+import { MemberType, InputFieldType } from './GroupEdit';
 
 const GroupEdit = () => {
   const [groupName, setGroupName] = useState('');
   const [agency, setAgency] = useState('');
   const [snsLink, setSnsLink] = useState('');
   const [groupImage, setGroupImage] = useState<string | null>(null);
-  const [_groupImageFile, setGroupImageFile] = useState<File | null>(null);// 나중에 _제거
+  const [_groupImageFile, setGroupImageFile] = useState<File | null>(null); // 나중에 _제거
 
   const [memberName, setMemberName] = useState('');
   const [memberImage, setMemberImage] = useState<string | null>(null);
@@ -22,7 +16,9 @@ const GroupEdit = () => {
   const [members, setMembers] = useState<MemberType[]>([]);
 
   // 그룹 이미지 업로드
-  const handleGroupImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleGroupImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     if (event.target.files?.[0]) {
       const file = event.target.files[0];
       setGroupImage(URL.createObjectURL(file));
@@ -31,7 +27,9 @@ const GroupEdit = () => {
   };
 
   // 멤버 이미지 업로드
-  const handleMemberImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMemberImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     if (event.target.files?.[0]) {
       const file = event.target.files[0];
       setMemberImage(URL.createObjectURL(file));
@@ -62,23 +60,26 @@ const GroupEdit = () => {
   };
 
   // 공통 input 필드 배열
-  const inputFields = [
+  const inputFields: InputFieldType[] = [
     {
       label: '그룹명',
       value: groupName,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => setGroupName(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setGroupName(e.target.value),
       placeholder: '그룹명을 입력해주세요',
     },
     {
       label: '소속사',
       value: agency,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => setAgency(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setAgency(e.target.value),
       placeholder: '소속사를 입력해주세요',
     },
     {
       label: '인스타그램',
       value: snsLink,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => setSnsLink(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setSnsLink(e.target.value),
       placeholder: '인스타그램 주소를 입력해주세요',
     },
   ];
@@ -89,10 +90,16 @@ const GroupEdit = () => {
       <div className="group_edit_left">
         <div className="group_edit_image">
           <label htmlFor="groupImageUpload">
-            {!groupImage && <div className="group_edit_placeholder">이미지 추가</div>}
+            {!groupImage && (
+              <div className="group_edit_placeholder">이미지 추가</div>
+            )}
             {groupImage && <img src={groupImage} alt="Group" />}
           </label>
-          <input type="file" id="groupImageUpload" onChange={handleGroupImageUpload} />
+          <input
+            type="file"
+            id="groupImageUpload"
+            onChange={handleGroupImageUpload}
+          />
         </div>
 
         {/* 공통 input 필드 렌더링 */}
@@ -116,7 +123,11 @@ const GroupEdit = () => {
               {!memberImage && <div className="member_add_placeholder">+</div>}
               {memberImage && <img src={memberImage} alt="Member" />}
             </label>
-            <input type="file" id="memberImageUpload" onChange={handleMemberImageUpload} />
+            <input
+              type="file"
+              id="memberImageUpload"
+              onChange={handleMemberImageUpload}
+            />
           </div>
           <div className="member_info_add">
             <input
@@ -137,7 +148,10 @@ const GroupEdit = () => {
             <div key={member.id} className="member">
               <img src={member.image} alt={member.name} />
               <span className="member_name">{member.name}</span>
-              <button className="member_remove" onClick={() => handleRemoveMember(member.id)}>
+              <button
+                className="member_remove"
+                onClick={() => handleRemoveMember(member.id)}
+              >
                 -
               </button>
             </div>

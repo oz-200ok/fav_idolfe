@@ -45,7 +45,7 @@ function Header() {
             <button
               className="login_Button"
               onClick={() => {
-                navigate('/loginpage');
+                navigate('/login_page');
               }}
             >
               로그인
@@ -105,7 +105,7 @@ function Header() {
             <button
               className="page_Button"
               onClick={() => {
-                navigate('/mypage');
+                navigate('/my_page');
               }}
             >
               관리자페이지

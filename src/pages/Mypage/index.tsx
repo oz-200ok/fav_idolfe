@@ -33,7 +33,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/user-info');
+                  navigate('/user_info');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />
@@ -42,7 +42,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/schedule-alarm');
+                  navigate('/schedule_alarm');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />
@@ -51,7 +51,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/privacypolicy');
+                  navigate('/privacy_policy');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />
@@ -60,7 +60,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/withdrawal');
+                  navigate('/quit_modal');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />
@@ -96,7 +96,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/groupaddpage');
+                  navigate('/group_add_page');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />
@@ -105,7 +105,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/group-list');
+                  navigate('/group_management_page');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />
@@ -114,7 +114,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/schedule-alarm');
+                  navigate('/schedule_alarm');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />
@@ -123,7 +123,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/privacypolicy');
+                  navigate('/privacy_policy');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />
@@ -132,7 +132,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/withdrawal');
+                  navigate('/quit_modal');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />

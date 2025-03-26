@@ -28,7 +28,7 @@
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 6px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       &::placeholder {
         color: #d3d3d3; /* 글자 색 */
         font-size: 14px;
@@ -38,7 +38,7 @@
 
   &_left {
     border-right: 1px solid #ccc;
-    padding-bottom: 80px;
+    padding-bottom: 50px;
   }
 
   &_image {
@@ -89,7 +89,7 @@
   /* 그룹 오른쪽 */
 
   .group_edit_right {
-    padding-top: 20px;
+    padding-top: 15px;
 
     .add_member_title {
       margin-top: 40px;
@@ -254,7 +254,7 @@
   /* 하단 버튼 */
   &_actions {
     position: absolute;
-    bottom: 20px;
+    bottom: 80px;
     right: 60px;
     display: flex;
     gap: 10px;
