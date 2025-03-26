@@ -1,13 +1,23 @@
 import axios from 'axios';
+import instance from './axiosInstance';
 
-export const checkEmailDuplicate = async (email: string) => {
-  return axios.get('/account/check-duplicate/', { params: { email } });
+export const DuplicateCheck = async (
+  type: 'email' | 'username' | 'phone',
+  value: string,
+) => {
+  return await axios.get('/account/check-duplicate/', {
+    params: { [type]: value },
+  });
 };
 
-export const checkNicknameDuplicate = async (username: string) => {
-  return axios.get('/account/check-duplicate/', { params: { username } });
-};
+export interface SignupRequest {
+  email: string;
+  password: string;
+  name: string;
+  username: string;
+  phone: string;
+}
 
-export const checkPhoneDuplicate = async (phone: string) => {
-  return axios.get('/account/check-duplicate/', { params: { phone } });
+export const signup = (data: SignupRequest) => {
+  return instance.post('/account/register/', data);
 };
