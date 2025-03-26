@@ -13,8 +13,12 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [refreshToken, setRefreshToken] = useState<string | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(
+    localStorage.getItem('access_token'),
+  );
+  const [refreshToken, setRefreshToken] = useState<string | null>(
+    localStorage.getItem('refresh_token'),
+  );
 
   const saveToken = ({
     accessToken,

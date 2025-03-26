@@ -56,33 +56,32 @@ const Alarm = () => {
   return (
     <div className="sub_page">
       <h1 className="sub_title">알림 설정 페이지</h1>
-      <div className='idol_card_container'>
-      {idols
-        .filter((idol) => idol.isSubscribed) //구독한 아이돌만 보기
-        .map((idol) => (
-          
-          <div key={idol.id} className="idol_card">
-            {/* 로고 */}
-            <img src={idol.image} alt={idol.name} className="idol_img" />
-            {/* 아이돌정보 */}
-            <div className="idol_info">
-              <h2 className="idol_name">{idol.name}</h2>
-              <p className="idol_mem">{idol.member}</p>
-              <p className="idol_agency">소속사: {idol.agency}</p>
+      <div className="idol_card_container">
+        {idols
+          .filter((idol) => idol.isSubscribed) //구독한 아이돌만 보기
+          .map((idol) => (
+            <div key={idol.id} className="idol_card">
+              {/* 로고 */}
+              <img src={idol.image} alt={idol.name} className="idol_img" />
+              {/* 아이돌정보 */}
+              <div className="idol_info">
+                <h2 className="idol_name">{idol.name}</h2>
+                <p className="idol_mem">{idol.member}</p>
+                <p className="idol_agency">소속사: {idol.agency}</p>
+              </div>
+              {/* 알림버튼 */}
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={idol.isAlarmOn}
+                  onChange={() => handleToggle(idol.id)} //버튼클릭 상태변경
+                />
+                {/* 버튼디자인 슬라이더 */}
+                <span className="slider"></span>
+              </label>
             </div>
-            {/* 알림버튼 */}
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={idol.isAlarmOn}
-                onChange={() => handleToggle(idol.id)} //버튼클릭 상태변경
-              />
-              {/* 버튼디자인 슬라이더 */}
-              <span className="slider"></span>
-            </label>
-          </div>
-        ))}
-        </div>
+          ))}
+      </div>
     </div>
   );
 };
