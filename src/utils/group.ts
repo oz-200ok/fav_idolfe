@@ -22,7 +22,11 @@ export const getGroup = async (groupId: number, token: string) => {
 };
 
 // 그룹 수정
-export const updateGroup = async (groupId: number, formData: FormData, token: string) => {
+export const updateGroup = async (
+  groupId: number,
+  formData: FormData,
+  token: string,
+) => {
   const response = await axios.put(`/ilog/admin/group/${groupId}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -69,19 +73,22 @@ export const addGroupSchedule = async (groupId: number, token: string) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+    },
   );
   return response.data;
 };
 
 // 일정 다운로드
 export const downloadGroupSchedule = async (groupId: number, token: string) => {
-  const response = await axios.get(`/ilog/admin/group/${groupId}/schedules/download`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await axios.get(
+    `/ilog/admin/group/${groupId}/schedules/download`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      responseType: 'blob',
     },
-    responseType: 'blob',
-  });
+  );
 
   const url = window.URL.createObjectURL(response.data);
   const link = document.createElement('a');

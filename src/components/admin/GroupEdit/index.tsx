@@ -33,7 +33,7 @@ const GroupEdit = () => {
             name: m.name,
             image: m.image,
             imageFile: null,
-          }))
+          })),
         );
       } catch (error) {
         console.error('불러오기 실패:', error);
@@ -42,7 +42,9 @@ const GroupEdit = () => {
     fetchGroup();
   }, []);
 
-  const handleGroupImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleGroupImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     if (event.target.files?.[0]) {
       const file = event.target.files[0];
       setGroupImage(URL.createObjectURL(file));
@@ -50,7 +52,9 @@ const GroupEdit = () => {
     }
   };
 
-  const handleMemberImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMemberImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     if (event.target.files?.[0]) {
       const file = event.target.files[0];
       setMemberImage(URL.createObjectURL(file));
@@ -122,19 +126,22 @@ const GroupEdit = () => {
     {
       label: '그룹명',
       value: groupName,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => setGroupName(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setGroupName(e.target.value),
       placeholder: '그룹명을 입력해주세요',
     },
     {
       label: '소속사',
       value: agency,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => setAgency(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setAgency(e.target.value),
       placeholder: '소속사를 입력해주세요',
     },
     {
       label: '인스타그램',
       value: snsLink,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) => setSnsLink(e.target.value),
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setSnsLink(e.target.value),
       placeholder: '인스타그램 주소를 입력해주세요',
     },
   ];
@@ -144,10 +151,16 @@ const GroupEdit = () => {
       <div className="group_edit_left">
         <div className="group_edit_image">
           <label htmlFor="groupImageUpload">
-            {!groupImage && <div className="group_edit_placeholder">이미지 추가</div>}
+            {!groupImage && (
+              <div className="group_edit_placeholder">이미지 추가</div>
+            )}
             {groupImage && <img src={groupImage} alt="Group" />}
           </label>
-          <input type="file" id="groupImageUpload" onChange={handleGroupImageUpload} />
+          <input
+            type="file"
+            id="groupImageUpload"
+            onChange={handleGroupImageUpload}
+          />
         </div>
 
         {inputFields.map((field, idx) => (
@@ -169,7 +182,11 @@ const GroupEdit = () => {
               {!memberImage && <div className="member_add_placeholder">+</div>}
               {memberImage && <img src={memberImage} alt="Member" />}
             </label>
-            <input type="file" id="memberImageUpload" onChange={handleMemberImageUpload} />
+            <input
+              type="file"
+              id="memberImageUpload"
+              onChange={handleMemberImageUpload}
+            />
           </div>
           <div className="member_info_add">
             <input
@@ -178,7 +195,9 @@ const GroupEdit = () => {
               value={memberName}
               onChange={(e) => setMemberName(e.target.value)}
             />
-            <button onClick={handleAddMember} className="add_button">+</button>
+            <button onClick={handleAddMember} className="add_button">
+              +
+            </button>
           </div>
         </div>
 
@@ -188,15 +207,24 @@ const GroupEdit = () => {
             <div key={member.id} className="member">
               <img src={member.image} alt={member.name} />
               <span className="member_name">{member.name}</span>
-              <button className="member_remove" onClick={() => handleRemoveMember(member.id)}>-</button>
+              <button
+                className="member_remove"
+                onClick={() => handleRemoveMember(member.id)}
+              >
+                -
+              </button>
             </div>
           ))}
         </div>
       </div>
 
       <div className="group_edit_actions">
-        <button className="delete" onClick={handleDeleteGroup}>그룹 삭제</button>
-        <button className="save" onClick={handleSaveGroup}>수정 완료</button>
+        <button className="delete" onClick={handleDeleteGroup}>
+          그룹 삭제
+        </button>
+        <button className="save" onClick={handleSaveGroup}>
+          수정 완료
+        </button>
       </div>
     </div>
   );

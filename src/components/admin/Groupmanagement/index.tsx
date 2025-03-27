@@ -3,7 +3,11 @@ import { useEffect, useState } from 'react';
 import './Groupmanagement.scss';
 import instagramIcon from '../../../assets/instagram.png';
 import type { GroupType } from './GroupManagement.types';
-import { fetchGroupList, addGroupSchedule, downloadGroupSchedule } from '@/utils/group';
+import {
+  fetchGroupList,
+  addGroupSchedule,
+  downloadGroupSchedule,
+} from '@/utils/group';
 
 const GroupManagement = () => {
   const navigate = useNavigate();
@@ -22,7 +26,7 @@ const GroupManagement = () => {
             agency: group.agency_name,
             sns: group.sns_links?.instagram || '',
             image: group.group_image,
-          }))
+          })),
         );
       } catch (error) {
         console.error('그룹 목록 불러오기 실패:', error);
@@ -60,7 +64,11 @@ const GroupManagement = () => {
                 <img src={group.image} alt={group.name} />
               ) : (
                 <div className="group-management_card-placeholder">
-                  그룹 이미지<br />혹은<br />그룹 로고
+                  그룹 이미지
+                  <br />
+                  혹은
+                  <br />
+                  그룹 로고
                 </div>
               )}
             </div>
@@ -79,10 +87,16 @@ const GroupManagement = () => {
             </div>
 
             <div className="group_management_card_btns">
-              <button className="schedule_add" onClick={() => handleScheduleAdd(group.id)}>
+              <button
+                className="schedule_add"
+                onClick={() => handleScheduleAdd(group.id)}
+              >
                 일괄 일정 추가
               </button>
-              <button className="schedule_download" onClick={() => handleScheduleDownload(group.id)}>
+              <button
+                className="schedule_download"
+                onClick={() => handleScheduleDownload(group.id)}
+              >
                 일괄 일정 다운
               </button>
             </div>
