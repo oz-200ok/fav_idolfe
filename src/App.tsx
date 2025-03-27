@@ -24,6 +24,7 @@ import { useEffect } from 'react';
 
 function App() {
   return (
+  
     <Routes>
       {/* 🔥 Layout을 적용할 부모 Route 추가 */}
       <Route element={<Layout />}>

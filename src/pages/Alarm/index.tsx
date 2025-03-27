@@ -7,7 +7,6 @@ import ive from '@assets/ive-logo.png'; //api 불러오면 삭제
 // import axios from 'axios';
 
 const Alarm = () => {
-
   //임시 데이터(api불러오면 삭제)
   const [idols, setIdols] = useState([
     {
@@ -61,7 +60,8 @@ const Alarm = () => {
   // }, []);
 
   //알람버튼 클릭 상태변경
-  const handleToggle = (idolId: number) => {
+
+  const handleToggle = async (idolId: number) => {
     setIdols((prev) =>
       prev.map((idol) =>
         idol.id === idolId ? { ...idol, isAlarmOn: !idol.isAlarmOn } : idol,
