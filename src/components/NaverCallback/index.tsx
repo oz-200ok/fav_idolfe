@@ -32,7 +32,6 @@ function NaverCallback() {
       const { access_token, refresh_token } = response.data.data;
 
       markLoggedIn(access_token, refresh_token);
-      
 
       const res = await socialAxiosInstance.get('/account/me/');
 
