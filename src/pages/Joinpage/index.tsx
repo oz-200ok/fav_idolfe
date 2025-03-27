@@ -130,7 +130,7 @@ function JoinPage() {
     }
   };
 
-  return (
+  return ( 
     <>
       <Header />
       <div className="joinpage_container">
