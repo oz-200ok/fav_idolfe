@@ -1,0 +1,58 @@
+.calendar_yearlyHearder {
+  height: 60px;
+  .react-calendar__viewContainer {
+    display: none !important;
+  }
+}
+
+.div_schedule {
+  background-color: #f1f1f1;
+  display: flex;
+  flex-wrap: wrap;
+  width: 1416px;
+  padding: 3px;
+  margin: 20px;
+
+  .react-calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 340px;
+    height: 232px;
+    padding: 20px !important;
+    margin: 6px;
+
+    .react-calendar__navigation {
+      flex-basis: 20px;
+
+      .react-calendar__navigation__label {
+        padding: 0 5px;
+        width: 100%;
+        max-width: 200px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+
+    .react-calendar__viewContainer {
+      flex-wrap: wrap;
+
+      .react-calendar__month-view {
+        background-color: white;
+        height: 100%;
+        padding: 5px;
+
+        .react-calendar__month-view__weekdays {
+          display: none !important;
+        }
+
+        .react-calendar__tile {
+          justify-content: center;
+          align-items: center;
+          height: 25px !important;
+          margin: 0 0 !important;
+        }
+      }
+    }
+  }
+}
