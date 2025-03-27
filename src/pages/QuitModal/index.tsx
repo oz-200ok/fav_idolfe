@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './QuitModal.scss';
+// import axios from 'axios';
 
 function QuitModal() {
   //모달 상태

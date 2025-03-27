@@ -52,7 +52,7 @@ const Alarm = () => {
   //api에서 데이터 불러오기
   // useEffect(() => {
   //   axios
-  //     .get('http://api.com/실제 주소')
+  //     .post('http://100.26.111.172/service/subscriptions/)
   //     .then((response) => {
   //       setIdols(response.data);
   //     })
@@ -60,7 +60,6 @@ const Alarm = () => {
   // }, []);
 
   //알람버튼 클릭 상태변경
-
   const handleToggle = async (idolId: number) => {
     setIdols((prev) =>
       prev.map((idol) =>
@@ -68,6 +67,7 @@ const Alarm = () => {
       ),
     );
   };
+
   return (
     <div className="sub_page">
       <h1 className="sub_title">알림 설정 페이지</h1>
