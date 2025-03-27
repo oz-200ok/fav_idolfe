@@ -1,4 +1,4 @@
-import './style.scss';
+import './scheduleAdd.scss';
 
 type props = {
   text: string;

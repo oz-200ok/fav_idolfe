@@ -6,9 +6,6 @@ import { T_MemberImg } from './type';
 // add -> 그룹 멤버 목록
 // list -> 추가된 멤버 목록
 
-// useState로 상태관리중인 memberAdded에 상태변화가 있어도
-// 리렌더링이 되지 않는 문제가 있습니다 (26.line)
-
 type props = {
   type: 'add' | 'list';
 };

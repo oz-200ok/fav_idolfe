@@ -15,7 +15,7 @@ import QuitPage from './pages/Quit/index.tsx';
 import QuitModal from './pages/QuitModal/index.tsx';
 import SearchPage from './pages/SearchPage/index.tsx';
 import GroupManagementPage from './pages/GroupManagementPage/index.tsx';
-import Modal from './components/scheduleAdd/modal.tsx';
+import Modal from './components/scheduleAdd/index.tsx';
 import GuestPage from './pages/GuestPage/index.tsx';
 import './App.scss';
 import Alarm from './pages/Alarm/index.tsx';
