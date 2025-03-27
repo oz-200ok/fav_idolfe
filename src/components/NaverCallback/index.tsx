@@ -10,10 +10,13 @@ function NaverCallback() {
 
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
-    console.log(code);
-    if (code) {
-      getNaverToken(code);
-    }
+
+    const fetchNaver = async (code: string | null) => {
+      if (!code) return;
+
+      await getNaverToken(code);
+    };
+    fetchNaver(code);
   }, []);
 
   const getNaverToken = async (code: string) => {
@@ -36,8 +39,8 @@ function NaverCallback() {
       navigate('/');
     } catch (error) {
       console.log('토큰 요청 실패 ❌', error);
+      alert('네이버 로그인 실패 😢 다시 시도해주세요!');
     }
-    return <div> 로그인 처리 중입니다...</div>;
   };
 
   return <></>;
