@@ -128,7 +128,12 @@ function JoinPage() {
         <form className="join_form" onSubmit={handleSubmit(onSubmit)}>
           <h1> 회원가입 </h1>
           <div className="input-group">
-            <label htmlFor="email">아이디</label>
+            <label htmlFor="email">
+              아이디
+              {errors.email && (
+                <p className="warning"> {errors.email.message}</p>
+              )}
+            </label>
             <div className="inline-group">
               <input
                 className="join_input"
@@ -151,7 +156,6 @@ function JoinPage() {
                   },
                 })}
               />
-              {errors.email && <p>{errors.email.message}</p>}
               <button
                 type="button"
                 onClick={() => handleDuplicateCheck('email', email)}
@@ -274,7 +278,7 @@ function JoinPage() {
             <label htmlFor="phone">
               전화번호
               {errors.phone && (
-                <p className="phone_warning">{errors.phone.message}</p>
+                <p className="warning">{errors.phone.message}</p>
               )}
             </label>
             <div className="inline-group">

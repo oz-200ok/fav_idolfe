@@ -5,9 +5,13 @@ export const DuplicateCheck = async (
   type: 'email' | 'username' | 'phone',
   value: string,
 ) => {
-  return await axios.get('/account/check-duplicate/', {
+  console.log('🔍 중복 확인 요청:', type, value);
+  const response = await axiosInstance.get('/account/check-duplicate/', {
     params: { [type]: value },
   });
+  console.log('📩 응답 받음:', response.data);
+
+  return response;
 };
 
 export interface SignupRequest {
