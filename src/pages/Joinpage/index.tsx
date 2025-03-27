@@ -1,4 +1,6 @@
 //import { z } from 'zod';
+import axios from 'axios';
+
 import './joinpage.scss';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
@@ -61,8 +63,15 @@ function JoinPage() {
       alert('사용 가능한 값 입니다!');
 
       setIsChecked((prev) => ({ ...prev, [type]: true }));
-    } catch (err) {
-      ('이미 사용 중 입니다!');
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const message =
+          err.response?.data?.[type]?.[0] || `이미 사용중인 ${label}입니다.`;
+        alert(`❌${message}`);
+      } else {
+        ('알 수 없는 에러가 발생 했습니다.');
+      }
+      setIsChecked((prev) => ({ ...prev, [type]: false }));
     }
   };
 

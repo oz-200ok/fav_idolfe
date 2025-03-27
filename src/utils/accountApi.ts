@@ -1,14 +1,18 @@
 import axios from 'axios';
-import instance from './axiosInstance';
 
 export const DuplicateCheck = async (
   type: 'email' | 'username' | 'phone',
   value: string,
 ) => {
   console.log('🔍 중복 확인 요청:', type, value);
-  const response = await axiosInstance.get('/account/check-duplicate/', {
-    params: { [type]: value },
-  });
+  //파라미터로 변경 필요
+  // 토큰 없는 부분은 인스턴스 쓸 필요 없음
+  const response = await axios.get(
+    'http://100.26.111.172/ilog/account/check-duplicate/',
+    {
+      params: { type, value },
+    },
+  );
   console.log('📩 응답 받음:', response.data);
 
   return response;
@@ -23,5 +27,6 @@ export interface SignupRequest {
 }
 
 export const signup = (data: SignupRequest) => {
-  return instance.post('/account/register/', data);
+  console.log('백엔드로 넘어가는', data);
+  return axios.post('http://100.26.111.172/ilog/account/register/', data);
 };
