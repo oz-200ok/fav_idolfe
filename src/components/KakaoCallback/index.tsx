@@ -12,8 +12,9 @@ function KakaoCallBack() {
     const code = new URL(window.location.href).searchParams.get('code');
 
     const fetchkakao = async (code: string | null) => {
-      if (!code) return;
-      await getKakaoToken(code);
+      if (code) {
+        await getKakaoToken(code);
+      }
     };
 
     fetchkakao(code);
