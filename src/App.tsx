@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import JoinIntro from './pages/JoinIntro';
 import Loginpage from './pages/Loginpage';
 import Main from './pages/Main.tsx';
 import Layout from './components/common/Layout.tsx';
@@ -8,6 +9,7 @@ import GroupAddpage from './pages/GroupAddpage/index.tsx';
 import Mypage from './pages/Mypage/index.tsx';
 import KakaoCallBack from './components/KakaoCallback/index.tsx';
 import NaverCallback from './components/NaverCallback/index.tsx';
+import JoinPage from './pages/Joinpage/index.tsx';
 
 import QuitPage from './pages/Quit/index.tsx';
 import QuitModal from './pages/QuitModal/index.tsx';
@@ -16,6 +18,8 @@ import GroupManagementPage from './pages/GroupManagementPage/index.tsx';
 import Modal from './components/scheduleAdd/modal.tsx';
 import GuestPage from './pages/GuestPage/index.tsx';
 import './App.scss';
+import Alarm from './pages/Alarm/index.tsx';
+import AdminUpload from './pages/AdminUpload/index.tsx';
 
 function App() {
   return (
@@ -32,9 +36,14 @@ function App() {
           path="/group_management_page"
           element={<GroupManagementPage />}
         />
+        <Route path="/schedule_alarm" element={<Alarm />} />
+        <Route path="/admin_upload" element={<AdminUpload />} />
       </Route>
       {/* ✅ 전체화면 전용, Layout 없이! */}
       <Route path="/guest" element={<GuestPage />} />
+      <Route path="/joinpage" element={<JoinPage />} />
+      <Route path="/joinintro" element={<JoinIntro />} />
+      <Route path="/loginpage" element={<Loginpage />} />
 
       <Route path="/quit_page" element={<QuitPage />} />
       <Route path="/login_page" element={<Loginpage />} />
