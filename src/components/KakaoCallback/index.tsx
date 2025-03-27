@@ -12,8 +12,9 @@ function KakaoCallBack() {
     const code = new URL(window.location.href).searchParams.get('code');
 
     const fetchkakao = async (code: string | null) => {
-      if (!code) return;
-      await getKakaoToken(code);
+      if (code) {
+        await getKakaoToken(code);
+      }
     };
 
     fetchkakao(code);
@@ -23,7 +24,7 @@ function KakaoCallBack() {
     console.log(code);
     try {
       const response = await axios.post(
-        'http://100.26.111.172/ilog/account/social-login/',
+        'https://ilog.giize.com/account/social-login/',
         {
           social_type: 'kakao',
           code: code,

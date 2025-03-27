@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create({
   //axiosInstance.get('/users') 를 쓰면 자동으로 아래 URL 로 넘어감
-  baseURL: 'http://100.26.111.172/ilog',
+  baseURL: 'https://ilog.giize.com/',
   headers: {
     'Content-Type': 'application/json',
   },
