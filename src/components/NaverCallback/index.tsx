@@ -12,9 +12,9 @@ function NaverCallback() {
     const code = new URL(window.location.href).searchParams.get('code');
 
     const fetchNaver = async (code: string | null) => {
-      if (!code) return;
-
-      await getNaverToken(code);
+      if (code) {
+        await getNaverToken(code);
+      }
     };
     fetchNaver(code);
   }, []);
