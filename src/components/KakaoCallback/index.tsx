@@ -24,7 +24,7 @@ function KakaoCallBack() {
     console.log(code);
     try {
       const response = await axios.post(
-        'http://100.26.111.172/ilog/account/social-login/',
+        'https://ilog.giize.com/account/social-login/',
         {
           social_type: 'kakao',
           code: code,
