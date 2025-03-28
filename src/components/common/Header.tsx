@@ -5,6 +5,7 @@ import './common.scss';
 import logo from '../../assets/9.png';
 import searchIcon from '../../assets/search.png';
 import logoutIcon from '../../assets/logout.png';
+import { useAuth } from '@/context/AuthContext';
 
 //헤더 컴포넌트 정의
 function Header() {
@@ -14,6 +15,7 @@ function Header() {
   // 검색 입력 값 상태
   const [searchQuery, setSearchQuery] = useState('');
 
+  const { markLoggedOut } = useAuth();
   const navigate = useNavigate();
 
   // 검색어 업데이트 함수
@@ -22,7 +24,9 @@ function Header() {
   };
 
   const handleLogout = () => {
+    markLoggedOut();
     setUserRole('guest');
+    navigate('/guest');
   };
 
   return (
