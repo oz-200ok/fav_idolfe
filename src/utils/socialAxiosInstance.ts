@@ -6,7 +6,6 @@ const socialAxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true,
 });
 
 //config - axios 내부에서 만들어서 인터셉터 함수로 넘겨주는 것.
@@ -14,8 +13,11 @@ const socialAxiosInstance = axios.create({
 socialAxiosInstance.interceptors.request.use((config) => {
   console.log('🛰️ 요청 인터셉터 작동!');
   console.log('요청 URL:', config.url);
-  console.log('withCredentials:', config.withCredentials);
 
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
 

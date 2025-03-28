@@ -15,13 +15,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const markLoggedIn = (access_token: string, refresh_token: string) => {
     setIsLoggedIn(true);
     console.log(document.cookie);
-    document.cookie = `access_token=${access_token}; path=/; max-age=3600`;
-    document.cookie = `refresh_token=${refresh_token}; path=/; max-age=2592000`;
+
+    localStorage.setItem('access_token', access_token);
+    localStorage.setItem('refresh_token', refresh_token);
   };
+
   const markLoggedOut = () => {
     setIsLoggedIn(false);
-    document.cookie = `access_token=; path=/; max-age=0`;
-    document.cookie = `refresh_token=; path=/; max-age=0`;
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
   };
 
   return (
