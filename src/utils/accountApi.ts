@@ -8,7 +8,7 @@ export const DuplicateCheck = async (
   //파라미터로 변경 필요
   // 토큰 없는 부분은 인스턴스 쓸 필요 없음
   const response = await axios.get(
-    'http://100.26.111.172/ilog/account/check-duplicate/',
+    'https://ilog.giize.com/ilog/account/check-duplicate/',
     {
       params: { type, value },
     },
@@ -28,5 +28,5 @@ export interface SignupRequest {
 
 export const signup = (data: SignupRequest) => {
   console.log('백엔드로 넘어가는', data);
-  return axios.post('http://100.26.111.172/ilog/account/register/', data);
+  return axios.post('https://ilog.giize.com/ilog/account/register/', data);
 };

@@ -35,7 +35,7 @@ socialAxiosInstance.interceptors.response.use(
       //originalRequest 에 retry를 붙이는 이유는 이 요청은 한 번 했으니 더는 하지 말라는 의미로 붙여놓음
       originalRequest._retry = true;
     }
-  },
+  },  
 );
 
 export default socialAxiosInstance;

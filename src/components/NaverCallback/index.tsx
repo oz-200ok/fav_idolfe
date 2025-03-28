@@ -22,7 +22,7 @@ function NaverCallback() {
   const getNaverToken = async (code: string) => {
     try {
       const response = await axios.post(
-        'http://100.26.111.172/ilog/account/social-login/',
+        'https://ilog.giize.com/ilog/account/social-login/',
         {
           social_type: 'naver',
           code: code,
