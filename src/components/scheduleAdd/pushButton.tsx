@@ -1,11 +1,12 @@
-import { T_Modal } from '.';
+import { T_use_Modal } from '../Schedule/type';
 
-export default function PushButton(props: T_Modal) {
+export default function PushButton(props: T_use_Modal) {
   return (
     <div className="div_cancelDone">
       <button
         className="button_cancel"
         onClick={() => {
+          if (!props.setModal) return;
           props.setModal(false);
           document.body.classList.remove('body_modalOverlay');
         }}
