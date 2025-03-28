@@ -4,6 +4,7 @@ import { T_use_Date, T_use_ScheduleType } from '../type';
 type T_ViewYearly_Props = T_use_Date & T_use_ScheduleType;
 
 export default function ViewYearly(props: T_ViewYearly_Props) {
+  if (!props.setDate) return;
   return (
     <Calendar
       view="month"
@@ -12,7 +13,7 @@ export default function ViewYearly(props: T_ViewYearly_Props) {
       prevLabel={null}
       next2Label={null}
       prev2Label={null}
-      onChange={props.setDate}
+      onChange={() => props.setDate}
       value={props.date}
       calendarType="gregory"
       formatMonthYear={(_, date) => {
@@ -22,7 +23,7 @@ export default function ViewYearly(props: T_ViewYearly_Props) {
         return date.toLocaleString('en', { day: 'numeric' });
       }}
       onClickDay={(value) => {
-        if (!props.setScheduleType) return;
+        if (!props.setScheduleType || !props.setDate) return;
         props.setDate(value);
         props.setScheduleType('월');
       }}

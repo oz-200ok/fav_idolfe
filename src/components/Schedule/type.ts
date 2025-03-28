@@ -6,8 +6,7 @@ type T_SetUseState<T> = Dispatch<SetStateAction<T>>;
 
 // useState 관련
 type T_useState_date_s = Date;
-type T_useState_setDate_s = any; //Date값의 변수와 Value 함수를 받는 값
-// type T_useState_setDate_s = ((value:Value, event?:React.MouseEvent<HTMLButtonElement>) => void)
+type T_useState_setDate_s = T_SetUseState<T_useState_date_s>
 
 type T_useState_modal_s = boolean;
 type T_useState_setModal_s = T_SetUseState<T_useState_modal_s>;
