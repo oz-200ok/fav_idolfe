@@ -17,6 +17,7 @@ socialAxiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem('access_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
+    console.log('🛰️ 요청에 토큰 붙임:', config.headers.Authorization); // ✅ 요거!
   }
   return config;
 });
