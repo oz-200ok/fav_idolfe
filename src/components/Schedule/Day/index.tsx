@@ -16,8 +16,8 @@ type T_Day_Props = T_use_Date & T_use_Modal & T_use_ScheduleType;
 
 export default function Day(props: T_Day_Props) {
   const [scheduleData, setScheduleData] = useState<string[]>([
-    '안녕하세요',
-    '하이',
+    // '안녕하세요',
+    // '하이',
   ]);
 
   return (
