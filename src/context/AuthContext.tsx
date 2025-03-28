@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const markLoggedIn = (access_token: string, refresh_token: string) => {
     setIsLoggedIn(true);
-
+    console.log(document.cookie);
     document.cookie = `access_token=${access_token}; path=/; max-age=3600`;
     document.cookie = `refresh_token=${refresh_token}; path=/; max-age=2592000`;
   };
