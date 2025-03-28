@@ -1,62 +1,106 @@
 // joinIntro.scss
+.join_container {
+  display: flex;
+  width: 100%;
+  height: 100%;
 
-.join_intro_form {
-  max-width: 400px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f4f4f9;
 
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: #333;
-  }
+  .join_intro_form {
+    width: 500px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
 
-  p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 2rem;
-  }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
 
-  .btn_container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    .join_button {
-      padding: 0.8rem 1rem;
-      border: none;
-      border-radius: 6px;
+    p {
       font-size: 1rem;
-      cursor: pointer;
-      color: #fff;
-      transition: background-color 0.3s ease;
+      color: #555;
+      margin-bottom: 2rem;
     }
 
-    .defaultBtn {
-      background-color: #28a745;
+    .btn_container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
 
-      &:hover {
-        background-color: #218838;
+      .join_button {
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        color: #fff;
+        transition: background-color 0.3s ease;
       }
-    }
 
-    .googleBtn {
-      background-color: #db4437;
+      .defaultBtn {
+        background-color: #6a5096;
 
-      &:hover {
-        background-color: #c1351d;
+        &:hover {
+          background-color: rgba(108, 99, 255, 0.5);
+        }
       }
-    }
 
-    .navertBtn {
-      background-color: #03c75a;
+      .googleBtn {
+        background-color: #db4437;
 
-      &:hover {
-        background-color: #02b14a;
+        &:hover {
+          background-color: #c1351d;
+        }
+      }
+
+      .navertBtn {
+        background-color: #03c75a;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        width: 100%;
+        height: 48px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #02a64d;
+        }
+      }
+
+      .kakaoBtn {
+        background-color: #fee500;
+        color: #3c1e1e;
+        border: none;
+        padding: 12px 24px;
+        width: 100%;
+        height: 48px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #fdd835;
+        }
       }
     }
   }

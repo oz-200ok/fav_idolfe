@@ -1,10 +1,15 @@
-import './joinpage.scss';
 //import { z } from 'zod';
+import axios from 'axios';
+
+import './joinpage.scss';
 import { useForm } from 'react-hook-form';
-//import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
-import { useDuplicateCheck } from '../../hooks/useDuplicateCheck';
+
+import { DuplicateCheck } from '@/utils/accountApi';
+import { signup } from '@/utils/accountApi';
+import { useNavigate } from 'react-router-dom';
 
 export interface JoinFormValues {
   email: string;
@@ -16,29 +21,58 @@ export interface JoinFormValues {
 }
 
 function JoinPage() {
+  const [isChecked, setIsChecked] = useState({
+    email: false,
+    username: false,
+    phone: false,
+  });
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<JoinFormValues>();
+  } = useForm<JoinFormValues>({ mode: 'onChange' });
 
   const password = watch('password', '');
   const email = watch('email', '');
-  //const username = watch('username', '');
-  //const phone = watch('phone', '');
+  const username = watch('username', '');
+  const phone = watch('phone', '');
 
-  const { DuplicateCheck } = useDuplicateCheck();
+  const handleDuplicateCheck = async (
+    type: 'email' | 'username' | 'phone',
+    value: string,
+  ) => {
+    let label = '';
 
-  const handleEmailCheck = () => {
-    console.log('📨 이메일 값:', email);
+    if (type === 'email') {
+      label = '이메일';
+    } else if (type === 'username') {
+      label = '닉네임';
+    } else if (type === 'phone') {
+      label = '전화번호';
+    }
 
-    if (!email) {
-      alert('이메일을 입력해주세요!');
+    if (!value) {
+      alert(`${label}을 입력해주세요!`);
       return;
     }
 
-    DuplicateCheck(email); // 👉 예시: 이메일을 하드코딩해서라도 테스트!
+    try {
+      await DuplicateCheck(type, value);
+      alert('사용 가능한 값 입니다!');
+
+      setIsChecked((prev) => ({ ...prev, [type]: true }));
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const message =
+          err.response?.data?.[type]?.[0] || `이미 사용중인 ${label}입니다.`;
+        alert(`❌${message}`);
+      } else {
+        ('알 수 없는 에러가 발생 했습니다.');
+      }
+      setIsChecked((prev) => ({ ...prev, [type]: false }));
+    }
   };
 
   const passwordStrength = (() => {
@@ -80,22 +114,35 @@ function JoinPage() {
     return '';
   })();
 
-  const onSubmit = (data: JoinFormValues) => {
-    // 로직 추가 예정
-    console.log(data);
+  const onSubmit = async (data: JoinFormValues) => {
+    if (!isChecked.email || !isChecked.username || !isChecked.phone) {
+      alert('모든 중복 확인을 완료해주세요!');
+      return;
+    }
+
+    const { passwordConfirm, ...rest } = data;
+
+    try {
+      await signup(rest);
+      navigate('/login_page');
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
     <>
       <Header />
       <div className="joinpage_container">
-        <button type="button" onClick={handleEmailCheck}>
-          이메일 중복 테스트
-        </button>
         <form className="join_form" onSubmit={handleSubmit(onSubmit)}>
           <h1> 회원가입 </h1>
           <div className="input-group">
-            <label htmlFor="email">아이디</label>
+            <label htmlFor="email">
+              아이디
+              {errors.email && (
+                <p className="warning"> {errors.email.message}</p>
+              )}
+            </label>
             <div className="inline-group">
               <input
                 className="join_input"
@@ -118,8 +165,12 @@ function JoinPage() {
                   },
                 })}
               />
-              {errors.email && <p>{errors.email.message}</p>}
-              <button>중복확인</button>
+              <button
+                type="button"
+                onClick={() => handleDuplicateCheck('email', email)}
+              >
+                {isChecked.email ? '확인 완료' : '중복확인'}
+              </button>
             </div>
           </div>
           <div className="input-group">
@@ -224,14 +275,19 @@ function JoinPage() {
                   maxLength: 10,
                 })}
               />
-              <button>중복확인</button>
+              <button
+                type="button"
+                onClick={() => handleDuplicateCheck('username', username)}
+              >
+                {isChecked.username ? '확인 완료' : '중복확인'}
+              </button>
             </div>
           </div>
           <div className="input-group">
             <label htmlFor="phone">
               전화번호
               {errors.phone && (
-                <p className="phone_warning">{errors.phone.message}</p>
+                <p className="warning">{errors.phone.message}</p>
               )}
             </label>
             <div className="inline-group">
@@ -247,7 +303,12 @@ function JoinPage() {
                   },
                 })}
               />
-              <button type="button">중복확인</button>
+              <button
+                type="button"
+                onClick={() => handleDuplicateCheck('phone', phone)}
+              >
+                {isChecked.phone ? '확인 완료' : '중복확인'}
+              </button>
             </div>
           </div>
 

@@ -1,21 +1,47 @@
-import { useState } from 'react';
-import LabeledInput from './LabeledInput'; // 컴포넌트 import 수정
+import { useState, useEffect } from 'react';
+import LabeledInput from './LabeledInput';
 import './GroupEdit.scss';
 import { MemberType, InputFieldType } from './GroupEdit';
+import { saveGroup, getGroup, deleteGroup } from '@/utils/group';
 
 const GroupEdit = () => {
   const [groupName, setGroupName] = useState('');
   const [agency, setAgency] = useState('');
   const [snsLink, setSnsLink] = useState('');
   const [groupImage, setGroupImage] = useState<string | null>(null);
-  const [_groupImageFile, setGroupImageFile] = useState<File | null>(null); // 나중에 _제거
+  const [_groupImageFile, setGroupImageFile] = useState<File | null>(null);
 
   const [memberName, setMemberName] = useState('');
   const [memberImage, setMemberImage] = useState<string | null>(null);
   const [memberImageFile, setMemberImageFile] = useState<File | null>(null);
   const [members, setMembers] = useState<MemberType[]>([]);
 
-  // 그룹 이미지 업로드
+  const accessToken = 'access-token'; // 로그인 상태에서 가져와야 함
+  const groupId = 1;
+
+  useEffect(() => {
+    const fetchGroup = async () => {
+      try {
+        const data = await getGroup(groupId, accessToken);
+        setGroupName(data.group_name);
+        setAgency(data.agency_name);
+        setSnsLink(data.sns_links?.instagram || '');
+        setGroupImage(data.group_image);
+        setMembers(
+          data.members.map((m: any, idx: number) => ({
+            id: idx,
+            name: m.name,
+            image: m.image,
+            imageFile: null,
+          })),
+        );
+      } catch (error) {
+        console.error('불러오기 실패:', error);
+      }
+    };
+    fetchGroup();
+  }, []);
+
   const handleGroupImageUpload = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -26,7 +52,6 @@ const GroupEdit = () => {
     }
   };
 
-  // 멤버 이미지 업로드
   const handleMemberImageUpload = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -37,7 +62,6 @@ const GroupEdit = () => {
     }
   };
 
-  // 멤버 추가
   const handleAddMember = () => {
     if (!memberName.trim() || !memberImage) return;
     setMembers((prev) => [
@@ -54,12 +78,50 @@ const GroupEdit = () => {
     setMemberImageFile(null);
   };
 
-  // 멤버 삭제
   const handleRemoveMember = (id: number) => {
     setMembers((prev) => prev.filter((member) => member.id !== id));
   };
 
-  // 공통 input 필드 배열
+  const handleSaveGroup = async () => {
+    if (!groupName.trim() || !agency.trim()) {
+      alert('그룹명과 소속사는 필수입니다!');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('name', groupName);
+    formData.append('agency_name', agency);
+    formData.append('sns', snsLink);
+    formData.append('color', '#C88DDD');
+    if (_groupImageFile) formData.append('group_image', _groupImageFile);
+    formData.append('member_count', String(members.length));
+
+    members.forEach((member, idx) => {
+      formData.append(`member_name_${idx + 1}`, member.name);
+      if (member.imageFile) {
+        formData.append(`member_image_${idx + 1}`, member.imageFile);
+      }
+    });
+
+    try {
+      await saveGroup(formData, accessToken);
+      alert('그룹 저장 성공!');
+    } catch (error) {
+      console.error(error);
+      alert('저장 실패');
+    }
+  };
+
+  const handleDeleteGroup = async () => {
+    try {
+      await deleteGroup(groupId, accessToken);
+      alert('그룹 삭제 성공!');
+    } catch (error) {
+      console.error(error);
+      alert('삭제 실패');
+    }
+  };
+
   const inputFields: InputFieldType[] = [
     {
       label: '그룹명',
@@ -86,7 +148,6 @@ const GroupEdit = () => {
 
   return (
     <div className="group_edit">
-      {/* 왼쪽 - 그룹 이미지 및 기본 정보 */}
       <div className="group_edit_left">
         <div className="group_edit_image">
           <label htmlFor="groupImageUpload">
@@ -102,7 +163,6 @@ const GroupEdit = () => {
           />
         </div>
 
-        {/* 공통 input 필드 렌더링 */}
         {inputFields.map((field, idx) => (
           <LabeledInput
             key={idx}
@@ -114,7 +174,6 @@ const GroupEdit = () => {
         ))}
       </div>
 
-      {/* 오른쪽 - 멤버 추가 및 목록 */}
       <div className="group_edit_right">
         <h3>멤버 추가</h3>
         <div className="member_add">
@@ -159,10 +218,13 @@ const GroupEdit = () => {
         </div>
       </div>
 
-      {/* 하단 버튼 */}
       <div className="group_edit_actions">
-        <button className="delete">그룹 삭제</button>
-        <button className="save">수정 완료</button>
+        <button className="delete" onClick={handleDeleteGroup}>
+          그룹 삭제
+        </button>
+        <button className="save" onClick={handleSaveGroup}>
+          수정 완료
+        </button>
       </div>
     </div>
   );

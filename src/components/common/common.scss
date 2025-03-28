@@ -12,6 +12,7 @@ main {
   width: 80vw; /* 메인 영역을 80%로 꽉 차게 설정 */
   min-height: 80vh; /* 필요하면 높이도 설정 */
   flex-grow: 1;
+  background-color: #fff;
 }
 
 /* HEADER */
