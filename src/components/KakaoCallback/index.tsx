@@ -1,13 +1,14 @@
 import { useAuth } from '@/context/AuthContext';
 import axios from 'axios';
 import socialAxiosInstance from '@/utils/socialAxiosInstance';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function KakaoCallBack() {
   const navigate = useNavigate();
   const { markLoggedIn } = useAuth();
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
 
@@ -40,10 +41,18 @@ function KakaoCallBack() {
       navigate('/');
     } catch (error) {
       console.log('토큰 요청 실패 ❌', error);
+      setError('로그인 실패! 다시 시도해주세요.');
+    } finally {
+      setLoading(false);
     }
   };
 
-  return <></>;
+  return (
+    <>
+      {loading && <div>🔐 카카오 로그인 처리 중입니다...</div>}
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+    </>
+  );
 }
 
 export default KakaoCallBack;
