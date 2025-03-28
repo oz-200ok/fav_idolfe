@@ -1,10 +1,6 @@
 import './scheduleAdd.scss';
 
-type props = {
-  text: string;
-};
-
-export default function TextInput({ text }: props) {
+export default function TextInput({ text }: {text:string}) {
   let inputClassName: string;
   if (text === '제목') inputClassName = 'title';
   else inputClassName = 'schedule';

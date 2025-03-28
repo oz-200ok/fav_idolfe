@@ -64,7 +64,6 @@ export function LIST({ memberAdded }: { memberAdded: Set<string> }) {
   return (
     <ul className="ul_memberBox">
       {[...memberAdded].map((member, index) => {
-        console.log(123);
         return (
           <button onClick={() => {}} key={index}>
             <img src="" alt={member} />

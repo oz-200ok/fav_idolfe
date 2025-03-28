@@ -1,7 +1,9 @@
 import Calendar from 'react-calendar';
-import { T_YearlyProps } from '.';
+import { T_use_Date, T_use_ScheduleType } from '../type';
 
-export default function ViewYearly(props: T_YearlyProps) {
+type T_ViewYearly_Props = T_use_Date & T_use_ScheduleType;
+
+export default function ViewYearly(props: T_ViewYearly_Props) {
   return (
     <Calendar
       view="month"
@@ -10,8 +12,8 @@ export default function ViewYearly(props: T_YearlyProps) {
       prevLabel={null}
       next2Label={null}
       prev2Label={null}
-      onChange={props.onChange}
-      value={props.value}
+      onChange={props.setDate}
+      value={props.date}
       calendarType="gregory"
       formatMonthYear={(_, date) => {
         return `${date.getMonth() + 1}`;
@@ -20,9 +22,8 @@ export default function ViewYearly(props: T_YearlyProps) {
         return date.toLocaleString('en', { day: 'numeric' });
       }}
       onClickDay={(value) => {
-        console.log('연간에서 해당 값으로 변경됨', value);
-        props.onChange(value);
-        console.log('현재 적용된 값=', props.value);
+        if (!props.setScheduleType) return;
+        props.setDate(value);
         props.setScheduleType('월');
       }}
     />

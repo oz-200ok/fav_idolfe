@@ -3,13 +3,9 @@ import './scheduleAdd.scss';
 import ListBox from './listBox';
 import DayTimeUI from './dayTime';
 import PushButton from './pushButton';
-import { Dispatch, SetStateAction } from 'react';
+import { T_use_Modal } from '../Schedule/type';
 
-export type T_Modal = {
-  setModal: Dispatch<SetStateAction<boolean>>;
-};
-
-export default function Modal(props: T_Modal) {
+export default function Modal(props: T_use_Modal) {
   return (
     <div className="dev_overlay">
       <div className="dev_centainer">
