@@ -3,9 +3,14 @@ import '../schedule.scss';
 import './yearly.scss';
 import ViewYearly from './ViewYearly';
 import { Value } from 'react-calendar/src/shared/types.js';
-import { T_Value } from '..';
+import { T_Schedule, T_Value } from '..';
+import { Dispatch, SetStateAction } from 'react';
 
-export default function Schedule(props: T_Value<Value>) {
+export type T_YearlyProps = T_Value<Value> & {
+  setScheduleType: Dispatch<SetStateAction<T_Schedule>>;
+};
+
+export default function Yearly(props: T_YearlyProps) {
   const emptyArray = new Array(12).fill('');
 
   return (
@@ -15,7 +20,12 @@ export default function Schedule(props: T_Value<Value>) {
         if (props.value instanceof Date) {
           const date = new Date(props.value.getFullYear(), index, 1);
           return (
-            <ViewYearly key={index} value={date} onChange={props.onChange} />
+            <ViewYearly
+              key={index}
+              value={date}
+              onChange={props.onChange}
+              setScheduleType={props.setScheduleType}
+            />
           );
         }
       })}
