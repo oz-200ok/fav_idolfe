@@ -35,6 +35,8 @@ function NaverCallback() {
 
       const res = await socialAxiosInstance.get('/account/me/');
 
+      console.log(res);
+
       navigate('/');
     } catch (error) {
       console.log('토큰 요청 실패 ❌', error);
