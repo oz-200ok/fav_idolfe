@@ -13,7 +13,7 @@ export default function Weekly(props: T_use_Date) {
         locale="ko"
         next2Label={null}
         prev2Label={null}
-        onChange={props.setDate}
+        onChange={() => props.setDate}
         className="calendar_weekly"
         value={props.date}
         showNeighboringMonth={false}

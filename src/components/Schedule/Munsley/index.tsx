@@ -14,7 +14,7 @@ export default function Munsley(props: T_Munsley_Props) {
         className="calendar_munsley"
         next2Label={null}
         prev2Label={null}
-        onChange={props.setDate}
+        onChange={() => props.setDate}
         value={props.date}
         calendarType="gregory"
         onClickDay={() => {
