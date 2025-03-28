@@ -6,6 +6,7 @@ import axios from 'axios';
 import logo from '../../assets/9.png';
 import searchIcon from '../../assets/search.png';
 import logoutIcon from '../../assets/logout.png';
+import { useAuth } from '@/context/AuthContext';
 //더미데이터
 import image_file from '@assets/aespa-logo.png';
 
@@ -36,6 +37,7 @@ function Header() {
   // 드롭다운 표시 여부
   const [showDropdown, setShowDropdown] = useState(false);
 
+  const { markLoggedOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation(); //현재 경로 확인
 
@@ -146,10 +148,10 @@ function Header() {
   };
 
   //로그아웃: 토큰 삭제 후 로그인 페이지로 이동
-  const handleLogout = async () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+  const handleLogout = () => {
+    markLoggedOut();
     setUserRole('guest');
+    navigate('/guest');
   };
 
   // 테스트용 버튼 클릭 시 userRole을 변경하는 함수
