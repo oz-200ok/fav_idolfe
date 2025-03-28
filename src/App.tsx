@@ -24,7 +24,6 @@ import { useEffect } from 'react';
 
 function App() {
   return (
-  
     <Routes>
       {/* 🔥 Layout을 적용할 부모 Route 추가 */}
       <Route element={<Layout />}>
@@ -43,9 +42,9 @@ function App() {
       </Route>
       {/* ✅ 전체화면 전용, Layout 없이! */}
       <Route path="/guest" element={<GuestPage />} />
-      <Route path="/joinpage" element={<JoinPage />} />
+      <Route path="/join_page" element={<JoinPage />} />
       <Route path="/joinintro" element={<JoinIntro />} />
-      <Route path="/loginpage" element={<Loginpage />} />
+      <Route path="/login_page" element={<Loginpage />} />
 
       <Route path="/quit_page" element={<QuitPage />} />
       <Route path="/login_page" element={<Loginpage />} />

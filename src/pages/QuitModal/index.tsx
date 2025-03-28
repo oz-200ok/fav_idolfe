@@ -86,7 +86,7 @@ function QuitModal() {
             {/* 로딩 중에는 '탈퇴 중...'으로 변경 */}
           </button>
           {/* 취소버튼 클릭시 마이페이지로*/}
-          <button onClick={() => navigate('/mypage')} className="cancel_btn">
+          <button onClick={() => navigate('/my_page')} className="cancel_btn">
             취소
           </button>
         </div>
