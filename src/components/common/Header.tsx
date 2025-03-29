@@ -9,6 +9,7 @@ import logoutIcon from '../../assets/logout.png';
 import { useAuth } from '@/context/AuthContext';
 import UserInstance from '@/utils/UserInstance';
 import { apiConfig } from '@/utils/apiConfig';
+import { getRegExp } from 'korean-regexp';
 
 //헤더 컴포넌트 정의
 function Header() {
@@ -91,15 +92,29 @@ function Header() {
       const response = await searchGroup.get(`/idol/groups/?name=${query}`);
 
       //검색결과 데이터를 상태에 저장
-      setSearchResults(response.data);
+      const filteredData = filterDataByKoreanQuery(response.data, query); // 필터링 데이터 저장
+      setSearchResults(filteredData);
       //결과가 있으면 드롭다운표시
       setShowDropdown(true);
     } catch (error) {
       //api 호출실패시 에러 출력, 드롭다운에 검색결과가 없습니다. 표시
       console.error('검색 제안 API 실패:', error);
       setSearchResults([]);
-      setShowDropdown(false);
+      setShowDropdown(true);
     }
+  };
+
+  // 검색 결과 필터링 (한글 입력에 대한 정규식 활용)
+  const filterDataByKoreanQuery = (data: any[], query: string) => {
+    if (!query.trim()) return data; // 빈 검색어 필터링하지 않음
+
+    // getRegExp로 한글 정규식 생성
+    const koreanQuery = getRegExp(query);
+
+    return data.filter((dataItem) => {
+      // dataItem.name이 정규식과 매칭되는지 확인
+      return koreanQuery.test(dataItem.name);
+    });
   };
 
   //엔터키입력 검색결과 클릭시 검색결과페이지이동
@@ -275,7 +290,6 @@ function Header() {
             </div>
 
             {/* 버튼들 */}
-
             <button
               className="add_Button"
               onClick={() => {
