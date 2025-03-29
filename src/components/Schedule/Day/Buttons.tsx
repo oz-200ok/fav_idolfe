@@ -1,8 +1,8 @@
-import { T_Schedules } from '.';
-import { T_use_Modal, T_use_ScheduleType } from '../type';
+import { T_use_Date, T_use_Modal, T_use_ScheduleType } from '../type';
 import './Day.scss';
+import { data } from './data';
 
-type T_ViewDay_Props = T_Schedules & T_use_Modal & T_use_ScheduleType;
+type T_ViewDay_Props = T_use_Date & T_use_Modal & T_use_ScheduleType;
 
 export default function Buttons(props: T_ViewDay_Props) {
   return (
@@ -14,7 +14,7 @@ export default function Buttons(props: T_ViewDay_Props) {
           props.setScheduleType('월');
         }}
       >{`<`}</button>
-      {props.schedules?.length !== 0 ? (
+      {data?.length !== 0 ? (
         <>
           <button
             className="button_defult button_add"
