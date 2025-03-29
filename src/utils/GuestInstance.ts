@@ -11,7 +11,6 @@ export interface I_LoginRequest {
   password: string;
 }
 
-
 // 로그인 할 때 함수 로직
 export const login = async ({ email, password }: I_LoginRequest) => {
   const response = await GuestInstance.post('/account/login/', {
