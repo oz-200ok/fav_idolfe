@@ -1,4 +1,4 @@
-import axios from './socialAxiosInstance';
+import axios from './UserInstance';
 
 // 그룹 생성
 export const saveGroup = async (formData: FormData, token: string) => {

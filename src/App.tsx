@@ -42,7 +42,7 @@ function App() {
       {/* ✅ 전체화면 전용, Layout 없이! */}
       <Route path="/guest" element={<GuestPage />} />
       <Route path="/join_page" element={<JoinPage />} />
-      <Route path="/joinintro" element={<JoinIntro />} />
+      <Route path="/join_intro" element={<JoinIntro />} />
       <Route path="/login_page" element={<Loginpage />} />
 
       <Route path="/quit_page" element={<QuitPage />} />
