@@ -18,7 +18,7 @@ function JoinIntro() {
           <div className="btn_container">
             <button
               onClick={() => {
-                navigate('/joinpage');
+                navigate('/join_page');
               }}
               className="join_button defaultBtn"
             >
