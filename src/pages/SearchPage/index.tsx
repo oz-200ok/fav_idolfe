@@ -46,7 +46,7 @@ export default function SearchPage() {
     //   fetchSearchResults()
 
       //더미데이터 api가져오면 삭제하기
-      setGroupList(ListMexPlus(group, 0));
+      // setGroupList(ListMexPlus(group, 0));
     }, [keyword]);
 
   //추천그룹데이터
@@ -65,7 +65,7 @@ export default function SearchPage() {
     //   fetchRecommendGroups()
 
       //api불러오면 삭제 -임시데이터
-      setRecommendGroups(recommendGroup)
+      // setRecommendGroups(recommendGroup)
     },[keyword])
 
     //더보기 버튼클릭시 추천그룹 추가로 로드

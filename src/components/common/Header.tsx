@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './common.scss';
 import axios from 'axios';
 
@@ -7,32 +7,18 @@ import logo from '../../assets/9.png';
 import searchIcon from '../../assets/search.png';
 import logoutIcon from '../../assets/logout.png';
 import { useAuth } from '@/context/AuthContext';
-//더미데이터
-import image_file from '@assets/aespa-logo.png';
+import UserInstance from '@/utils/UserInstance';
+import { apiConfig } from '@/utils/apiConfig';
 
 //헤더 컴포넌트 정의
 function Header() {
-  // userRole 상태: 로그인 상태라면 'user' 또는 'admin' 값이 들어옴, 로그인 전에는 null
-  const [userRole, setUserRole] = useState<string>('guest');
+  // userRole 상태: 로그인 상태라면 'user' 또는 'admin' 값이 들어옴
+  const [userRole, setUserRole] = useState<string | null>(null);
   // 기본값: "guest" = 로그인 전  "user" = 일반 사용자 로그인 후 "admin" = 관리자 로그인 후
   // 검색 입력 값 상태
   const [searchQuery, setSearchQuery] = useState('');
   // 상태: 드롭다운에 표시할 검색 제안 결과 배열 any[] 타입으로 지정하여 'name' 속성 사용 가능
   const [searchResults, setSearchResults] = useState<any[]>([]);
-
-  //더미데이터 데이터들어오면 삭제
-  const dummyData = [
-    { id: 1, name: '에스파', image_file: image_file },
-    { id: 2, name: '에이프릴', image_file: image_file },
-    { id: 3, name: '에이핑크', image_file: image_file },
-    { id: 4, name: '에취', image_file: image_file },
-    { id: 5, name: '에큥', image_file: image_file },
-    { id: 6, name: '에헤이', image_file: image_file },
-    { id: 7, name: '에이치', image_file: image_file },
-    { id: 8, name: '에헤라디아', image_file: image_file },
-    { id: 9, name: '에이요', image_file: image_file },
-    { id: 10, name: '에베베베', image_file: image_file },
-  ];
 
   // 드롭다운 표시 여부
   const [showDropdown, setShowDropdown] = useState(false);
@@ -52,12 +38,7 @@ function Header() {
       }
       try {
         // 사용자의 정보를 가져오는 api호출
-        const response = await axios.get(
-          'http://100.26.111.172/swagger/account/me',
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
+        const response = await UserInstance.get('/account/me/');
 
         //{ isAdmin: true } 또는 { isAdmin: false } 반환
         const is_Admin = response.data.is_Admin; // 백엔드가 { is_Admin: true } 또는 { is_Admin: false } 반환
@@ -75,17 +56,13 @@ function Header() {
 
   //userRole 'guest'이면 해당페이지로 이동
   useEffect(() => {
+    if (userRole === null) return;
     //현재 페이지가 로그인이나 회원가입이라면 게스트페이지로 옮겨지는 것을 막음
     if (
       userRole === 'guest' &&
       location.pathname !== '/login_page' &&
-      location.pathname !== '/joinpage' &&
-      location.pathname !== '/guest' && //무한이동방지
-      //테스트 끝나면 지우기
-      location.pathname !== '/my_page' &&
-      location.pathname !== '/quit_page' &&
-      location.pathname !== '/quit_modal' &&
-      location.pathname !== '/search_page'
+      location.pathname !== '/join_page' &&
+      location.pathname !== '/guest' //무한이동방지
     ) {
       navigate('/guest');
     }
@@ -108,30 +85,21 @@ function Header() {
       return;
     }
 
-    // 🔽 더미 데이터 사용 (API 연결 시 제거)
-    const filteredResults = dummyData.filter((item) =>
-      item.name.includes(query),
-    );
-    setSearchResults(filteredResults);
-    setShowDropdown(filteredResults.length > 0);
+    try {
+      //검색어와 일치하는 제안을 가져옴
+      const searchGroup = axios.create(apiConfig);
+      const response = await searchGroup.get(`/idol/groups/?name=${query}`);
 
-    //실제 api 요청
-    // try {
-    //   //검색어와 일치하는 제안을 가져옴
-    //   const response = await axios.get(
-    //     `http://100.26.111.172/idol/groups/?name=${query}`,
-    //   );
-
-    //   //검색결과 데이터를 상태에 저장
-    //   setSearchResults(response.data);
-    //   //결과가 있으면 드롭다운표시
-    //   setShowDropdown(true);
-    // } catch (error) {
-    //   //api 호출실패시 에러 출력, 드롭다운에 검색결과가 없습니다. 표시
-    //   console.error('검색 제안 API 실패:', error);
-    //   setSearchResults([]);
-    //   setShowDropdown(false);
-    // }
+      //검색결과 데이터를 상태에 저장
+      setSearchResults(response.data);
+      //결과가 있으면 드롭다운표시
+      setShowDropdown(true);
+    } catch (error) {
+      //api 호출실패시 에러 출력, 드롭다운에 검색결과가 없습니다. 표시
+      console.error('검색 제안 API 실패:', error);
+      setSearchResults([]);
+      setShowDropdown(false);
+    }
   };
 
   //엔터키입력 검색결과 클릭시 검색결과페이지이동
@@ -151,12 +119,6 @@ function Header() {
   const handleLogout = () => {
     markLoggedOut();
     setUserRole('guest');
-    navigate('/guest');
-  };
-
-  // 테스트용 버튼 클릭 시 userRole을 변경하는 함수
-  const changeUserRole = (role: string) => {
-    setUserRole(role);
   };
 
   return (
@@ -176,12 +138,22 @@ function Header() {
         {userRole === 'guest' && (
           <div className="nav_Links">
             {/* 버튼들 */}
-            <Link to="/login_page">
-              <button className="login_Button">로그인</button>
-            </Link>
-            <Link to="/join_page">
-              <button className="signup_Button">회원가입</button>
-            </Link>
+            <button
+              className="login_Button"
+              onClick={() => {
+                navigate('/login_page');
+              }}
+            >
+              로그인
+            </button>
+            <button
+              className="signup_Button"
+              onClick={() => {
+                navigate('/join_page');
+              }}
+            >
+              회원가입
+            </button>
           </div>
         )}
         {/* 일반 사용자 */}
@@ -214,12 +186,6 @@ function Header() {
                         // 드롭다운 항목 클릭 시 검색 결과 페이지로 이동
                         onClick={() => handleSearchSubmit()}
                       >
-                        <img
-                          // src={result.image_file}
-                          src={image_file}
-                          alt={result.name}
-                          className="dropdown_img"
-                        />
                         <div className="dropdown_text">{result.name}</div>
                       </div>
                     ))
@@ -243,9 +209,14 @@ function Header() {
             </div>
 
             {/* 버튼들 */}
-            <Link to="/my_page">
-              <button className="page_Button">마이페이지</button>
-            </Link>
+            <button
+              className="page_Button"
+              onClick={() => {
+                navigate('/my_page');
+              }}
+            >
+              마이페이지
+            </button>
             <button onClick={handleLogout} className="logout_Button">
               <img src={logoutIcon} alt="로그아웃" className="logout_Icon" />
             </button>
@@ -281,12 +252,6 @@ function Header() {
                         // 드롭다운 항목 클릭 시 검색 결과 페이지로 이동
                         onClick={() => handleSearchSubmit()}
                       >
-                        <img
-                          // src={result.image_file}
-                          src={image_file}
-                          alt={result.name}
-                          className="dropdown_img"
-                        />
                         <div className="dropdown_text">{result.name}</div>
                       </div>
                     ))
@@ -310,9 +275,15 @@ function Header() {
             </div>
 
             {/* 버튼들 */}
-            <Link to="/add">
-              <button className="add_Button">일정추가</button>
-            </Link>
+
+            <button
+              className="add_Button"
+              onClick={() => {
+                navigate('/add');
+              }}
+            >
+              일정추가
+            </button>
 
             <button
               className="page_Button"
@@ -328,12 +299,6 @@ function Header() {
             </button>
           </div>
         )}
-        {/* 테스트용 userRole 변경 버튼 */}
-        <div className="role-test-buttons">
-          <button onClick={() => changeUserRole('guest')}>Set to Guest</button>
-          <button onClick={() => changeUserRole('user')}>Set to User</button>
-          <button onClick={() => changeUserRole('admin')}>Set to Admin</button>
-        </div>
       </nav>
     </header>
   );

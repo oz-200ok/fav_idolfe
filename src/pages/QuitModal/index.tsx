@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './QuitModal.scss';
-import axios from 'axios';
+import UserInstance from '@/utils/UserInstance';
+import { useAuth } from '@/context/AuthContext';
 
 function QuitModal() {
   //모달 상태
+  const { markLoggedOut } = useAuth();
   const navigate = useNavigate();
   const [clickCount, setClickCount] = useState(0); // 탈퇴버튼 클릭횟수상태
   const [loading, setLoading] = useState(false); // API요청중 로딩상태 관리
@@ -25,11 +27,8 @@ function QuitModal() {
       }
 
       //api에 delete 요청
-      await axios.delete('http://100.26.111.172/account/delete/', {
-        headers: { Authorization: `Bearer ${token}` }, // Authorization 헤더에 토큰 추가
-      });
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
+      await UserInstance.delete('account/delete/');
+      markLoggedOut();
 
       //탈퇴완료페이지이동
       navigate('/quit_page');
