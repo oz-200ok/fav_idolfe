@@ -1,12 +1,11 @@
 export type T_group = {
-  group_id: number;
+  id: number;
   agency_name: string;
-  group_name: string;
-  sns_links: {
-    instagram: string;
-  };
-  group_color: string;
-  group_image: string;
+  name: string;
+  sns: string;
+  color: string;
+  image: string;
   member_count: number;
   members: string[];
+  image_file: string;
 };

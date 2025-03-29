@@ -33,18 +33,18 @@ hr {
   height: 100%;
   margin: 0 auto;
   padding: 50px;
-  background-color: #fcfafa;
+  background-color: #f4f4f9;
 
   &::-webkit-scrollbar {
     display: none;
   }
 
-  .Search_title {
+  .search_title {
     border-bottom: 1px solid #e9e9e9;
     padding-bottom: 25px;
     margin-bottom: 25px;
 
-    .p_inputSearch {
+    .p_input_search {
       font-size: 20px;
       font-weight: 600;
       color: #303030;
@@ -52,11 +52,12 @@ hr {
       margin-bottom: 5px;
     }
 
-    .p_SearchListCount {
+    .p_search_list_count {
       font-size: 13px;
       font-weight: 400;
       color: #888;
       align-self: flex-start;
+      border-bottom: 100%;
     }
   }
 
@@ -78,7 +79,7 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 50px;
     background: white;
     min-width: 645px;
     height: 170px;
@@ -91,6 +92,7 @@ hr {
       min-height: 120px;
       width: 120px;
       height: 120px;
+      margin: 10px;
     }
 
     .div_groupInfo {
@@ -135,9 +137,15 @@ hr {
 .button_true {
   background-color: #6a5096;
   cursor: pointer;
+  width: 80px;
+  height: 40px;
+  border-radius: 60px;
 }
 
 /* 구독 중 버튼 */
 .button_false {
   background-color: #d9c2ff;
+  width: 80px;
+  height: 40px;
+  border-radius: 60px;
 }
