@@ -6,7 +6,7 @@ import { I_SocialLoginResponse } from '@/types/login';
 
 function KakaoCallBack() {
   const navigate = useNavigate();
-  const { markLoggedIn} = useAuth();
+  const { markLoggedIn } = useAuth();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
