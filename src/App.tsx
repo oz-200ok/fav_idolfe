@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import JoinIntro from './pages/JoinIntro';
 import Loginpage from './pages/Loginpage';
 import Main from './pages/Main.tsx';
 import Layout from './components/common/Layout.tsx';
@@ -13,7 +12,7 @@ import JoinPage from './pages/Joinpage/index.tsx';
 
 import QuitPage from './pages/Quit/index.tsx';
 import QuitModal from './pages/QuitModal/index.tsx';
-import SearchPage from './pages/SearchPage/index.tsx';
+// import SearchPage from './pages/SearchPage/index.tsx';
 import GroupManagementPage from './pages/GroupManagementPage/index.tsx';
 import Modal from './components/scheduleAdd/modal.tsx';
 import GuestPage from './pages/GuestPage/index.tsx';
@@ -30,7 +29,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/my_page" element={<Mypage />} />
         <Route path="/quit_modal" element={<QuitModal />} />
-        <Route path="/search_page" element={<SearchPage />} />
+        {/* <Route path="/search_page" element={<SearchPage />} /> */}
         <Route path="/privacy_policy" element={<PrivacyPolicy />} />
         <Route path="/group_add_page" element={<GroupAddpage />} />
         <Route
@@ -44,7 +43,7 @@ function App() {
       {/* ✅ 전체화면 전용, Layout 없이! */}
       <Route path="/guest" element={<GuestPage />} />
       <Route path="/join_page" element={<JoinPage />} />
-      <Route path="/loginpage" element={<Loginpage />} />
+      <Route path="/login_page" element={<Loginpage />} />
 
       <Route path="/quit_page" element={<QuitPage />} />
       <Route path="/login_page" element={<Loginpage />} />
