@@ -16,10 +16,14 @@ const GroupEdit = () => {
   const [memberImageFile, setMemberImageFile] = useState<File | null>(null);
   const [members, setMembers] = useState<MemberType[]>([]);
 
-  const accessToken = 'access-token'; // 로그인 상태에서 가져와야 함
+  const accessToken =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzMjYzMDA1LCJpYXQiOjE3NDMxNzY2MDUsImp0aSI6ImY4MGM0NmExNTM5NDQ5MWE4ZjhjYWM3YWY0Yjk3YTdiIiwidXNlcl9pZCI6MX0.OFm3YkdnE0UAu1JbqfxjNPkLHbYlpz2al6RuV8BuKd0';
   const groupId = 1;
 
+  // ✅ 그룹 정보 불러오기
   useEffect(() => {
+    if (!accessToken) return;
+
     const fetchGroup = async () => {
       try {
         const data = await getGroup(groupId, accessToken);
@@ -39,24 +43,21 @@ const GroupEdit = () => {
         console.error('불러오기 실패:', error);
       }
     };
-    fetchGroup();
-  }, []);
 
-  const handleGroupImageUpload = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    if (event.target.files?.[0]) {
-      const file = event.target.files[0];
+    fetchGroup();
+  }, [accessToken]);
+
+  const handleGroupImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
       setGroupImage(URL.createObjectURL(file));
       setGroupImageFile(file);
     }
   };
 
-  const handleMemberImageUpload = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    if (event.target.files?.[0]) {
-      const file = event.target.files[0];
+  const handleMemberImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
       setMemberImage(URL.createObjectURL(file));
       setMemberImageFile(file);
     }
@@ -82,6 +83,7 @@ const GroupEdit = () => {
     setMembers((prev) => prev.filter((member) => member.id !== id));
   };
 
+  // ✅ 그룹 저장
   const handleSaveGroup = async () => {
     if (!groupName.trim() || !agency.trim()) {
       alert('그룹명과 소속사는 필수입니다!');
@@ -106,18 +108,20 @@ const GroupEdit = () => {
     try {
       await saveGroup(formData, accessToken);
       alert('그룹 저장 성공!');
+      console.log('✅ 저장 성공');
     } catch (error) {
-      console.error(error);
+      console.error('❌ 저장 실패:', error);
       alert('저장 실패');
     }
   };
 
+  // ✅ 그룹 삭제
   const handleDeleteGroup = async () => {
     try {
       await deleteGroup(groupId, accessToken);
       alert('그룹 삭제 성공!');
     } catch (error) {
-      console.error(error);
+      console.error('삭제 실패:', error);
       alert('삭제 실패');
     }
   };
@@ -220,10 +224,10 @@ const GroupEdit = () => {
 
       <div className="group_edit_actions">
         <button className="delete" onClick={handleDeleteGroup}>
-          그룹 삭제
+          취소
         </button>
         <button className="save" onClick={handleSaveGroup}>
-          수정 완료
+          저장 완료
         </button>
       </div>
     </div>

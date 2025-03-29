@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import './Groupmanagement.scss';
+import './GroupManagement.scss';
 import instagramIcon from '../../../assets/instagram.png';
 import type { GroupType } from './GroupManagement.types';
 import {
@@ -12,20 +12,23 @@ import {
 const GroupManagement = () => {
   const navigate = useNavigate();
   const [groups, setGroups] = useState<GroupType[]>([]);
-  const accessToken = 'your-access-token'; // 실제 토큰 대체 필요
+  const accessToken =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzMzU0NDUwLCJpYXQiOjE3NDMyNjgwNTAsImp0aSI6ImUxZmI1ODY4MmI0YTRiMzI4ODg4YTE3MWM3YjI3OGEzIiwidXNlcl9pZCI6MX0.AKSSoE4bvMpFAWhVwGIKGn_z3_u3vHSGMFbVk7B0tyU';
 
+  //그룹 정보 불러오기
   useEffect(() => {
     const loadGroups = async () => {
       try {
         const data = await fetchGroupList(accessToken);
+        console.log('✅ 불러온 그룹:', data); // ✅ 콘솔 확인용!
         setGroups(
           data.map((group: any) => ({
-            id: group.group_id,
-            name: group.group_name,
-            members: group.members.map((m: any) => m.name),
+            id: group.id,
+            name: group.name,
             agency: group.agency_name,
-            sns: group.sns_links?.instagram || '',
-            image: group.group_image,
+            image: group.image,
+            sns: group.sns,
+            members: [], // 멤버는 별도 API일 경우 생략 가능
           })),
         );
       } catch (error) {
@@ -33,7 +36,7 @@ const GroupManagement = () => {
       }
     };
     loadGroups();
-  }, []);
+  }, [accessToken]);
 
   const handleScheduleAdd = async (groupId: number) => {
     try {
