@@ -6,7 +6,7 @@ import NaverLogin from '../../components/NaverLogin';
 import KakaoLogin from '../../components/KakaoLogin';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
-import { login } from '@/utils/auth';
+import { login } from '@/utils/GuestInstance';
 import { useAuth } from '@/context/AuthContext';
 
 function Loginpage() {
@@ -14,7 +14,6 @@ function Loginpage() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<I_LoginError | null>(null);
-
   const { markLoggedIn } = useAuth();
 
   const handlerEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
