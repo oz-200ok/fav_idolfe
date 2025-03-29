@@ -1,14 +1,12 @@
-//import { z } from 'zod';
 import axios from 'axios';
-
 import './joinpage.scss';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
 
-import { DuplicateCheck } from '@/utils/accountApi';
-import { signup } from '@/utils/accountApi';
+import { DuplicateCheck } from '@/api/accountApi';
+import { signup } from '@/api/accountApi';
 import { useNavigate } from 'react-router-dom';
 
 export interface JoinFormValues {

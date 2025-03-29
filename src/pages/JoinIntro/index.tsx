@@ -12,7 +12,7 @@ function JoinIntro() {
     <>
       <Header />
       <div className="join_container">
-        <form className="join_intro_form">
+        <div className="join_intro_form">
           <h1> 회원가입 </h1>
           <p> 원하시는 방식을 선택해주세요</p>
           <div className="btn_container">
@@ -33,7 +33,7 @@ function JoinIntro() {
               카카오로 시작하기
             </button>
           </div>
-        </form>
+        </div>
       </div>
       <Footer />
     </>
