@@ -87,7 +87,7 @@ function Mypage() {
               <li
                 className="mypage_index"
                 onClick={() => {
-                  navigate('/user-info');
+                  navigate('/edit_profile_page');
                 }}
               >
                 <img src={right} alt="오른쪽 화살표 이미지" />
