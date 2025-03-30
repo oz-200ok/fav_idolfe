@@ -7,8 +7,8 @@ import { data } from './data';
 
 export default function ViewDay(props: T_use_Date) {
   const [view, setView] = useState(false);
-  console.log(props)
-  setView(false)
+  console.log(props);
+  setView(false);
   return (
     <div className="div_viewDay">
       {data?.length !== 0 ? (

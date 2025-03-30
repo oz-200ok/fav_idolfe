@@ -35,7 +35,8 @@ export const saveGroup = async (groupData: any, accessToken: string) => {
 
 // 그룹 조회
 export const getGroup = async (groupId: number, token: string) => {
-  const response = await axiosInstance.get(`/idol/groups/${groupId}`, { // ✅ 경로 수정
+  const response = await axiosInstance.get(`/idol/groups/${groupId}`, {
+    // ✅ 경로 수정
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -49,18 +50,24 @@ export const updateGroup = async (
   formData: FormData,
   token: string,
 ) => {
-  const response = await axiosInstance.put(`/idol/groups/${groupId}`, formData, { // ✅ 경로 수정
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${token}`,
+  const response = await axiosInstance.put(
+    `/idol/groups/${groupId}`,
+    formData,
+    {
+      // ✅ 경로 수정
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
   return response.data;
 };
 
 // 그룹 삭제
 export const deleteGroup = async (groupId: number, token: string) => {
-  const response = await axiosInstance.delete(`/idol/groups/${groupId}`, { // ✅ 경로 수정
+  const response = await axiosInstance.delete(`/idol/groups/${groupId}`, {
+    // ✅ 경로 수정
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -75,7 +82,8 @@ export async function fetchGroupList(token: string) {
       Authorization: `Bearer ${token}`,
     },
   });
-  if (!response.status.toString().startsWith('2')) throw new Error('그룹 목록 불러오기 실패');
+  if (!response.status.toString().startsWith('2'))
+    throw new Error('그룹 목록 불러오기 실패');
   return response.data;
 }
 
@@ -103,12 +111,15 @@ export const addGroupSchedule = async (groupId: number, token: string) => {
 
 // 일정 다운로드
 export const downloadGroupSchedule = async (groupId: number, token: string) => {
-  const response = await axiosInstance.get(`/admin/group/${groupId}/schedules/download`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await axiosInstance.get(
+    `/admin/group/${groupId}/schedules/download`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      responseType: 'blob',
     },
-    responseType: 'blob',
-  });
+  );
 
   const url = window.URL.createObjectURL(response.data);
   const link = document.createElement('a');

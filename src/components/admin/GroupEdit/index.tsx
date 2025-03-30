@@ -26,7 +26,7 @@ const GroupEdit = () => {
   const [members, setMembers] = useState<MemberType[]>([]);
 
   const accessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzMzkyODcwLCJpYXQiOjE3NDMzMDY0NzAsImp0aSI6Ijk4NDM0MTA5YjI1YjQ5MGI4N2NiY2YxMGM0Mjc5NzBhIiwidXNlcl9pZCI6MX0.D95GGeHbbjwjrOBQGsONq60Hr92SHwhCeqRhsYpZKIY';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzNDQyMjExLCJpYXQiOjE3NDMzNTU4MTEsImp0aSI6ImQ3NWUxMDM1ZWU0ZDQyMzNhM2E1MGRlMTk3NWU2NTJhIiwidXNlcl9pZCI6MX0.b9tVqeQBC0muaSLW3k100XkFCREh1Lk8kX2lHLovnBw';
   const groupId = 1;
 
   useEffect(() => {

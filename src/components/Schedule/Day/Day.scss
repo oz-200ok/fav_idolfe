@@ -21,14 +21,14 @@ $MAIN_COLOR: #6a5096;
       color: #d9d9d9;
       font-size: 35px;
       margin: auto;
-    } 
+    }
 
     .div_viewSchedule-centainer {
       display: flex;
       flex-direction: column;
       width: 40%;
       height: 100%;
-      
+
       > * {
         background-color: white;
         padding: 10px;
@@ -72,7 +72,6 @@ $MAIN_COLOR: #6a5096;
         }
       }
     }
-    
   }
 
   .div_buttons {
