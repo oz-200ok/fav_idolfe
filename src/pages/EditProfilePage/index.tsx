@@ -1,8 +1,9 @@
 import axios from 'axios';
 import './editprofilpage.scss';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { T_EditProfile } from './EditProfilePage';
 import { DuplicateCheck } from '@/api/accountApi';
 import { updateProfile } from '@/api/accountApi';
 import { useNavigate } from 'react-router-dom';
@@ -14,12 +15,11 @@ import {
 
 // 유효성 검사
 import {
-  emailValidation,
   passwordValidation,
   phoneValidation,
-  nameValidation,
   usernameValidation,
 } from '@/validations/validationRule';
+import UserInstance from '@/utils/UserInstance';
 
 export interface JoinFormValues {
   email: string;
@@ -32,11 +32,10 @@ export interface JoinFormValues {
 
 function EditProfilePage() {
   const [isChecked, setIsChecked] = useState({
-    email: false,
     username: false,
     phone: false,
   });
-  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -45,22 +44,36 @@ function EditProfilePage() {
   } = useForm<JoinFormValues>({ mode: 'onChange' });
 
   const password = watch('password', '');
-  const email = watch('email', '');
   const username = watch('username', '');
   const phone = watch('phone', '');
 
   const strengthText = passwordStrength(password);
   const strengthLevel = strengthClass(strengthText);
 
+  //const navigate = useNavigate();
+
+  const [userInfo, setUserInfo] = useState<T_EditProfile | null>(null);
+
+  useEffect(() => {
+    const GetUserInfo = async () => {
+      try {
+        const response = await UserInstance.get('/account/me/');
+        const userState = response.data.data;
+
+        setUserInfo(userState);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    GetUserInfo();
+  }, []);
+
   const handleDuplicateCheck = async (
-    type: 'email' | 'username' | 'phone',
+    type: 'username' | 'phone',
     value: string,
   ) => {
     let label = '';
-
-    if (type === 'email') {
-      label = '이메일';
-    } else if (type === 'username') {
+    if (type === 'username') {
       label = '닉네임';
     } else if (type === 'phone') {
       label = '전화번호';
@@ -89,7 +102,7 @@ function EditProfilePage() {
   };
 
   const onSubmit = async (data: JoinFormValues) => {
-    if (!isChecked.email || !isChecked.username || !isChecked.phone) {
+    if (!isChecked.username || !isChecked.phone) {
       alert('모든 중복 확인을 완료해주세요!');
       return;
     }
@@ -98,11 +111,13 @@ function EditProfilePage() {
 
     try {
       await updateProfile(rest);
-      navigate('/login_page');
+      alert('회원 정보가 수정 되었습니다.');
     } catch (err) {
       console.error(err);
     }
   };
+
+  if (!userInfo) return null;
 
   return (
     <>
@@ -110,26 +125,15 @@ function EditProfilePage() {
         <form className="join_form" onSubmit={handleSubmit(onSubmit)}>
           <h1> 회원 정보 수정 </h1>
           <div className="input-group">
-            <label htmlFor="email">
-              아이디
-              {errors.email && (
-                <p className="warning"> {errors.email.message}</p>
-              )}
-            </label>
+            <label htmlFor="email">아이디</label>
             <div className="inline-group">
               <input
                 className="join_input"
                 id="email"
-                placeholder="이메일을 입력해주세요"
-                autoComplete="email"
-                {...register('email', emailValidation)}
+                autoComplete="off"
+                disabled
               />
-              <button
-                type="button"
-                onClick={() => handleDuplicateCheck('email', email)}
-              >
-                {isChecked.email ? '확인 완료' : '중복확인'}
-              </button>
+              <p className="user_info_view">{userInfo.email}</p>
             </div>
           </div>
           <div className="input-group">
@@ -174,16 +178,11 @@ function EditProfilePage() {
             )}
           </div>
           <div className="input-group">
-            <label htmlFor="name">
-              이름
-              {errors.name && <p className="warning">{errors.name.message}</p>}
-            </label>
-            <input
-              className="join_input"
-              id="name"
-              placeholder="이름을 입력해주세요"
-              {...register('name', nameValidation)}
-            />
+            <label htmlFor="name">이름</label>
+            <div className="inline-group">
+              <input className="join_input" id="name" disabled />
+              <p className="user_info_view">{userInfo.name}</p>
+            </div>
           </div>
           <div className="input-group">
             <label htmlFor="username">
@@ -231,7 +230,7 @@ function EditProfilePage() {
           </div>
 
           <button className="submit-btn" type="submit">
-            정보 수정 하기
+            정보 수정하기
           </button>
         </form>
       </div>

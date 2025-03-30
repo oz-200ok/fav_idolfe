@@ -33,6 +33,12 @@
       margin-bottom: 6px; // label과 input 사이 간격 일정하게
       display: flex;
     }
+    .user_info_view {
+      color: #ccc;
+      position: fixed;
+      z-index: 10;
+      margin-left: 15px;
+    }
 
     .join_input {
       height: 43px;

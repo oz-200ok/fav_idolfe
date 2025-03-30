@@ -36,3 +36,4 @@ export const updateProfile = (data: SignupRequest) => {
   console.log('백엔드로 넘어가는', data);
   return GuestInstance.post('/account/register/', data);
 };
+

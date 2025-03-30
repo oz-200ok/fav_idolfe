@@ -41,7 +41,7 @@ const UserInfo = () => {
           <li
             className="mypage_index"
             onClick={() => {
-              navigate('/user_info');
+              navigate('/edit_profile_page');
             }}
           >
             <img src={right} alt="오른쪽 화살표 이미지" />

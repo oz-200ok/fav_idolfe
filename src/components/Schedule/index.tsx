@@ -67,7 +67,7 @@ export default function Schedule() {
 // 해당 그룹 일정 호출 (모든 구독 그룹을 한 일정에?)
 // 월간, 주간 (그룹 / 일정타이틀 / 일정갯수)
 // 연간 (일정갯수?)
-// 클릭 시 해당 일정의 세부일정 확인 (해당 일정 호출) -> Day > * 
+// 클릭 시 해당 일정의 세부일정 확인 (해당 일정 호출) -> Day > *
 // 일정 조회 T_UserGroupScheduleSearch -> 여기 index에서 추가
 // 특정 일정 조회 T_UserGroupSchedule -> 일정조회 id를 토대로 day에서 추가
 // (type.ts 중복 타입 수정 필요) !fix
