@@ -2,20 +2,26 @@ import 'react-calendar/dist/Calendar.css';
 import '../schedule.scss';
 import './yearly.scss';
 import ViewYearly from './ViewYearly';
-import { Value } from 'react-calendar/src/shared/types.js';
-import { T_Value } from '..';
+import { T_use_Date, T_use_ScheduleType } from '../type';
 
-export default function Schedule(props: T_Value<Value>) {
+type T_Yearly_Props = T_use_Date & T_use_ScheduleType;
+
+export default function Yearly(props: T_Yearly_Props) {
   const emptyArray = new Array(12).fill('');
 
   return (
     <div className="div_schedule">
       {emptyArray.map((_, index) => {
-        if (!props.value) return;
-        if (props.value instanceof Date) {
-          const date = new Date(props.value.getFullYear(), index, 1);
+        if (!props.date) return;
+        if (props.date instanceof Date) {
+          const date = new Date(props.date.getFullYear(), index, 1);
           return (
-            <ViewYearly key={index} value={date} onChange={props.onChange} />
+            <ViewYearly
+              key={index}
+              date={date}
+              setDate={props.setDate}
+              setScheduleType={props.setScheduleType}
+            />
           );
         }
       })}

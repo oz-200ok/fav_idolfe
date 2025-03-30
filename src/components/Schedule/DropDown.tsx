@@ -1,19 +1,15 @@
-import { T_Schedule } from '.';
+import { T_ScheduleType, T_use_DropDown, T_use_ScheduleType } from './type';
 
-type T_Dropdown = {
-  scheduleType: string;
-  setScheduleType: React.Dispatch<React.SetStateAction<T_Schedule>>;
-  setDropDownView: React.Dispatch<React.SetStateAction<boolean>>;
-};
+type T_Dropdown_Props = T_use_ScheduleType & T_use_DropDown;
 
 // 드롭다운 내 선택 함수
-export default function DropDown(props: T_Dropdown) {
-  function typeChange(type: T_Schedule) {
+export default function DropDown(props: T_Dropdown_Props) {
+  function typeChange(type: T_ScheduleType) {
+    if (!props.setDropDownView || !props.setScheduleType) return;
     props.setScheduleType(type);
     props.setDropDownView(false);
   }
 
-  // 정렬하니까 더 보기 어려워지는 거 같은데 이거 맞아요?
   return (
     <ul className="div_randerDropDown">
       <li
