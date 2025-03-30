@@ -18,14 +18,12 @@ import {
   passwordValidation,
   phoneValidation,
   usernameValidation,
-} from '@/validations/validationRule';
+} from '@/validations/editUserInfoValidation';
 import UserInstance from '@/utils/UserInstance';
 
-export interface JoinFormValues {
-  email: string;
+export interface EditInfoValues {
   password: string;
-  passwordConfirm: string;
-  name: string;
+  currentPassword: string;
   username: string;
   phone: string;
 }
@@ -36,21 +34,37 @@ function EditProfilePage() {
     phone: false,
   });
 
+  interface UpdateProfileRequest {
+    password?: string;
+    current_password?: string;
+    username?: string;
+    phone?: string;
+  }
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<JoinFormValues>({ mode: 'onChange' });
+  } = useForm<EditInfoValues>({
+    mode: 'onChange',
+    defaultValues: {
+      username: '',
+      phone: '',
+      password: '',
+      currentPassword: '',
+    },
+  });
 
   const password = watch('password', '');
   const username = watch('username', '');
   const phone = watch('phone', '');
+  const currentPassword = watch('currentPassword');
 
   const strengthText = passwordStrength(password);
   const strengthLevel = strengthClass(strengthText);
 
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState<T_EditProfile | null>(null);
 
@@ -68,6 +82,7 @@ function EditProfilePage() {
     GetUserInfo();
   }, []);
 
+  console.log('🤨이게 계속 실행 되나?', userInfo);
   const handleDuplicateCheck = async (
     type: 'username' | 'phone',
     value: string,
@@ -101,19 +116,44 @@ function EditProfilePage() {
     }
   };
 
-  const onSubmit = async (data: JoinFormValues) => {
-    if (!isChecked.username || !isChecked.phone) {
-      alert('모든 중복 확인을 완료해주세요!');
+  const onSubmit = async (data: EditInfoValues) => {
+    console.log('❌', data);
+    // 값이 입력된 경우에만 중복 확인이 필요함
+    if ((username && !isChecked.username) || (phone && !isChecked.phone)) {
+      alert('입력한 항목에 대한 중복 확인을 완료해주세요!');
       return;
     }
 
-    const { passwordConfirm, ...rest } = data;
+    // 비밀 번호 변경을 시도할 경우
+    if (data.password && !data.currentPassword) {
+      alert('비밀번호를 변경하려면 이전 비밀번호를 입력해주세요!');
+      return;
+    }
+
+    const updateData: UpdateProfileRequest = {};
+
+    if (username.trim()) updateData.username = username.trim();
+    if (phone.trim()) updateData.phone = phone.trim();
+    if (data.password) {
+      updateData.password = data.password;
+      updateData.current_password = currentPassword;
+    }
 
     try {
-      await updateProfile(rest);
+      console.log('❌');
+      await updateProfile(updateData);
       alert('회원 정보가 수정 되었습니다.');
+
+      navigate('/my_page');
     } catch (err) {
-      console.error(err);
+      if (axios.isAxiosError(err)) {
+        const message =
+          err.response?.data?.detail ||
+          '이전 비밀번호를 잘못 입력하셨습니다! 다시 입력해주세요!';
+        alert(`❌ ${message}`);
+      } else {
+        alert('알 수 없는 에러가 발생했습니다.');
+      }
     }
   };
 
@@ -137,9 +177,20 @@ function EditProfilePage() {
             </div>
           </div>
           <div className="input-group">
+            <label htmlFor="currentPassword">이전 비밀번호</label>
+            <input
+              className="join_input"
+              id="currentPassword"
+              type="password"
+              placeholder="이전 비밀번호를 입력해주세요"
+              autoComplete="currentPassword"
+              {...register('currentPassword')}
+            />
+          </div>
+          <div className="input-group">
             <label htmlFor="password">
-              비밀번호
-              {strengthText && (
+              새로운 비밀번호
+              {password && strengthText && (
                 <p className={`password-strength ${strengthLevel}`}>
                   {strengthText}
                 </p>
@@ -149,33 +200,10 @@ function EditProfilePage() {
               className="join_input"
               id="password"
               type="password"
-              placeholder="비밀번호를 입력해주세요"
-              autoComplete="new-password"
+              placeholder="새로운 비밀번호를 입력해주세요"
+              autoComplete="password"
               {...register('password', passwordValidation)}
             />
-            {errors.password && (
-              <p className="password_warning">{errors.password.message}</p>
-            )}
-          </div>
-          <div className="input-group">
-            <label htmlFor="passwordConfirm">비밀번호 확인</label>
-            <input
-              className="join_input"
-              id="passwordConfirm"
-              type="password"
-              placeholder="확인을 위해 비밀번호를 다시 입력해주세요"
-              autoComplete="new-password"
-              {...register('passwordConfirm', {
-                required: '비밀번호를 다시 입력해주세요',
-                validate: (value) =>
-                  value === password || '비밀번호가 일치하지 않습니다',
-              })}
-            />
-            {errors.passwordConfirm && (
-              <p className="password_warning">
-                {errors.passwordConfirm.message}
-              </p>
-            )}
           </div>
           <div className="input-group">
             <label htmlFor="name">이름</label>
@@ -207,12 +235,7 @@ function EditProfilePage() {
             </div>
           </div>
           <div className="input-group">
-            <label htmlFor="phone">
-              전화번호
-              {errors.phone && (
-                <p className="warning">{errors.phone.message}</p>
-              )}
-            </label>
+            <label htmlFor="phone">전화번호</label>
             <div className="inline-group">
               <input
                 className="join_input"

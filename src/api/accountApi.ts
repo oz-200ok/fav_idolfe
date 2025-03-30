@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { apiConfig } from '../utils/apiConfig';
+import UserInstance from '@/utils/UserInstance';
 
 const GuestInstance = axios.create(apiConfig);
 
@@ -27,13 +28,20 @@ export interface SignupRequest {
   phone: string;
 }
 
+export interface UpdateProfileRequest {
+  password?: string;
+  current_password?: string;
+  username?: string;
+  phone?: string;
+}
+/** 회원 가입 로직 */
 export const signup = (data: SignupRequest) => {
   console.log('백엔드로 넘어가는', data);
   return GuestInstance.post('/account/register/', data);
 };
 
-export const updateProfile = (data: SignupRequest) => {
+/** 회원 정보 수정 로직 */
+export const updateProfile = (data: UpdateProfileRequest) => {
   console.log('백엔드로 넘어가는', data);
-  return GuestInstance.post('/account/register/', data);
+  return UserInstance.patch('/account/profile/', data);
 };
-
