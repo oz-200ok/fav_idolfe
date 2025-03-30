@@ -1,13 +1,9 @@
 import { T_GroupScheduleAdd } from '@/types/typeAPI';
+import { viewTime } from '@/utils/viewTime';
 
 type T_ViewDetail_Props = {
   value: T_GroupScheduleAdd;
 };
-
-function viewTime(value: string): string {
-  const time = value.split(' ')[1].slice(0, 5);
-  return time;
-}
 
 export default function ViewDetail(props: T_ViewDetail_Props) {
   return (
