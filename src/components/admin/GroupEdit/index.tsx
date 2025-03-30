@@ -1,15 +1,24 @@
 import { useState, useEffect } from 'react';
 import LabeledInput from './LabeledInput';
 import './GroupEdit.scss';
-import { MemberType, InputFieldType } from './GroupEdit';
-import { saveGroup, getGroup, deleteGroup } from '@/utils/group';
+import { MemberType } from './GroupEdit';
+import { saveGroup, getGroup } from '@/utils/group';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const AGENCIES = [
+  { id: '5', name: 'SM' },
+  { id: '6', name: 'JYP' },
+  { id: '7', name: 'HYBE' },
+];
 
 const GroupEdit = () => {
+  const navigate = useNavigate();
   const [groupName, setGroupName] = useState('');
-  const [agency, setAgency] = useState('');
+  const [agencyId, setAgencyId] = useState('');
   const [snsLink, setSnsLink] = useState('');
   const [groupImage, setGroupImage] = useState<string | null>(null);
-  const [_groupImageFile, setGroupImageFile] = useState<File | null>(null);
+  const [groupImageFile, setGroupImageFile] = useState<File | null>(null);
 
   const [memberName, setMemberName] = useState('');
   const [memberImage, setMemberImage] = useState<string | null>(null);
@@ -17,18 +26,16 @@ const GroupEdit = () => {
   const [members, setMembers] = useState<MemberType[]>([]);
 
   const accessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzMjYzMDA1LCJpYXQiOjE3NDMxNzY2MDUsImp0aSI6ImY4MGM0NmExNTM5NDQ5MWE4ZjhjYWM3YWY0Yjk3YTdiIiwidXNlcl9pZCI6MX0.OFm3YkdnE0UAu1JbqfxjNPkLHbYlpz2al6RuV8BuKd0';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzMzkyODcwLCJpYXQiOjE3NDMzMDY0NzAsImp0aSI6Ijk4NDM0MTA5YjI1YjQ5MGI4N2NiY2YxMGM0Mjc5NzBhIiwidXNlcl9pZCI6MX0.D95GGeHbbjwjrOBQGsONq60Hr92SHwhCeqRhsYpZKIY';
   const groupId = 1;
 
-  // ✅ 그룹 정보 불러오기
   useEffect(() => {
-    if (!accessToken) return;
-
     const fetchGroup = async () => {
       try {
         const data = await getGroup(groupId, accessToken);
         setGroupName(data.group_name);
-        setAgency(data.agency_name);
+        const agencyObj = AGENCIES.find((a) => a.name === data.agency_name);
+        setAgencyId(agencyObj?.id || '');
         setSnsLink(data.sns_links?.instagram || '');
         setGroupImage(data.group_image);
         setMembers(
@@ -83,20 +90,25 @@ const GroupEdit = () => {
     setMembers((prev) => prev.filter((member) => member.id !== id));
   };
 
-  // ✅ 그룹 저장
   const handleSaveGroup = async () => {
-    if (!groupName.trim() || !agency.trim()) {
-      alert('그룹명과 소속사는 필수입니다!');
+    if (!groupName.trim() || !agencyId || !snsLink.trim()) {
+      alert('모든 필드를 입력해주세요.');
+      return;
+    }
+
+    const snsUrl = snsLink.trim();
+    if (!/^https?:\/\/.+\..+/.test(snsUrl)) {
+      alert('올바른 SNS 주소를 입력해주세요');
       return;
     }
 
     const formData = new FormData();
     formData.append('name', groupName);
-    formData.append('agency_name', agency);
-    formData.append('sns', snsLink);
+    formData.append('agency', agencyId);
+    formData.append('sns', snsUrl);
     formData.append('color', '#C88DDD');
-    if (_groupImageFile) formData.append('group_image', _groupImageFile);
     formData.append('member_count', String(members.length));
+    if (groupImageFile) formData.append('image_file', groupImageFile);
 
     members.forEach((member, idx) => {
       formData.append(`member_name_${idx + 1}`, member.name);
@@ -106,49 +118,27 @@ const GroupEdit = () => {
     });
 
     try {
-      await saveGroup(formData, accessToken);
+      await saveGroup(
+        {
+          name: groupName,
+          agency: agencyId,
+          sns: snsLink.trim(),
+          color: '#C88DDD',
+          imageFile: groupImageFile,
+        },
+        accessToken,
+      );
+
       alert('그룹 저장 성공!');
-      console.log('✅ 저장 성공');
+      navigate('/group_management_page');
     } catch (error) {
       console.error('❌ 저장 실패:', error);
+      if (axios.isAxiosError(error)) {
+        console.log('서버 응답:', error.response?.data);
+      }
       alert('저장 실패');
     }
   };
-
-  // ✅ 그룹 삭제
-  const handleDeleteGroup = async () => {
-    try {
-      await deleteGroup(groupId, accessToken);
-      alert('그룹 삭제 성공!');
-    } catch (error) {
-      console.error('삭제 실패:', error);
-      alert('삭제 실패');
-    }
-  };
-
-  const inputFields: InputFieldType[] = [
-    {
-      label: '그룹명',
-      value: groupName,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setGroupName(e.target.value),
-      placeholder: '그룹명을 입력해주세요',
-    },
-    {
-      label: '소속사',
-      value: agency,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setAgency(e.target.value),
-      placeholder: '소속사를 입력해주세요',
-    },
-    {
-      label: '인스타그램',
-      value: snsLink,
-      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-        setSnsLink(e.target.value),
-      placeholder: '인스타그램 주소를 입력해주세요',
-    },
-  ];
 
   return (
     <div className="group_edit">
@@ -167,15 +157,34 @@ const GroupEdit = () => {
           />
         </div>
 
-        {inputFields.map((field, idx) => (
-          <LabeledInput
-            key={idx}
-            label={field.label}
-            value={field.value}
-            onChange={field.onChange}
-            placeholder={field.placeholder}
-          />
-        ))}
+        <LabeledInput
+          label="그룹명"
+          value={groupName}
+          onChange={(e) => setGroupName(e.target.value)}
+          placeholder="그룹명을 입력해주세요"
+        />
+
+        <div className="agency_select">
+          <label>소속사</label>
+          <select
+            value={agencyId}
+            onChange={(e) => setAgencyId(e.target.value)}
+          >
+            <option value="">소속사를 선택해주세요</option>
+            {AGENCIES.map((agency) => (
+              <option key={agency.id} value={agency.id}>
+                {agency.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <LabeledInput
+          label="인스타그램"
+          value={snsLink}
+          onChange={(e) => setSnsLink(e.target.value)}
+          placeholder="인스타그램 주소를 입력해주세요"
+        />
       </div>
 
       <div className="group_edit_right">
@@ -223,7 +232,7 @@ const GroupEdit = () => {
       </div>
 
       <div className="group_edit_actions">
-        <button className="delete" onClick={handleDeleteGroup}>
+        <button className="delete" onClick={() => navigate(-1)}>
           취소
         </button>
         <button className="save" onClick={handleSaveGroup}>
