@@ -12,7 +12,7 @@ function Mypage() {
       try {
         const response = await UserInstance.get('/account/me/');
         const userState = response.data.data.is_admin;
-        console.log('📌api에서 출력하는', userState);
+
         setUserRole(userState);
       } catch (error) {
         console.log(error);
@@ -21,7 +21,6 @@ function Mypage() {
     GetUserInfo();
   }, []);
 
-  console.log('🤨유저 상태 구별하는 useEffect', userRole);
   useEffect(() => {
     if (userRole === null) return;
     if (userRole === undefined) return;

@@ -2,33 +2,26 @@ import { useNavigate } from 'react-router-dom';
 import right from '../../assets/chevron-right.png';
 import UserInstance from '@/utils/UserInstance';
 import { useEffect, useState } from 'react';
-
+import { T_UserInfo } from './infoType';
 const AdminInfo = () => {
   const navigate = useNavigate();
-  const [userDate, setUserDate] = useState();
-
-  type T_UserInfo = {
-    email: string;
-    id: number;
-    is_admin: boolean;
-    name: string;
-    phone: string;
-    username: string;
-  };
+  const [userData, setUserData] = useState<T_UserInfo | null>(null);
 
   useEffect(() => {
     const GetUserInfo = async () => {
       try {
         const response = await UserInstance.get('/account/me/');
-        const userInfo = response.data;
-        console.log(userInfo);
-        setUserDate(userInfo);
+        const userInfo = response.data.data;
+        setUserData(userInfo);
       } catch (error) {
         console.log(error);
       }
     };
     GetUserInfo();
   }, []);
+
+  console.log('✨밖에서 확인하는 용도', userData);
+  if (!userData) return null;
 
   return (
     <>
@@ -39,10 +32,10 @@ const AdminInfo = () => {
         </div>
         <div className="user_info">
           <div className="nickname-wrapper">
-            <h1 className="nickname">동해번쩍홍길동</h1>
+            <h1 className="nickname">{userData.username}</h1>
             <span>님</span>
           </div>
-          <p className="user-email">3399__ss@naver.com</p>
+          <p className="user-email">{userData.email}</p>
         </div>
         <div className="mypage_list">
           <ul>
