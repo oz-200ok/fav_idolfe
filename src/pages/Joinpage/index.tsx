@@ -100,6 +100,9 @@ function JoinPage() {
 
     try {
       await signup(rest);
+      alert(
+        '회원가입이 완료 되었습니다! 로그인을 위해 이메일 인증을 해주세요!',
+      );
       navigate('/login_page');
     } catch (err) {
       console.error(err);

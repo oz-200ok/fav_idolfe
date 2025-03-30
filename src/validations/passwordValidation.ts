@@ -1,5 +1,5 @@
 export const passwordStrength = (password: string): string => {
-  //if (!password) return '';
+  if (!password) return '';
 
   const hasUpperCase = /[A-Z]/.test(password);
   const hasLowerCase = /[a-z]/.test(password);

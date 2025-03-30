@@ -82,7 +82,6 @@ function EditProfilePage() {
     GetUserInfo();
   }, []);
 
-  console.log('🤨이게 계속 실행 되나?', userInfo);
   const handleDuplicateCheck = async (
     type: 'username' | 'phone',
     value: string,
