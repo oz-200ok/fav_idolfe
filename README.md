@@ -1,54 +1,72 @@
-# React + TypeScript + Vite
+# ✨ ILOG
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **최애의 스케줄이 궁금하다면, 아이로그와 함께 하세요!**
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 프로젝트 소개
 
-## Expanding the ESLint configuration
+**ILOG**는 아이돌 그룹 및 멤버의 일정을 구독하고 확인할 수 있는 서비스입니다.  
+일반 유저는 좋아하는 아이돌을 검색하고 구독하여, 개별 스케줄을 한눈에 확인할 수 있습니다.  
+관리자는 소속사 및 아이돌 그룹, 멤버를 추가하고 일정을 효율적으로 관리할 수 있습니다.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+## 🚀 주요 기능
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### ✅ 공통
+- 네이버 / 카카오 **소셜 로그인**
+- 회원가입 / 정보 수정 / 유효성 검사
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+### 👤 일반 유저
+- 아이돌 **검색** 및 **구독**
+- 구독한 아이돌의 일정이 **캘린더**에 자동 표시
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
-```
+### 🛠️ 관리자
+- 아이돌 **그룹 및 멤버 추가/수정**
+- 그룹 및 멤버 별 **일정 등록 및 삭제**
+
+---
+
+## 🎨 디자인 컬러 가이드
+
+| 요소       | HEX 코드  |
+|------------|-----------|
+| 배경색     | `#f4f4f9` |
+| 포인트색1  | `#6A5096` |
+| 포인트색2  | `#D9C2FF` |
+| 포인트색3  | `#F8F3FF` |
+
+---
+
+## 🧑‍💻 기술 스택
+
+| 구분 | 사용 기술 |
+|------|-----------|
+| Frontend | React, Vite, TypeScript, TailwindCSS |
+| Backend  | Django, Django Rest Framework |
+
+---
+
+## 👥 팀원 소개
+
+### 🖥 프론트엔드
+- **서혜진** : 로그인 / 회원가입 / 마이페이지
+- **박수정** : 소속사, 그룹, 멤버 추가 및 수정
+- **이수민** : 아이돌 검색 / 공통 컴포넌트
+- **이희정** : 일정 모달 / 일정 추가 페이지
+
+### 🛠 백엔드
+- **박철민** : 로그인 / 회원가입 / 마이페이지
+- **황순해** : 관리자 기능 (소속사, 그룹, 아이돌)
+
+---
+
+## 📦 프로젝트 실행 방법
+
+```bash
+git clone https://github.com/yourname/ilog.git
+cd ilog
+npm install
+npm run dev
+
