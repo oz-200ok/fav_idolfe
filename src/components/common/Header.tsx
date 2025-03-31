@@ -94,6 +94,7 @@ function Header() {
       //검색결과 데이터를 상태에 저장
       const filteredData = filterDataByKoreanQuery(response.data, query); // 필터링 데이터 저장
       setSearchResults(filteredData);
+      
       //결과가 있으면 드롭다운표시
       setShowDropdown(true);
     } catch (error) {
