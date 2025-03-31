@@ -68,7 +68,7 @@ function Header() {
     ];
 
     const isGusetAllowed = allowGuestPaths.some((path) => {
-      location.pathname.startsWith(path);
+      return location.pathname.startsWith(path);
     });
     if (userRole === 'guest' && !isGusetAllowed) {
       navigate('/guest');
