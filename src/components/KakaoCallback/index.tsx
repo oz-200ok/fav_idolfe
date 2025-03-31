@@ -33,6 +33,8 @@ function KakaoCallBack() {
 
       const { access_token, refresh_token } = response.data.data;
 
+      console.log(access_token);
+
       markLoggedIn(access_token, refresh_token);
 
       const res = await UserInstance.get('/account/me/');
