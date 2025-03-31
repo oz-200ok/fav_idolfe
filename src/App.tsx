@@ -19,7 +19,8 @@ import GuestPage from './pages/GuestPage/index.tsx';
 import './App.scss';
 import Alarm from './pages/Alarm/index.tsx';
 import AdminUpload from './pages/AdminUpload/index.tsx';
-import EditProfilePage from './pages/EditProfilePage/index.tsx';
+import EditProfilePage from './pages/EditProfilePage';
+import EmailRedirect from '@/pages/EmailRedirect';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/edit_profile_page" element={<EditProfilePage />} />
       </Route>
       {/* ✅ 전체화면 전용, Layout 없이! */}
+      <Route path="/email_redirect" element={<EmailRedirect />} />
       <Route path="/guest" element={<GuestPage />} />
       <Route path="/join_page" element={<JoinPage />} />
       <Route path="/login_page" element={<Loginpage />} />
