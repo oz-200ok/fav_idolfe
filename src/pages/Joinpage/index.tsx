@@ -54,6 +54,8 @@ function JoinPage() {
   const strengthText = passwordStrength(password);
   const strengthLevel = strengthClass(strengthText);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleDuplicateCheck = async (
     type: 'email' | 'username' | 'phone',
     value: string,
@@ -89,10 +91,13 @@ function JoinPage() {
       setIsChecked((prev) => ({ ...prev, [type]: false }));
     }
   };
-
   const onSubmit = async (data: JoinFormValues) => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     if (!isChecked.email || !isChecked.username || !isChecked.phone) {
       alert('모든 중복 확인을 완료해주세요!');
+      setIsSubmitting(false);
       return;
     }
 
@@ -106,6 +111,8 @@ function JoinPage() {
       navigate('/login_page');
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -236,8 +243,8 @@ function JoinPage() {
             </div>
           </div>
 
-          <button className="submit-btn" type="submit">
-            회원가입 하기
+          <button className="submit-btn" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? '처리 중...' : '회원가입 하기'}
           </button>
         </form>
       </div>
