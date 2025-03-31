@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  .join_suc_title {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #6a5096;
+  }
+
+  .join_suc_text {
+    text-align: center;
+    font-size: 23px;
+    padding-bottom: 5px;
+  }
+
+  .login_btn {
+    margin-top: 100px;
+    width: 300px;
+    padding: 0.75rem 2rem;
+    background-color: #6a5096;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: #7a62a6;
+      transform: translateY(-2px);
+    }
+  }
+}
