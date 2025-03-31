@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './EmailRedirect.scss';
 import Footer from '@components/common/Footer';
-import Header from '@/components/common/Header';
 
 const EmailRedirect = () => {
   const navigate = useNavigate();
@@ -12,7 +11,6 @@ const EmailRedirect = () => {
 
   return (
     <>
-      <Header />
       <div className="container">
         <h1 className="join_suc_title">🎉 회원가입이 완료되었습니다!☺️</h1>
         <p className="join_suc_text">이메일 인증이 완료 되었습니다!</p>

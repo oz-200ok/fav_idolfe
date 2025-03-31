@@ -59,12 +59,14 @@ function Header() {
   useEffect(() => {
     if (userRole === null) return;
     //현재 페이지가 로그인이나 회원가입이라면 게스트페이지로 옮겨지는 것을 막음
-    if (
-      userRole === 'guest' &&
-      location.pathname !== '/login_page' &&
-      location.pathname !== '/join_page' &&
-      location.pathname !== '/guest' //무한이동방지
-    ) {
+
+    const allowGuestPaths = [
+      '/login_page',
+      '/join_page',
+      '/guest',
+      '/email_redirect',
+    ];
+    if (userRole === 'guest' && !allowGuestPaths.includes(location.pathname)) {
       navigate('/guest');
     }
   }, [userRole, navigate, location.pathname]); //userRole변경될때만 실행

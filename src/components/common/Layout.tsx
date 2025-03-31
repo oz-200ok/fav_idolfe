@@ -3,7 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import './common.scss';
 import SideBar from './SideBar.tsx';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
   return (
