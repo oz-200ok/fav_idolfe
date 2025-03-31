@@ -19,7 +19,7 @@ import GuestPage from './pages/GuestPage/index.tsx';
 import './App.scss';
 import Alarm from './pages/Alarm/index.tsx';
 import AdminUpload from './pages/AdminUpload/index.tsx';
-// import SearchPage from './pages/SearchPage/index.tsx';
+import SearchPage from './pages/SearchPage/index.tsx';
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
         <Route path="/quit_modal" element={<QuitModal />} />
         <Route path="/privacy_policy" element={<PrivacyPolicy />} />
         <Route path="/group_add_page" element={<GroupAddpage />} />
-        {/* <Route path="/search_page" element={<SearchPage />} /> */}
+        <Route path="/search_page" element={<SearchPage />} />
         <Route
           path="/group_management_page"
           element={<GroupManagementPage />}
