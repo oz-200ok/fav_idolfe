@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import JoinIntro from './pages/JoinIntro';
 import Loginpage from './pages/Loginpage';
 import Main from './pages/Main.tsx';
 import Layout from './components/common/Layout.tsx';
@@ -20,6 +19,7 @@ import GuestPage from './pages/GuestPage/index.tsx';
 import './App.scss';
 import Alarm from './pages/Alarm/index.tsx';
 import AdminUpload from './pages/AdminUpload/index.tsx';
+import EditProfilePage from './pages/EditProfilePage/index.tsx';
 
 function App() {
   return (
@@ -38,11 +38,11 @@ function App() {
         />
         <Route path="/schedule_alarm" element={<Alarm />} />
         <Route path="/admin_upload" element={<AdminUpload />} />
+        <Route path="/edit_profile_page" element={<EditProfilePage />} />
       </Route>
       {/* ✅ 전체화면 전용, Layout 없이! */}
       <Route path="/guest" element={<GuestPage />} />
       <Route path="/join_page" element={<JoinPage />} />
-      <Route path="/join_intro" element={<JoinIntro />} />
       <Route path="/login_page" element={<Loginpage />} />
 
       <Route path="/quit_page" element={<QuitPage />} />
