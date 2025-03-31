@@ -66,7 +66,11 @@ function Header() {
       '/guest',
       '/email_redirect',
     ];
-    if (userRole === 'guest' && !allowGuestPaths.includes(location.pathname)) {
+
+    const isGusetAllowed = allowGuestPaths.some((path) => {
+      location.pathname.startsWith(path);
+    });
+    if (userRole === 'guest' && !isGusetAllowed) {
       navigate('/guest');
     }
   }, [userRole, navigate, location.pathname]); //userRole변경될때만 실행
