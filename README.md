@@ -65,7 +65,7 @@
 ## 📦 프로젝트 실행 방법
 
 ```bash
-git clone https://github.com/yourname/ilog.git
+git clone https://github.com/oz-200ok/fav_idolfe.git
 cd ilog
 npm install
 npm run dev
