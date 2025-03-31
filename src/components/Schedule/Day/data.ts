@@ -1,4 +1,4 @@
-import { T_GroupScheduleAdd } from "@/types/typeAPI";
+import { T_GroupScheduleAdd } from '@/types/typeAPI';
 
 export const data: T_GroupScheduleAdd[] = [
   {
@@ -22,7 +22,8 @@ export const data: T_GroupScheduleAdd[] = [
         name: 'Second Member',
       },
     ],
-  },{
+  },
+  {
     group_id: 2,
     title: '콘서트',
     description: '서울 콘서트',
@@ -43,7 +44,8 @@ export const data: T_GroupScheduleAdd[] = [
         name: '닝닝',
       },
     ],
-  },{
+  },
+  {
     group_id: 3,
     title: '광고',
     description: '치킨 광고',
@@ -54,7 +56,7 @@ export const data: T_GroupScheduleAdd[] = [
       {
         member_id: 1,
         name: '카리나',
-      }
+      },
     ],
   },
 ];

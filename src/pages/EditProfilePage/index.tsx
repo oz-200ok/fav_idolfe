@@ -1,12 +1,11 @@
 import axios from 'axios';
-import './joinpage.scss';
+import './editprofilpage.scss';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import Header from '../../components/common/Header';
-import Footer from '../../components/common/Footer';
+import { useEffect, useState } from 'react';
 
+import { T_EditProfile } from './EditProfilePage';
 import { DuplicateCheck } from '@/api/accountApi';
-import { signup } from '@/api/accountApi';
+import { updateProfile } from '@/api/accountApi';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -16,53 +15,79 @@ import {
 
 // 유효성 검사
 import {
-  emailValidation,
   passwordValidation,
   phoneValidation,
-  nameValidation,
   usernameValidation,
-} from '@/validations/validationRule';
+} from '@/validations/editUserInfoValidation';
+import UserInstance from '@/utils/UserInstance';
 
-export interface JoinFormValues {
-  email: string;
+export interface EditInfoValues {
   password: string;
-  passwordConfirm: string;
-  name: string;
+  currentPassword: string;
   username: string;
   phone: string;
 }
 
-function JoinPage() {
+function EditProfilePage() {
   const [isChecked, setIsChecked] = useState({
-    email: false,
     username: false,
     phone: false,
   });
-  const navigate = useNavigate();
+
+  interface UpdateProfileRequest {
+    password?: string;
+    current_password?: string;
+    username?: string;
+    phone?: string;
+  }
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<JoinFormValues>({ mode: 'onChange' });
+  } = useForm<EditInfoValues>({
+    mode: 'onChange',
+    defaultValues: {
+      username: '',
+      phone: '',
+      password: '',
+      currentPassword: '',
+    },
+  });
 
   const password = watch('password', '');
-  const email = watch('email', '');
   const username = watch('username', '');
   const phone = watch('phone', '');
+  const currentPassword = watch('currentPassword');
 
   const strengthText = passwordStrength(password);
   const strengthLevel = strengthClass(strengthText);
 
+  const navigate = useNavigate();
+
+  const [userInfo, setUserInfo] = useState<T_EditProfile | null>(null);
+
+  useEffect(() => {
+    const GetUserInfo = async () => {
+      try {
+        const response = await UserInstance.get('/account/me/');
+        const userState = response.data.data;
+
+        setUserInfo(userState);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    GetUserInfo();
+  }, []);
+
   const handleDuplicateCheck = async (
-    type: 'email' | 'username' | 'phone',
+    type: 'username' | 'phone',
     value: string,
   ) => {
     let label = '';
-
-    if (type === 'email') {
-      label = '이메일';
-    } else if (type === 'username') {
+    if (type === 'username') {
       label = '닉네임';
     } else if (type === 'phone') {
       label = '전화번호';
@@ -90,58 +115,81 @@ function JoinPage() {
     }
   };
 
-  const onSubmit = async (data: JoinFormValues) => {
-    if (!isChecked.email || !isChecked.username || !isChecked.phone) {
-      alert('모든 중복 확인을 완료해주세요!');
+  const onSubmit = async (data: EditInfoValues) => {
+    console.log('❌', data);
+    // 값이 입력된 경우에만 중복 확인이 필요함
+    if ((username && !isChecked.username) || (phone && !isChecked.phone)) {
+      alert('입력한 항목에 대한 중복 확인을 완료해주세요!');
       return;
     }
 
-    const { passwordConfirm, ...rest } = data;
+    // 비밀 번호 변경을 시도할 경우
+    if (data.password && !data.currentPassword) {
+      alert('비밀번호를 변경하려면 이전 비밀번호를 입력해주세요!');
+      return;
+    }
+
+    const updateData: UpdateProfileRequest = {};
+
+    if (username.trim()) updateData.username = username.trim();
+    if (phone.trim()) updateData.phone = phone.trim();
+    if (data.password) {
+      updateData.password = data.password;
+      updateData.current_password = currentPassword;
+    }
 
     try {
-      await signup(rest);
-      alert(
-        '회원가입이 완료 되었습니다! 로그인을 위해 이메일 인증을 해주세요!',
-      );
-      navigate('/login_page');
+      console.log('❌');
+      await updateProfile(updateData);
+      alert('회원 정보가 수정 되었습니다.');
+
+      navigate('/my_page');
     } catch (err) {
-      console.error(err);
+      if (axios.isAxiosError(err)) {
+        const message =
+          err.response?.data?.detail ||
+          '이전 비밀번호를 잘못 입력하셨습니다! 다시 입력해주세요!';
+        alert(`❌ ${message}`);
+      } else {
+        alert('알 수 없는 에러가 발생했습니다.');
+      }
     }
   };
 
+  if (!userInfo) return null;
+
   return (
     <>
-      <Header />
       <div className="joinpage_container">
         <form className="join_form" onSubmit={handleSubmit(onSubmit)}>
-          <h1> 회원가입 </h1>
+          <h1> 회원 정보 수정 </h1>
           <div className="input-group">
-            <label htmlFor="email">
-              아이디
-              {errors.email && (
-                <p className="warning"> {errors.email.message}</p>
-              )}
-            </label>
+            <label htmlFor="email">아이디</label>
             <div className="inline-group">
               <input
                 className="join_input"
                 id="email"
-                placeholder="이메일을 입력해주세요"
-                autoComplete="email"
-                {...register('email', emailValidation)}
+                autoComplete="off"
+                disabled
               />
-              <button
-                type="button"
-                onClick={() => handleDuplicateCheck('email', email)}
-              >
-                {isChecked.email ? '확인 완료' : '중복확인'}
-              </button>
+              <p className="user_info_view">{userInfo.email}</p>
             </div>
           </div>
           <div className="input-group">
+            <label htmlFor="currentPassword">이전 비밀번호</label>
+            <input
+              className="join_input"
+              id="currentPassword"
+              type="password"
+              placeholder="이전 비밀번호를 입력해주세요"
+              autoComplete="currentPassword"
+              {...register('currentPassword')}
+            />
+          </div>
+          <div className="input-group">
             <label htmlFor="password">
-              비밀번호
-              {strengthText && (
+              새로운 비밀번호
+              {password && strengthText && (
                 <p className={`password-strength ${strengthLevel}`}>
                   {strengthText}
                 </p>
@@ -151,45 +199,17 @@ function JoinPage() {
               className="join_input"
               id="password"
               type="password"
-              placeholder="비밀번호를 입력해주세요"
-              autoComplete="new-password"
+              placeholder="새로운 비밀번호를 입력해주세요"
+              autoComplete="password"
               {...register('password', passwordValidation)}
             />
-            {errors.password && (
-              <p className="password_warning">{errors.password.message}</p>
-            )}
           </div>
           <div className="input-group">
-            <label htmlFor="passwordConfirm">비밀번호 확인</label>
-            <input
-              className="join_input"
-              id="passwordConfirm"
-              type="password"
-              placeholder="확인을 위해 비밀번호를 다시 입력해주세요"
-              autoComplete="new-password"
-              {...register('passwordConfirm', {
-                required: '비밀번호를 다시 입력해주세요',
-                validate: (value) =>
-                  value === password || '비밀번호가 일치하지 않습니다',
-              })}
-            />
-            {errors.passwordConfirm && (
-              <p className="password_warning">
-                {errors.passwordConfirm.message}
-              </p>
-            )}
-          </div>
-          <div className="input-group">
-            <label htmlFor="name">
-              이름
-              {errors.name && <p className="warning">{errors.name.message}</p>}
-            </label>
-            <input
-              className="join_input"
-              id="name"
-              placeholder="이름을 입력해주세요"
-              {...register('name', nameValidation)}
-            />
+            <label htmlFor="name">이름</label>
+            <div className="inline-group">
+              <input className="join_input" id="name" disabled />
+              <p className="user_info_view">{userInfo.name}</p>
+            </div>
           </div>
           <div className="input-group">
             <label htmlFor="username">
@@ -214,12 +234,7 @@ function JoinPage() {
             </div>
           </div>
           <div className="input-group">
-            <label htmlFor="phone">
-              전화번호
-              {errors.phone && (
-                <p className="warning">{errors.phone.message}</p>
-              )}
-            </label>
+            <label htmlFor="phone">전화번호</label>
             <div className="inline-group">
               <input
                 className="join_input"
@@ -237,13 +252,12 @@ function JoinPage() {
           </div>
 
           <button className="submit-btn" type="submit">
-            회원가입 하기
+            정보 수정하기
           </button>
         </form>
       </div>
-      <Footer />
     </>
   );
 }
 
-export default JoinPage;
+export default EditProfilePage;
