@@ -3,35 +3,12 @@ import 'react-calendar/dist/Calendar.css';
 import '../schedule.scss';
 import './munsley.scss';
 import { T_use_Date, T_use_Modal, T_use_ScheduleType } from '../type';
-import { useState } from 'react';
 
 type T_Munsley_Props = T_use_Date & T_use_Modal & T_use_ScheduleType;
 
 export default function Munsley(props: T_Munsley_Props) {
   // 일정 스케줄 ID 가 변경됨과 동시에 data를 일정값으로 변경
-  const [data, setData] = useState<null>(null);
 
-  function asdqwe(celendar: string, startTime: string) {
-    const adfa = {
-      Jan: '01',
-      Feb: '02',
-      Mar: '03',
-      Apr: '04',
-      May: '05',
-      Jun: '06',
-      Jul: '07',
-      Aug: '08',
-      Sep: '09',
-      Oct: '10',
-      Nov: '11',
-      Dec: '12',
-    };
-    const DATA_celendar = celendar.split(' ').slice(1, 4);
-    const DATA_time = startTime.slice(0, 10);
-    console.log(DATA_celendar);
-    console.log(DATA_time);
-    return;
-  } // 나중에 유틸로 뺄 것!
   return (
     <div>
       <Calendar
