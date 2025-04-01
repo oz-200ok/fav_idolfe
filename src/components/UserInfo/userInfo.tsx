@@ -1,27 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import right from '../../assets/chevron-right.png';
-import UserInstance from '@/utils/UserInstance';
-import { useEffect, useState } from 'react';
-import { T_UserInfo } from './infoType';
+import { useEffect } from 'react';
+import useUserStore from '@/store/useUserStore';
+
 const UserInfo = () => {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState<T_UserInfo | null>(null);
+  const { user, fetchUser } = useUserStore();
 
   useEffect(() => {
-    const GetUserInfo = async () => {
-      try {
-        const response = await UserInstance.get('/account/me/');
-        const userInfo = response.data.data;
-        setUserData(userInfo);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    GetUserInfo();
+    if (!user) fetchUser();
   }, []);
 
-  console.log('✨밖에서 확인하는 용도', userData);
-  if (!userData) return null;
+  if (!user) return <p>로딩 중 ......</p>;
 
   return (
     <div className="mypage_container">
@@ -31,10 +21,10 @@ const UserInfo = () => {
       </div>
       <div className="user_info">
         <div className="nickname-wrapper">
-          <h1 className="nickname">{userData.username}</h1>
+          <h1 className="nickname">{user.username}</h1>
           <span>님</span>
         </div>
-        <p className="user-email">{userData.email}</p>
+        <p className="user-email">{user.email}</p>
       </div>
       <div className="mypage_list">
         <ul>

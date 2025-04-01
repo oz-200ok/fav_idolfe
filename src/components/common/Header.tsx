@@ -59,12 +59,18 @@ function Header() {
   useEffect(() => {
     if (userRole === null) return;
     //현재 페이지가 로그인이나 회원가입이라면 게스트페이지로 옮겨지는 것을 막음
-    if (
-      userRole === 'guest' &&
-      location.pathname !== '/login_page' &&
-      location.pathname !== '/join_page' &&
-      location.pathname !== '/guest' //무한이동방지
-    ) {
+
+    const allowGuestPaths = [
+      '/login_page',
+      '/join_page',
+      '/guest',
+      '/email_redirect',
+    ];
+
+    const isGusetAllowed = allowGuestPaths.some((path) => {
+      return location.pathname.startsWith(path);
+    });
+    if (userRole === 'guest' && !isGusetAllowed) {
       navigate('/guest');
     }
   }, [userRole, navigate, location.pathname]); //userRole변경될때만 실행
@@ -132,9 +138,17 @@ function Header() {
   };
 
   //로그아웃: 토큰 삭제 후 로그인 페이지로 이동
-  const handleLogout = () => {
-    markLoggedOut();
-    setUserRole('guest');
+
+  //로그아웃 로직 추가
+
+  const handleLogout = async () => {
+    try {
+      await markLoggedOut();
+      setUserRole('guest');
+      navigate('/');
+    } catch (error) {
+      alert('로그아웃이 실패했습니다.');
+    }
   };
 
   return (
