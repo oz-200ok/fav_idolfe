@@ -1,15 +1,27 @@
-//import { z } from 'zod';
 import axios from 'axios';
-
 import './joinpage.scss';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
 
-import { DuplicateCheck } from '@/utils/accountApi';
-import { signup } from '@/utils/accountApi';
+import { DuplicateCheck } from '@/api/accountApi';
+import { signup } from '@/api/accountApi';
 import { useNavigate } from 'react-router-dom';
+
+import {
+  passwordStrength,
+  strengthClass,
+} from '@/validations/passwordValidation';
+
+// 유효성 검사
+import {
+  emailValidation,
+  passwordValidation,
+  phoneValidation,
+  nameValidation,
+  usernameValidation,
+} from '@/validations/validationRule';
 
 export interface JoinFormValues {
   email: string;
@@ -38,6 +50,11 @@ function JoinPage() {
   const email = watch('email', '');
   const username = watch('username', '');
   const phone = watch('phone', '');
+
+  const strengthText = passwordStrength(password);
+  const strengthLevel = strengthClass(strengthText);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleDuplicateCheck = async (
     type: 'email' | 'username' | 'phone',
@@ -74,49 +91,13 @@ function JoinPage() {
       setIsChecked((prev) => ({ ...prev, [type]: false }));
     }
   };
-
-  const passwordStrength = (() => {
-    if (!password) {
-      return;
-    }
-
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumber = /[0-9]/.test(password);
-    const hasSpecialChar = /[@$!%*#?&]/.test(password);
-    const isLong = password.length >= 12;
-    const isMedium = password.length >= 8;
-    const hasThreeSpecials = (password.match(/[@$!%*#?&]/g) || []).length >= 3;
-    const isSequential = /(.)\1{2,}/.test(password);
-
-    if (isSequential) {
-      return '약함(반복 문자 포함 - 강도를 더 높여주세요)';
-    } else if (
-      !hasUpperCase ||
-      !hasLowerCase ||
-      !hasNumber ||
-      !hasSpecialChar
-    ) {
-      return '약함(필수 조건 부족 - 대문자, 소문자, 숫자, 특수문자를 포함해주세요)';
-    } else if (hasThreeSpecials && isLong) {
-      return '강함 - 사용하기에 안전한 비밀번호 입니다';
-    } else if (isMedium && hasSpecialChar && hasUpperCase) {
-      return '보통 - 사용한 특수문자 외에 다른 특수 문자를 두 개 더 사용하세요';
-    }
-
-    return '';
-  })();
-
-  const strengthClass = (() => {
-    if (passwordStrength?.includes('강함')) return 'strong';
-    if (passwordStrength?.includes('보통')) return 'medium';
-    if (passwordStrength?.includes('약함')) return 'weak';
-    return '';
-  })();
-
   const onSubmit = async (data: JoinFormValues) => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     if (!isChecked.email || !isChecked.username || !isChecked.phone) {
       alert('모든 중복 확인을 완료해주세요!');
+      setIsSubmitting(false);
       return;
     }
 
@@ -124,9 +105,14 @@ function JoinPage() {
 
     try {
       await signup(rest);
+      alert(
+        '회원가입이 완료 되었습니다! 로그인을 위해 이메일 인증을 해주세요!',
+      );
       navigate('/login_page');
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -149,21 +135,7 @@ function JoinPage() {
                 id="email"
                 placeholder="이메일을 입력해주세요"
                 autoComplete="email"
-                {...register('email', {
-                  required: true,
-                  minLength: {
-                    value: 10,
-                    message: '이메일은 최소 10자 이상이어야 합니다',
-                  },
-                  maxLength: {
-                    value: 30,
-                    message: '이메일은 최대 30자 이하여야 합니다',
-                  },
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                    message: '올바른 이메일 형식이 아닙니다',
-                  },
-                })}
+                {...register('email', emailValidation)}
               />
               <button
                 type="button"
@@ -176,9 +148,9 @@ function JoinPage() {
           <div className="input-group">
             <label htmlFor="password">
               비밀번호
-              {passwordStrength && (
-                <p className={`password-strength ${strengthClass}`}>
-                  {passwordStrength}
+              {strengthText && (
+                <p className={`password-strength ${strengthLevel}`}>
+                  {strengthText}
                 </p>
               )}
             </label>
@@ -188,42 +160,7 @@ function JoinPage() {
               type="password"
               placeholder="비밀번호를 입력해주세요"
               autoComplete="new-password"
-              {...register('password', {
-                required: '비밀번호를 입력하세요',
-                minLength: {
-                  value: 8,
-                  message: '비밀번호는 최소 8자 이상이어야 합니다',
-                },
-                validate: (value) => {
-                  const conditions = [
-                    {
-                      condition: /(.)\1{2,}/.test(value),
-                      message: '반복되는 문자는 사용할 수 없습니다',
-                    },
-                    {
-                      condition: !/[A-Z]/.test(value),
-                      message: '대문자를 최소 1개 포함해야 합니다',
-                    },
-                    {
-                      condition: !/[a-z]/.test(value),
-                      message: '소문자를 최소 1개 포함해야 합니다',
-                    },
-                    {
-                      condition: !/[0-9]/.test(value),
-                      message: '숫자를 최소 1개 포함해야 합니다',
-                    },
-                    {
-                      condition: !/[@$!%*#?&]/.test(value),
-                      message: '특수문자를 최소 1개 포함해야 합니다',
-                    },
-                  ];
-
-                  for (const { condition, message } of conditions) {
-                    if (condition) return message;
-                  }
-                  return true;
-                },
-              })}
+              {...register('password', passwordValidation)}
             />
             {errors.password && (
               <p className="password_warning">{errors.password.message}</p>
@@ -250,30 +187,30 @@ function JoinPage() {
             )}
           </div>
           <div className="input-group">
-            <label htmlFor="name">이름</label>
+            <label htmlFor="name">
+              이름
+              {errors.name && <p className="warning">{errors.name.message}</p>}
+            </label>
             <input
               className="join_input"
               id="name"
               placeholder="이름을 입력해주세요"
-              {...register('name', {
-                required: true,
-                minLength: 2,
-                maxLength: 10,
-              })}
+              {...register('name', nameValidation)}
             />
           </div>
           <div className="input-group">
-            <label htmlFor="username">닉네임</label>
+            <label htmlFor="username">
+              닉네임
+              {errors.username && (
+                <p className="warning">{errors.username.message}</p>
+              )}
+            </label>
             <div className="inline-group">
               <input
                 className="join_input"
                 id="username"
                 placeholder="닉네임을 입력해주세요"
-                {...register('username', {
-                  required: true,
-                  minLength: 2,
-                  maxLength: 10,
-                })}
+                {...register('username', usernameValidation)}
               />
               <button
                 type="button"
@@ -295,13 +232,7 @@ function JoinPage() {
                 className="join_input"
                 id="phone"
                 placeholder="전화번호를 입력해주세요"
-                {...register('phone', {
-                  required: '전화번호를 입력해주세요',
-                  pattern: {
-                    value: /^[0-9]{10,11}$/,
-                    message: '전화번호는 10~11자리 숫자만 가능합니다',
-                  },
-                })}
+                {...register('phone', phoneValidation)}
               />
               <button
                 type="button"
@@ -312,8 +243,8 @@ function JoinPage() {
             </div>
           </div>
 
-          <button className="submit-btn" type="submit">
-            회원가입 하기
+          <button className="submit-btn" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? '처리 중...' : '회원가입 하기'}
           </button>
         </form>
       </div>

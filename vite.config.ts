@@ -10,8 +10,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
       '@components': path.resolve(__dirname, './src/components'),
       '@utils': path.resolve(__dirname, './src/utils'),
-      '@assets': path.resolve(__dirname, './src/assets'), // ✅ 추가
-      '@pages': path.resolve(__dirname, './src/pages'), // ✅ 추가
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@context': path.resolve(__dirname, './src/context'),
     },
   },
 });
