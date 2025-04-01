@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import right from '../../assets/chevron-right.png';
-
 import { useEffect } from 'react';
 import useUserStore from '@/store/useUserStore';
 
@@ -12,7 +11,6 @@ const AdminInfo = () => {
     if (!user) fetchUser();
   }, []);
 
-  console.log('✨밖에서 확인하는 용도', user);
   if (!user) return <p> 로딩 중 </p>;
 
   return (
