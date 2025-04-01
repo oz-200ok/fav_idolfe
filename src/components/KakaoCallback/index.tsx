@@ -39,7 +39,7 @@ function KakaoCallBack() {
 
       const res = await UserInstance.get('/account/me/');
 
-      console.log('잘 되나?', res);
+      console.log(res);
       navigate('/');
     } catch (error) {
       alert('카카오 로그인 실패 😢 다시 시도해주세요!');
