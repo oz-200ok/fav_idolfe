@@ -10,7 +10,6 @@ import { useAuth } from '@/context/AuthContext';
 import UserInstance from '@/utils/UserInstance';
 import { apiConfig } from '@/utils/apiConfig';
 import { getRegExp } from 'korean-regexp';
-import { logout } from '@/api/accountApi';
 
 //헤더 컴포넌트 정의
 function Header() {
@@ -143,8 +142,7 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      await logout();
-      markLoggedOut();
+      await markLoggedOut();
       setUserRole('guest');
       navigate('/');
     } catch (error) {
