@@ -3,11 +3,9 @@ import 'react-calendar/dist/Calendar.css';
 import '../schedule.scss';
 import './weekly.scss';
 
-import { T_use_Date, T_use_ScheduleType } from '../type';
+import { T_use_Date } from '../type';
 
-type T_Weekly_Props = T_use_Date & T_use_ScheduleType;
-
-export default function Weekly(props: T_Weekly_Props) {
+export default function Weekly(props: T_use_Date) {
   if (!props.setDate) return;
   return (
     <div>
@@ -20,13 +18,6 @@ export default function Weekly(props: T_Weekly_Props) {
         value={props.date}
         showNeighboringMonth={false}
         calendarType="gregory"
-        onClickDay={(value) => {
-          if (!props.setSaveType || !props.setScheduleType || !props.setDate)
-            return;
-          props.setSaveType('주');
-          props.setScheduleType('일정');
-          props.setDate(new Date(value));
-        }}
         tileContent={({ date }) => {
           const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
           const dayOfWeek = date.getDay(); // 0 - 6 (일 - 토)

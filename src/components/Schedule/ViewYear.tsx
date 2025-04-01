@@ -32,24 +32,13 @@ export default function ViewYear(props: T_ViewYear_Props) {
       locale="ko"
       className="calendar_yearlyHearder"
       value={props.date}
-      onChange={() => props.setDate}
-      nextLabel={
-        props.scheduleType === '연' || props.scheduleType === '일정'
-          ? null
-          : '>'
-      }
-      prevLabel={
-        props.scheduleType === '연' || props.scheduleType === '일정'
-          ? null
-          : '<'
-      }
-      next2Label={props.scheduleType === '일정' ? null : '>>'}
-      prev2Label={props.scheduleType === '일정' ? null : '<<'}
+      nextLabel={props.scheduleType === '연' ? null : '>'}
+      prevLabel={props.scheduleType === '연' ? null : '<'}
+      next2Label=">>"
+      prev2Label="<<"
       formatMonthYear={(_, date) => {
         if (props.scheduleType === '연') return `${date.getFullYear()}년`;
-        else if (props.scheduleType === '일정') {
-          return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${props.date?.getDate()}일`;
-        } else return `${date.getFullYear()}년 ${date.getMonth() + 1}월`;
+        else return `${date.getFullYear()}년 ${date.getMonth() + 1}월`;
       }}
       onActiveStartDateChange={({ action, value }) =>
         yearChangeHandle({ action, value })
