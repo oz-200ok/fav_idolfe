@@ -3,7 +3,11 @@ import './editprofilpage.scss';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 
-import { T_EditProfile } from './EditProfilePage';
+import {
+  T_EditProfile,
+  I_EditInfoValues,
+  I_UpdateProfileRequest,
+} from './EditProfilePage';
 import { DuplicateCheck } from '@/api/accountApi';
 import { updateProfile } from '@/api/accountApi';
 import { useNavigate } from 'react-router-dom';
@@ -20,13 +24,7 @@ import {
   usernameValidation,
 } from '@/validations/editUserInfoValidation';
 import UserInstance from '@/utils/UserInstance';
-
-export interface EditInfoValues {
-  password: string;
-  currentPassword: string;
-  username: string;
-  phone: string;
-}
+import useUserStore from '@/store/useUserStore';
 
 function EditProfilePage() {
   const [isChecked, setIsChecked] = useState({
@@ -34,19 +32,12 @@ function EditProfilePage() {
     phone: false,
   });
 
-  interface UpdateProfileRequest {
-    password?: string;
-    current_password?: string;
-    username?: string;
-    phone?: string;
-  }
-
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<EditInfoValues>({
+  } = useForm<I_EditInfoValues>({
     mode: 'onChange',
     defaultValues: {
       username: '',
@@ -65,6 +56,7 @@ function EditProfilePage() {
   const strengthLevel = strengthClass(strengthText);
 
   const navigate = useNavigate();
+  const { fetchUser } = useUserStore();
 
   const [userInfo, setUserInfo] = useState<T_EditProfile | null>(null);
 
@@ -115,7 +107,7 @@ function EditProfilePage() {
     }
   };
 
-  const onSubmit = async (data: EditInfoValues) => {
+  const onSubmit = async (data: I_EditInfoValues) => {
     console.log('❌', data);
     // 값이 입력된 경우에만 중복 확인이 필요함
     if ((username && !isChecked.username) || (phone && !isChecked.phone)) {
@@ -129,7 +121,7 @@ function EditProfilePage() {
       return;
     }
 
-    const updateData: UpdateProfileRequest = {};
+    const updateData: I_UpdateProfileRequest = {};
 
     if (username.trim()) updateData.username = username.trim();
     if (phone.trim()) updateData.phone = phone.trim();
@@ -141,6 +133,7 @@ function EditProfilePage() {
     try {
       console.log('❌');
       await updateProfile(updateData);
+      await fetchUser();
       alert('회원 정보가 수정 되었습니다.');
 
       navigate('/my_page');
