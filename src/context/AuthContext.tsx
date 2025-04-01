@@ -1,3 +1,4 @@
+import { logout } from '@/api/accountApi';
 import { useContext, useState, createContext } from 'react';
 
 //토큰 저장&삭제 + 로그인 상태 관리 로직
@@ -26,10 +27,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem('refresh_token', refresh_token);
   };
 
-  const markLoggedOut = () => {
-    setIsLoggedIn(false);
+  const markLoggedOut = async () => {
+    const access_token = localStorage.getItem('access_token');
+    const refresh_token = localStorage.getItem('refresh_token');
+
+    try {
+      if (access_token && refresh_token) {
+        await logout(access_token, refresh_token);
+      }
+    } catch (error) {
+      alert('로그아웃에 실패하셨습니다');
+    }
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
+
+    setIsLoggedIn(false);
   };
 
   return (

@@ -33,11 +33,13 @@ function KakaoCallBack() {
 
       const { access_token, refresh_token } = response.data.data;
 
+      console.log(access_token);
+
       markLoggedIn(access_token, refresh_token);
 
-      const res = await UserInstance.get('/account/me/');
+      //const res = await UserInstance.get('/account/me/');
 
-      console.log('잘 되나?', res);
+      // console.log(res);
       navigate('/');
     } catch (error) {
       alert('카카오 로그인 실패 😢 다시 시도해주세요!');
