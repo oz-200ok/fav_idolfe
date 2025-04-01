@@ -45,3 +45,13 @@ export const updateProfile = (data: UpdateProfileRequest) => {
   console.log('백엔드로 넘어가는', data);
   return UserInstance.patch('/account/profile/', data);
 };
+
+/* 로그아웃 */
+export const logout = async () => {
+  try {
+    await UserInstance.post('/account/logout/');
+  } catch (error) {
+    console.error('❌ 로그아웃 실패:', error);
+    throw error;
+  }
+};
