@@ -17,6 +17,9 @@ type T_useState_SetScheduleType_s = T_SetUseState<T_useState_scheduleType_s>;
 type T_useState_dropDownView_s = boolean;
 type T_useState_setDropDownView_s = T_SetUseState<T_useState_dropDownView_s>;
 
+type T_useState_view_s = boolean;
+type T_useState_setView_s = T_SetUseState<T_useState_view_s>;
+
 export type T_use_Date = {
   date?: T_useState_date_s;
   setDate?: T_useState_setDate_s;
@@ -30,9 +33,16 @@ export type T_use_Modal = {
 export type T_use_ScheduleType = {
   scheduleType?: T_useState_scheduleType_s;
   setScheduleType?: T_useState_SetScheduleType_s;
+  saveType?: T_useState_scheduleType_s;
+  setSaveType?: T_useState_SetScheduleType_s;
 };
 
 export type T_use_DropDown = {
   dropDownView?: T_useState_dropDownView_s;
   setDropDownView?: T_useState_setDropDownView_s;
+};
+
+export type T_use_View = {
+  view?: T_useState_view_s;
+  setView?: T_useState_setView_s;
 };
