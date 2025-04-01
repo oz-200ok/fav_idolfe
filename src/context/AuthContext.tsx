@@ -1,51 +1,65 @@
-import { logout } from '@/api/accountApi';
-import { useContext, useState, createContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 
-//토큰 저장&삭제 + 로그인 상태 관리 로직
-
-type T_AuthContextType = {
-  isLoggedIn: boolean;
-  markLoggedIn: (access_token: string, refresh_token: string) => void;
-  markLoggedOut: () => void;
+type AuthContextType = {
+  accessToken: string | null;
+  refreshToken: string | null;
+  setAccessToken: (token: string | null) => void;
+  setRefreshToken: (token: string | null) => void;
+  saveToken: (tokens: { accessToken?: string; refreshToken?: string }) => void;
+  clearAccessToken: () => void;
+  clearRefreshToken: () => void;
 };
 
-const defaultAuthContext: T_AuthContextType = {
-  isLoggedIn: false,
-  markLoggedIn: () => {},
-  markLoggedOut: () => {},
-};
-
-const AuthContext = createContext<T_AuthContextType>(defaultAuthContext);
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [accessToken, setAccessToken] = useState<string | null>(
+    localStorage.getItem('access_token'),
+  );
+  const [refreshToken, setRefreshToken] = useState<string | null>(
+    localStorage.getItem('refresh_token'),
+  );
 
-  const markLoggedIn = (access_token: string, refresh_token: string) => {
-    setIsLoggedIn(true);
+  const saveToken = ({
+    accessToken,
+    refreshToken,
+  }: {
+    accessToken?: string;
+    refreshToken?: string;
+  }) => {
+    if (accessToken) {
+      localStorage.setItem('access_token', accessToken);
+      setAccessToken(accessToken);
+    }
 
-    localStorage.setItem('access_token', access_token);
-    localStorage.setItem('refresh_token', refresh_token);
+    if (refreshToken) {
+      localStorage.setItem('refresh_token', refreshToken);
+      setRefreshToken(refreshToken);
+    }
   };
 
-  const markLoggedOut = async () => {
-    const access_token = localStorage.getItem('access_token');
-    const refresh_token = localStorage.getItem('refresh_token');
-
-    try {
-      if (access_token && refresh_token) {
-        await logout(access_token, refresh_token);
-      }
-    } catch (error) {
-      alert('로그아웃에 실패하셨습니다');
-    }
+  const clearAccessToken = () => {
     localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    setAccessToken(null);
+  };
 
-    setIsLoggedIn(false);
+  const clearRefreshToken = () => {
+    localStorage.removeItem('refresh_token');
+    setRefreshToken(null);
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, markLoggedIn, markLoggedOut }}>
+    <AuthContext.Provider
+      value={{
+        accessToken,
+        setAccessToken,
+        refreshToken,
+        setRefreshToken,
+        clearAccessToken,
+        clearRefreshToken,
+        saveToken,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -53,8 +67,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-
   if (!context)
-    throw new Error('useAuth는  <AuthProvider> 내부에서만 사용할 수 있습니다.');
+    throw new Error('useAuth는 <AuthProvider> 내부에서만 사용할 수 있습니다.');
   return context;
 };

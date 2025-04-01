@@ -26,8 +26,7 @@
       "@components/*": ["src/components/*"],
       "@utils/*": ["src/utils/*"],
       "@assets/*": ["src/assets/*"], // ✅ 추가
-      "@pages/*": ["src/pages/*"],
-      "@context/*": ["src/context/*"]
+      "@pages/*": ["src/pages/*"]
     }
   },
   "include": ["src", "vite.config.ts"]

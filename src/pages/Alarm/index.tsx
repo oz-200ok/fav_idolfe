@@ -1,13 +1,11 @@
 import { useState } from 'react';
-// useEffect, api 불러오면 위에 넣기!
 import './Alarm.scss';
-import aespa from '@assets/aespa-logo.png'; //api 불러오면 삭제
-import bts from '@assets/bts-logo.png'; //api 불러오면 삭제
-import ive from '@assets/ive-logo.png'; //api 불러오면 삭제
-// import axios from 'axios';
+import aespa from '@assets/aespa-logo.png';
+import bts from '@assets/bts-logo.png';
+import ive from '@assets/ive-logo.png';
 
 const Alarm = () => {
-  //임시 데이터(api불러오면 삭제)
+  //임시 데이터
   const [idols, setIdols] = useState([
     {
       id: 1,
@@ -47,27 +45,14 @@ const Alarm = () => {
     },
   ]);
 
-  // api 불러오면 살리기
-  // const [idols, setIdols] = useState([]);
-  //api에서 데이터 불러오기
-  // useEffect(() => {
-  //   axios
-  //     .post('http://100.26.111.172/service/subscriptions/)
-  //     .then((response) => {
-  //       setIdols(response.data);
-  //     })
-  //     .catch(() => alert('데이터를 불러오지 못했습니다. 다시 시도해주세요.'));
-  // }, []);
-
   //알람버튼 클릭 상태변경
-  const handleToggle = async (idolId: number) => {
+  const handleToggle = (idolId: number) => {
     setIdols((prev) =>
       prev.map((idol) =>
         idol.id === idolId ? { ...idol, isAlarmOn: !idol.isAlarmOn } : idol,
       ),
     );
   };
-
   return (
     <div className="sub_page">
       <h1 className="sub_title">알림 설정 페이지</h1>
