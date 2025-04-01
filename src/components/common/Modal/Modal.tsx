@@ -1,4 +1,4 @@
-import './Modal.scss'; 
+import './Modal.scss';
 
 interface ModalProps {
   isOpen: boolean; // 모달 열림 여부

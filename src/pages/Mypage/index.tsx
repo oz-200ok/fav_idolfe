@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import useUserStore from '@/store/useUserStore';
 function Mypage() {
   const [userRole, setUserRole] = useState<boolean | null>(null);
-  const { fetchUser } = useUserStore();
-
 
 
   const navigate = useNavigate();
