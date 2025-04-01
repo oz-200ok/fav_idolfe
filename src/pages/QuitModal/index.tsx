@@ -28,7 +28,7 @@ function QuitModal() {
 
       //api에 delete 요청
       await UserInstance.delete('account/delete/');
-      markLoggedOut();
+      markLoggedOut({ skipApi: true });
 
       //탈퇴완료페이지이동
       navigate('/quit_page');
