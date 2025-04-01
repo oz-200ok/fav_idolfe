@@ -1,66 +1,77 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios'; // Axios는 HTTP 요청을 쉽게 할 수 있도록 도와주는 라이브러리
-import UserInstance from '@/utils/UserInstance'; // UserInstance는 인증이 필요한 요청을 보내는 유틸리티 인스턴스
-import { apiConfig } from '@/utils/apiConfig'; // API 요청에 필요한 설정을 담고 있는 파일
+import axios from 'axios';
+import UserInstance from '@/utils/UserInstance';
+import { apiConfig } from '@/utils/apiConfig';
 import searchIcon from '../../assets/search.png';
+import instaImg from '@assets/instagram.png'; // 인스타그램 아이콘 추가
 import './SearchPage.scss';
-import { IdolGroup } from './type'; // IdolGroup 타입을 불러와서 검색 결과 타입을 정의
-// import { getGroup } from '@/utils/group'; // 그룹 데이터를 가져오는 유틸리티 함수
+import { IdolGroup } from './type';
 import toggleImg from '@assets/chevron-down.png';
 
-const SearchPage = () => {
-  // 현재 페이지의 URL에서 검색어를 가져옴
-  const location = useLocation();
-  const searchQuery = location.state?.query || ''; // URL의 상태에서 검색어를 가져옴. 없으면 빈 문자열.
+// 로컬 스토리지 키(구독 상태 저장용)
+const SUBSCRIPTION_KEY = 'user_subscriptions';
 
-  // 검색 결과와 추천 아이돌을 저장할 상태 변수
-  const [searchResults, setSearchResults] = useState<IdolGroup[]>([]); // 검색된 아이돌 그룹 저장
-  const [recommendedIdols, setRecommendedIdols] = useState<IdolGroup[]>([]); // 추천된 아이돌 그룹 저장
-  const [errorMessage, setErrorMessage] = useState(''); // 에러 메시지 상태
-  const [visibleSearchCount, setVisibleSearchCount] = useState(4); // 더보기 버튼을 위한 상태
+const SearchPage = () => {
+  const location = useLocation();
+  const searchQuery = location.state?.query || '';
+
+  // 상태 관리 변수
+  const [searchResults, setSearchResults] = useState<IdolGroup[]>([]);
+  const [recommendedIdols, setRecommendedIdols] = useState<IdolGroup[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [visibleSearchCount, setVisibleSearchCount] = useState(4);
   const [visibleRecommendedCount, setVisibleRecommendedCount] = useState(4);
 
-  // 페이지가 처음 로드되거나, 검색어가 변경될 때마다 호출되는 useEffect
+  // 검색어 변경 시 초기화
   useEffect(() => {
     if (searchQuery) {
-      fetchSearchResults(searchQuery); // 검색어가 있을 경우 검색 결과를 가져옴
+      setVisibleSearchCount(4); // 더보기 상태 초기화
+      setVisibleRecommendedCount(4);
+      fetchSearchResults(searchQuery);
     }
-  }, [searchQuery]); // 검색어가 변경될 때마다 다시 실행
+  }, [searchQuery]);
 
-  // 아이돌 그룹을 검색하는 함수
+  // 초기 구독 상태 가져오기
+  const getInitialSubscriptionState = (groupId: number): boolean => {
+    const subscriptions = JSON.parse(
+      localStorage.getItem(SUBSCRIPTION_KEY) || '[]',
+    );
+    return subscriptions.includes(groupId);
+  };
+
+  // 검색 결과 조회
   const fetchSearchResults = async (query: string) => {
     try {
-      // 검색어로 필터링된 그룹 리스트를 가져오는 API 요청
       const searchGroup = axios.create(apiConfig);
       const response = await searchGroup.get(`/idol/groups/?name=${query}`);
 
-      // 응답 데이터를 필터링하여 검색어가 포함된 그룹만 남김
-      const filteredResults = response.data.filter(
-        (group: any) => group.name.toLowerCase().includes(query.toLowerCase()), // 그룹 이름에 검색어가 포함되었는지 체크
-      );
+      // 결과 필터링 및 최대 10개 제한
+      const filteredResults = response.data
+        .filter((group: any) =>
+          group.name.toLowerCase().includes(query.toLowerCase()),
+        )
+        .slice(0, 10);
 
-      // 검색 결과가 없을 경우 에러 메시지 출력
       if (filteredResults.length === 0) {
         setErrorMessage('검색 결과가 없습니다. 다시 검색해주세요.');
         setSearchResults([]);
         setRecommendedIdols([]);
       } else {
-        setErrorMessage(''); // 에러 메시지 초기화
+        setErrorMessage('');
 
-        // 검색 결과를 상태에 저장하고, 각 그룹에 구독 여부 속성을 추가
+        // 구독 상태 포함한 검색 결과 생성
         const idolGroups = filteredResults.map((group: any) => ({
           ...group,
-          isSubscribed: false, // 초기 구독 여부는 false로 설정
+          isSubscribed: getInitialSubscriptionState(group.id), // ✨ 초기 구독 상태 적용
         }));
         setSearchResults(idolGroups);
 
-        // 추천 아이돌을 가져오기 위한 비동기 처리 (각 그룹마다)
-        // 각 그룹에 대해 추천 아이돌을 가져오기
+        // 추천 데이터 초기화 후 새로 가져오기
         setRecommendedIdols([]);
         await Promise.all(
           idolGroups.map(async (group: IdolGroup) => {
-            await fetchRecommendedIdols(group); // 그룹에 대한 추천 아이돌 가져오기
+            await fetchRecommendedIdols(group);
           }),
         );
       }
@@ -70,29 +81,30 @@ const SearchPage = () => {
     }
   };
 
-  // 추천 아이돌을 가져오는 함수
+  // 추천 아이돌 조회
   const fetchRecommendedIdols = async (group: IdolGroup) => {
-    const agencyId = group.agency; // 해당 그룹의 소속사를 추출
-
+    const agencyId = group.agency;
     try {
       const groupData = axios.create(apiConfig);
       const res = await groupData.get(`/idol/groups/?agency=${agencyId}`);
 
-      if (!res.data) return; // 그룹 데이터가 없으면 반환
+      if (!res.data) return;
 
-      // 같은 소속사의 다른 그룹을 추천 아이돌로 가져옴
-      const recommendedFilteredResult = res.data.filter(
-        (g: any) => g.agency === agencyId && g.id !== group.id, // 같은 소속사이면서 해당 그룹 제외
-      );
-
-      // 중복 제거 후 상태 업데이트 (추천 아이돌 목록에서 중복 아이돌 제거)
+      // 추천 결과 필터링 및 최대 10개 제한
+      const recommendedFilteredResult = res.data
+        .filter((g: any) => g.agency === agencyId && g.id !== group.id)
+        .slice(0, 10)
+        .map((g: any) => ({
+          ...g,
+          isSubscribed: getInitialSubscriptionState(g.id), // ✨ 초기 구독 상태 적용
+        }));
 
       setRecommendedIdols((prevIdols) => {
         const newIdols = [...prevIdols, ...recommendedFilteredResult];
+        // 중복 제거
         const uniqueIdols = Array.from(
           new Set(newIdols.map((idol) => idol.id)),
         ).map((id) => newIdols.find((idol) => idol.id === id));
-
         return uniqueIdols;
       });
     } catch (error) {
@@ -100,41 +112,55 @@ const SearchPage = () => {
     }
   };
 
-  // 그룹 구독 기능 (버튼 클릭 시 실행)
+  // 구독 상태 변경 핸들러
   const handleSubscribe = async (groupId: number, isSubscribed: boolean) => {
     try {
+      // 1. API 요청
       if (isSubscribed) {
-        // 구독 취소 (POST + action 파라미터)
         await UserInstance.delete(`/service/subscriptions/${groupId}/`);
       } else {
         await UserInstance.post(`/service/subscriptions/`, {
           group_id: groupId,
         });
-
-        setSearchResults((prevResults) =>
-          prevResults.map((group) =>
-            group.id === groupId
-              ? { ...group, isSubscribed: !isSubscribed }
-              : group,
-          ),
-        );
       }
+
+      // 2. 로컬 스토리지 업데이트
+      const subscriptions = JSON.parse(
+        localStorage.getItem(SUBSCRIPTION_KEY) || '[]',
+      );
+      const newSubscriptions = isSubscribed
+        ? subscriptions.filter((id: number) => id !== groupId)
+        : [...subscriptions, groupId];
+      localStorage.setItem(SUBSCRIPTION_KEY, JSON.stringify(newSubscriptions));
+
+      // 3. UI 상태 업데이트 (검색+추천 동시 반영)
+      setSearchResults((prev) =>
+        prev.map((group) =>
+          group.id === groupId
+            ? { ...group, isSubscribed: !isSubscribed }
+            : group,
+        ),
+      );
+      setRecommendedIdols((prev) =>
+        prev.map((group) =>
+          group.id === groupId
+            ? { ...group, isSubscribed: !isSubscribed }
+            : group,
+        ),
+      );
     } catch (error) {
       console.error('구독 오류:', error);
     }
   };
 
-  // 더보기 버튼 클릭 핸들러
-  const handleLoadMoreSearch = () => {
-    setVisibleSearchCount((prev) => prev + 4); // 검색결과 더보기 (4개씩 추가)
-  };
-
-  const handleLoadMoreRecommended = () => {
-    setVisibleRecommendedCount((prev) => prev + 4); // 추천아이돌 더보기 (4개씩 추가)
-  };
+  // 더보기 핸들러
+  const handleLoadMoreSearch = () => setVisibleSearchCount((prev) => prev + 4);
+  const handleLoadMoreRecommended = () =>
+    setVisibleRecommendedCount((prev) => prev + 4);
 
   return (
     <div className="search_page">
+      {/* 검색 헤더 */}
       <div className="search_title">
         <img src={searchIcon} alt="search" className="search_Icon" />
         <p className="search_title_text">"{searchQuery}" 검색결과</p>
@@ -142,9 +168,9 @@ const SearchPage = () => {
       <div>
         <p className="search_text">검색결과 총 {searchResults.length} 건</p>
       </div>
-      {/* 검색결과 출력 */}
+
+      {/* 검색 결과 영역 */}
       {errorMessage ? (
-        // 에러 메시지 출력
         <h1 className="error_message">{errorMessage}</h1>
       ) : (
         <div className="search_result">
@@ -159,8 +185,18 @@ const SearchPage = () => {
                     : group.idol}
                 </p>
                 <p className="group_agency">{group.agency}</p>
-                <a className="group_sns">{group.sns}</a>
-                {/* 구독버튼 */}
+
+                {/* 인스타그램 링크 (이미지로 변경) */}
+                <a
+                  href={group.sns} // SNS 필드를 실제 링크로 사용
+                  className="group_sns"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={instaImg} alt="인스타그램" className="insta_icon" />
+                </a>
+
+                {/* 구독 버튼 */}
                 <div>
                   <button
                     className={`sub_button ${group.isSubscribed ? 'subscribed' : ''}`}
@@ -174,25 +210,23 @@ const SearchPage = () => {
               </div>
             </div>
           ))}
-          {/* 검색결과더보기 */}
           {searchResults.length > visibleSearchCount && (
             <button className="load_more_text" onClick={handleLoadMoreSearch}>
               더보기
-              <img src={toggleImg}></img>
+              <img src={toggleImg} alt="더보기 토글" />
             </button>
           )}
         </div>
       )}
-      {/* 추천아이돌 */}
+
+      {/* 추천 아이돌 영역 */}
       {recommendedIdols.length > 0 && (
         <div className="recommended_group">
           <p className="recommended_title">추천 아이돌</p>
-
           <div className="recommended_container">
             {recommendedIdols.slice(0, visibleRecommendedCount).map((group) => (
               <div key={group.id} className="group_card">
                 <img src={group.image} alt={group.name} className="group_img" />
-
                 <div className="group_info">
                   <h1 className="group_name">{group.name}</h1>
                   <p className="group_mem">
@@ -201,8 +235,22 @@ const SearchPage = () => {
                       : group.idol}
                   </p>
                   <p className="group_agency">{group.agency}</p>
-                  <a className="group_sns">{group.sns}</a>
-                  {/* 추천아이돌 구독버튼 */}
+
+                  {/* 인스타그램 링크 (이미지로 변경) */}
+                  <a
+                    href={group.sns}
+                    className="group_sns"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={instaImg}
+                      alt="인스타그램"
+                      className="insta_icon"
+                    />
+                  </a>
+
+                  {/* 구독 버튼 */}
                   <div>
                     <button
                       className={`sub_button ${group.isSubscribed ? 'subscribed' : ''}`}
@@ -217,14 +265,16 @@ const SearchPage = () => {
               </div>
             ))}
           </div>
+          {recommendedIdols.length > visibleRecommendedCount && (
+            <button
+              className="load_more_text"
+              onClick={handleLoadMoreRecommended}
+            >
+              더보기
+              <img src={toggleImg} alt="더보기 토글" />
+            </button>
+          )}
         </div>
-      )}
-      {/* 추천아이돌 더보기버튼 */}
-      {recommendedIdols.length > visibleRecommendedCount && (
-        <button className="load_more_text" onClick={handleLoadMoreRecommended}>
-          더보기
-          <img src={toggleImg}></img>
-        </button>
       )}
     </div>
   );
