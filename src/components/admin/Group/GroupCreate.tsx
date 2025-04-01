@@ -47,7 +47,7 @@ const GroupEdit = () => {
             name: m.name,
             image: m.image as string,
             imageFile: null,
-          }))
+          })),
         );
       } catch (error) {
         console.error('불러오기 실패:', error);
@@ -179,8 +179,12 @@ const GroupEdit = () => {
         <div className="member_add">
           <div className="member_add_image">
             <label htmlFor="memberImageUpload">
-              {!memberImageData.url && <div className="member_add_placeholder">+</div>}
-              {memberImageData.url && <img src={memberImageData.url} alt="Member" />}
+              {!memberImageData.url && (
+                <div className="member_add_placeholder">+</div>
+              )}
+              {memberImageData.url && (
+                <img src={memberImageData.url} alt="Member" />
+              )}
             </label>
             <input
               type="file"

@@ -16,7 +16,7 @@ export interface GroupFormData {
 
 export interface GroupFormState {
   groupName: string;
-  agencyId: number ;
+  agencyId: number;
   snsLink: string;
   groupImage: {
     url: string | null;

@@ -76,7 +76,10 @@ const GroupEdit = () => {
   };
 
   const handleRemoveMember = (id: number) => {
-    handleChange('members', groupData.members.filter((m) => m.id !== id));
+    handleChange(
+      'members',
+      groupData.members.filter((m) => m.id !== id),
+    );
   };
 
   const handleUpdate = async () => {

@@ -26,7 +26,6 @@ import { useEffect } from 'react';
 
 function App() {
   return (
-  
     <Routes>
       {/* 🔥 Layout을 적용할 부모 Route 추가 */}
       <Route element={<Layout />}>
@@ -40,7 +39,7 @@ function App() {
           path="/group_management_page"
           element={<GroupManagementPage />}
         />
-        <Route path="/group_edit/:groupId" element={<GroupEdit/>} />
+        <Route path="/group_edit/:groupId" element={<GroupEdit />} />
         <Route path="/schedule_alarm" element={<Alarm />} />
         <Route path="/admin_upload" element={<AdminUpload />} />
       </Route>

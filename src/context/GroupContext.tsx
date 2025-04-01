@@ -1,12 +1,18 @@
 // ✅ context/GroupContext.tsx
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 import { fetchGroupList } from '@/utils/group';
 
 export interface GroupItem {
-    id: number;
-    name: string;
-    image: string;
-  }
+  id: number;
+  name: string;
+  image: string;
+}
 
 interface GroupContextType {
   groups: GroupItem[];
@@ -24,8 +30,8 @@ export const GroupProvider = ({ children }: { children: ReactNode }) => {
       const data = await fetchGroupList();
       const normalized = data.map((g: any) => ({
         id: g.id,
-        name: g.group_name,       // ✅ 필드명 맞추기
-        image: g.group_image,     // ✅ 필드명 맞추기
+        name: g.group_name, // ✅ 필드명 맞추기
+        image: g.group_image, // ✅ 필드명 맞추기
       }));
       setGroups(normalized);
     } catch (err) {
@@ -50,6 +56,7 @@ export const GroupProvider = ({ children }: { children: ReactNode }) => {
 
 export const useGroupContext = () => {
   const context = useContext(GroupContext);
-  if (!context) throw new Error('GroupContext must be used within GroupProvider');
+  if (!context)
+    throw new Error('GroupContext must be used within GroupProvider');
   return context;
 };
