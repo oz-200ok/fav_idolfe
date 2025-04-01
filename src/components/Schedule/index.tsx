@@ -8,8 +8,6 @@ import Modal from '../scheduleAdd';
 import Day from './Day';
 
 import { T_ScheduleType, T_use_Date } from './type';
-import { T_GroupScheduleAdd } from '@/types/typeAPI';
-import { data } from './data';
 
 export default function Schedule() {
   const [scheduleType, setScheduleType] = useState<T_ScheduleType>('월');
@@ -18,21 +16,21 @@ export default function Schedule() {
   const [date, setDate] = useState(new Date());
   const [modal, setModal] = useState(false);
 
-  const [day, setDay] = useState<T_GroupScheduleAdd[] | null>(null);
-  const [scheduleID, setScheduleID] = useState<number | null>(null);
-  const [groupID, setGroupID] = useState<number | null>(1);
+  // const [day, setDay] = useState<T_GroupScheduleAdd[] | null>(null);
+  // const [scheduleID, setScheduleID] = useState<number | null>(null);
+  // const [groupID, setGroupID] = useState<number | null>(1);
 
-  useEffect(() => {
-    const APIrespone = async () => {
-      // const data = axios구문 / 유틸
-      // /ilog/service/schedules (사용자가 구독한 그룹의 일정목록 조회) 사용자일 때
-      // /ilog/schedule (관리중인 그룹 일정 조회) 어드민일 때
+  // useEffect(() => {
+  //   const APIrespone = async () => {
+  //     // const data = axios구문 / 유틸
+  //     // /ilog/service/schedules (사용자가 구독한 그룹의 일정목록 조회) 사용자일 때
+  //     // /ilog/schedule (관리중인 그룹 일정 조회) 어드민일 때
 
-      // 추후에 그룹선택 드롭다운 추가 (추가한다는 전재하에 짠 api 구조)
-      setDay(data);
-    };
-    APIrespone();
-  }, []);
+  //     // 추후에 그룹선택 드롭다운 추가 (추가한다는 전재하에 짠 api 구조)
+  //     setDay(data);
+  //   };
+  //   APIrespone();
+  // }, []);
 
   useEffect(() => {
     console.log('date 변경됨:', date);
