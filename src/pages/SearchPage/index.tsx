@@ -6,8 +6,8 @@ import { apiConfig } from '@/utils/apiConfig'; // API 요청에 필요한 설정
 import searchIcon from '../../assets/search.png';
 import './SearchPage.scss';
 import { IdolGroup } from './type'; // IdolGroup 타입을 불러와서 검색 결과 타입을 정의
-import { getGroup } from '@/utils/group'; // 그룹 데이터를 가져오는 유틸리티 함수
-import { array } from 'zod';
+// import { getGroup } from '@/utils/group'; // 그룹 데이터를 가져오는 유틸리티 함수
+import toggleImg from '@assets/chevron-down.png';
 
 const SearchPage = () => {
   // 현재 페이지의 URL에서 검색어를 가져옴
@@ -18,7 +18,8 @@ const SearchPage = () => {
   const [searchResults, setSearchResults] = useState<IdolGroup[]>([]); // 검색된 아이돌 그룹 저장
   const [recommendedIdols, setRecommendedIdols] = useState<IdolGroup[]>([]); // 추천된 아이돌 그룹 저장
   const [errorMessage, setErrorMessage] = useState(''); // 에러 메시지 상태
-  const [visibleCount, setVisibleCount] = useState(8); // 더보기 버튼을 위한 상태
+  const [visibleSearchCount, setVisibleSearchCount] = useState(4); // 더보기 버튼을 위한 상태
+  const [visibleRecommendedCount, setVisibleRecommendedCount] = useState(4);
 
   // 페이지가 처음 로드되거나, 검색어가 변경될 때마다 호출되는 useEffect
   useEffect(() => {
@@ -56,6 +57,7 @@ const SearchPage = () => {
 
         // 추천 아이돌을 가져오기 위한 비동기 처리 (각 그룹마다)
         // 각 그룹에 대해 추천 아이돌을 가져오기
+        setRecommendedIdols([]);
         await Promise.all(
           idolGroups.map(async (group: IdolGroup) => {
             await fetchRecommendedIdols(group); // 그룹에 대한 추천 아이돌 가져오기
@@ -73,11 +75,8 @@ const SearchPage = () => {
     const agencyId = group.agency; // 해당 그룹의 소속사를 추출
 
     try {
-      // console.log('에이전시아이디:', agencyId);
       const groupData = axios.create(apiConfig);
       const res = await groupData.get(`/idol/groups/?agency=${agencyId}`);
-
-      // console.log('그룹정보:', res);
 
       if (!res.data) return; // 그룹 데이터가 없으면 반환
 
@@ -102,28 +101,38 @@ const SearchPage = () => {
   };
 
   // 그룹 구독 기능 (버튼 클릭 시 실행)
-  const handleSubscribe = async (groupId: number) => {
+  const handleSubscribe = async (groupId: number, isSubscribed: boolean) => {
     try {
-      // 구독 요청을 서버에 보냄
-      await UserInstance.post(`/service/subscriptions/`, { group_id:groupId });
+      if (isSubscribed) {
+        // 구독 취소 (POST + action 파라미터)
+        await UserInstance.delete(`/service/subscriptions/${groupId}/`);
+      } else {
+        await UserInstance.post(`/service/subscriptions/`, {
+          group_id: groupId,
+        });
 
-      // 구독 상태를 변경하여 UI 업데이트
-      setSearchResults((prevResults) =>
-        prevResults.map(
-          (group) =>
-            group.id === groupId ? { ...group, isSubscribed: true } : group, // 구독 상태 변경
-        ),
-      );
+        setSearchResults((prevResults) =>
+          prevResults.map((group) =>
+            group.id === groupId
+              ? { ...group, isSubscribed: !isSubscribed }
+              : group,
+          ),
+        );
+      }
     } catch (error) {
       console.error('구독 오류:', error);
     }
   };
 
-  const handleLoadMore = () => {
-    setVisibleCount((prevCount) =>
-      Math.min(prevCount + 8, searchResults.length),
-    );
+  // 더보기 버튼 클릭 핸들러
+  const handleLoadMoreSearch = () => {
+    setVisibleSearchCount((prev) => prev + 4); // 검색결과 더보기 (4개씩 추가)
   };
+
+  const handleLoadMoreRecommended = () => {
+    setVisibleRecommendedCount((prev) => prev + 4); // 추천아이돌 더보기 (4개씩 추가)
+  };
+
   return (
     <div className="search_page">
       <div className="search_title">
@@ -139,7 +148,7 @@ const SearchPage = () => {
         <h1 className="error_message">{errorMessage}</h1>
       ) : (
         <div className="search_result">
-          {searchResults.slice(0, visibleCount).map((group) => (
+          {searchResults.slice(0, visibleSearchCount).map((group) => (
             <div key={group.id} className="group_card">
               <img src={group.image} alt={group.name} className="group_img" />
               <div className="group_info">
@@ -151,10 +160,13 @@ const SearchPage = () => {
                 </p>
                 <p className="group_agency">{group.agency}</p>
                 <a className="group_sns">{group.sns}</a>
+                {/* 구독버튼 */}
                 <div>
                   <button
                     className={`sub_button ${group.isSubscribed ? 'subscribed' : ''}`}
-                    onClick={() => handleSubscribe(group.id)}
+                    onClick={() =>
+                      handleSubscribe(group.id, group.isSubscribed)
+                    }
                   >
                     {group.isSubscribed ? '구독 중' : '구독하기'}
                   </button>
@@ -162,20 +174,22 @@ const SearchPage = () => {
               </div>
             </div>
           ))}
-          {/* 더보기버튼 */}
-          {visibleCount < searchResults.length && (
-            <button className="load_more_button" onClick={handleLoadMore}>
+          {/* 검색결과더보기 */}
+          {searchResults.length > visibleSearchCount && (
+            <button className="load_more_text" onClick={handleLoadMoreSearch}>
               더보기
+              <img src={toggleImg}></img>
             </button>
           )}
         </div>
       )}
+      {/* 추천아이돌 */}
       {recommendedIdols.length > 0 && (
         <div className="recommended_group">
           <p className="recommended_title">추천 아이돌</p>
 
           <div className="recommended_container">
-            {recommendedIdols.map((group) => (
+            {recommendedIdols.slice(0, visibleRecommendedCount).map((group) => (
               <div key={group.id} className="group_card">
                 <img src={group.image} alt={group.name} className="group_img" />
 
@@ -188,11 +202,13 @@ const SearchPage = () => {
                   </p>
                   <p className="group_agency">{group.agency}</p>
                   <a className="group_sns">{group.sns}</a>
-
+                  {/* 추천아이돌 구독버튼 */}
                   <div>
                     <button
                       className={`sub_button ${group.isSubscribed ? 'subscribed' : ''}`}
-                      onClick={() => handleSubscribe(group.id)}
+                      onClick={() =>
+                        handleSubscribe(group.id, group.isSubscribed)
+                      }
                     >
                       {group.isSubscribed ? '구독 중' : '구독하기'}
                     </button>
@@ -202,6 +218,13 @@ const SearchPage = () => {
             ))}
           </div>
         </div>
+      )}
+      {/* 추천아이돌 더보기버튼 */}
+      {recommendedIdols.length > visibleRecommendedCount && (
+        <button className="load_more_text" onClick={handleLoadMoreRecommended}>
+          더보기
+          <img src={toggleImg}></img>
+        </button>
       )}
     </div>
   );

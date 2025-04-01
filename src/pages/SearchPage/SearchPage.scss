@@ -109,3 +109,17 @@
   color: #9d9d9d;
   padding-top: 10px;
 }
+
+.load_more_text {
+  display: block;
+  margin: 20px auto; // 중앙 정렬
+  background: none; // 배경 제거
+  border: none; // 외곽선 제거
+  color: #6a5096; // 텍스트 색상
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline; // 호버 시 밑줄 추가
+  }
+}
