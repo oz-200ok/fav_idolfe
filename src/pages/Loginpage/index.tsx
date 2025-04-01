@@ -6,15 +6,11 @@ import NaverLogin from '../../components/NaverLogin';
 import KakaoLogin from '../../components/KakaoLogin';
 import Header from '../../components/common/Header';
 import Footer from '../../components/common/Footer';
-import { login } from '@/utils/GuestInstance';
-import { useAuth } from '@/context/AuthContext';
-
 function Loginpage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<I_LoginError | null>(null);
-  const { markLoggedIn } = useAuth();
 
   const handlerEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -24,17 +20,7 @@ function Loginpage() {
     setPassword(e.target.value);
   };
 
-  type T_LoginData = {
-    access_token: string;
-    refresh_token: string;
-    expires_in: number;
-    user: {
-      id: number;
-      email: string;
-    };
-  };
-
-  const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // 기본 제출 동작(새로고침) 방지 회원가입 페이지에도 추가
 
     if (!email || !password) {
@@ -47,25 +33,7 @@ function Loginpage() {
       return;
     }
 
-    try {
-      console.log('email:', email);
-      console.log('password:', password);
-      const res = await login({ email, password });
-
-      const data: T_LoginData = res.data;
-
-      console.log('📌데이터확인', data);
-      markLoggedIn(data.access_token, data.refresh_token);
-
-      setError(null); // 에러 초기화 (성공 시)
-      navigate('/');
-    } catch (error: any) {
-      if (error.response?.status === 401) {
-        setError({ message: '이메일 또는 비밀번호가 틀렸습니다.' });
-      } else {
-        setError({ message: '서버 오류가 발생했습니다.' });
-      }
-    }
+    setError(null); // 에러 초기화 (성공 시)
   };
 
   const validateEmail = (email: string) => {

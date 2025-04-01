@@ -1,10 +1,12 @@
+import { Dispatch, SetStateAction } from 'react';
 import Calendar from 'react-calendar';
-import { T_use_Date, T_use_ScheduleType } from '../type';
+import { Value } from 'react-calendar/src/shared/types.js';
 
-type T_ViewYearly_Props = T_use_Date & T_use_ScheduleType;
-
-export default function ViewYearly(props: T_ViewYearly_Props) {
-  if (!props.setDate) return;
+type T_ViewYearly = {
+  value: Value | Date;
+  onChange: Dispatch<SetStateAction<Value>>;
+};
+export default function ViewYearly(props: T_ViewYearly) {
   return (
     <Calendar
       view="month"
@@ -13,19 +15,16 @@ export default function ViewYearly(props: T_ViewYearly_Props) {
       prevLabel={null}
       next2Label={null}
       prev2Label={null}
-      onChange={() => props.setDate}
-      value={props.date}
+      onChange={props.onChange}
+      value={props.value}
       calendarType="gregory"
-      formatMonthYear={(_, date) => {
+      formatMonthYear={(locale, date) => {
+        console.log(locale);
         return `${date.getMonth() + 1}`;
       }} // Month는 0부터 시작
-      formatDay={(_, date) => {
+      formatDay={(locale, date) => {
+        console.log(locale);
         return date.toLocaleString('en', { day: 'numeric' });
-      }}
-      onClickDay={(value) => {
-        if (!props.setScheduleType || !props.setDate) return;
-        props.setDate(value);
-        props.setScheduleType('월');
       }}
     />
   );
