@@ -137,6 +137,9 @@ function Header() {
   };
 
   //로그아웃: 토큰 삭제 후 로그인 페이지로 이동
+
+  //로그아웃 로직 추가
+
   const handleLogout = () => {
     markLoggedOut();
     setUserRole('guest');
