@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Weekly from './Weekly';
 import Yearly from './Yearly';
 import Munsley from './Munsley';
@@ -8,15 +8,54 @@ import Modal from '../scheduleAdd';
 import Day from './Day';
 
 import { T_ScheduleType, T_use_Date } from './type';
+import { T_GroupScheduleAdd } from '@/types/typeAPI';
+import { data } from './data';
 
 export default function Schedule() {
   const [scheduleType, setScheduleType] = useState<T_ScheduleType>('월');
+  const [saveType, setSaveType] = useState<T_ScheduleType>('월');
   const [dropDownView, setDropDownView] = useState(false);
   const [date, setDate] = useState(new Date());
   const [modal, setModal] = useState(false);
 
+  const [day, setDay] = useState<T_GroupScheduleAdd[] | null>(null);
+  const [scheduleID, setScheduleID] = useState<number | null>(null);
+  const [groupID, setGroupID] = useState<number | null>(1);
+
+  useEffect(() => {
+    const APIrespone = async () => {
+      // const data = axios구문 / 유틸
+      // /ilog/service/schedules (사용자가 구독한 그룹의 일정목록 조회) 사용자일 때
+      // /ilog/schedule (관리중인 그룹 일정 조회) 어드민일 때
+
+      // 추후에 그룹선택 드롭다운 추가 (추가한다는 전재하에 짠 api 구조)
+      setDay(data);
+    };
+    APIrespone();
+  }, []);
+
+  useEffect(() => {
+    console.log('date 변경됨:', date);
+    console.log('getDate 테스트 변경됨:', date.getDate());
+  }, [date]);
+  useEffect(() => {
+    console.log('saveType 변경됨:', saveType);
+  }, [saveType]);
+
+  // yearly 제외 모든 컴포넌트에 그룹 일정목록 props
+  // 각 컴포넌트마다 각 일정날짜와 props.start_time이 동일할 때 적용 (중복될테니 유틸로 뺄 것)
+  // 동일 시 해당 일정의 스케줄 ID를 useState로 저장
+  // DAY에서 스케줄ID 상태를 호출하여 표시 (일정, 그룹 ID props)
   function randerSchedule(props: T_use_Date) {
-    if (scheduleType === '주') return <Weekly {...props} />;
+    if (scheduleType === '주')
+      return (
+        <Weekly
+          {...props}
+          setScheduleType={setScheduleType}
+          saveType={saveType}
+          setSaveType={setSaveType}
+        />
+      );
     else if (scheduleType === '연')
       return <Yearly {...props} setScheduleType={setScheduleType} />;
     else if (scheduleType === '월')
@@ -25,11 +64,19 @@ export default function Schedule() {
           {...props}
           setModal={setModal}
           setScheduleType={setScheduleType}
+          saveType={saveType}
+          setSaveType={setSaveType}
         />
       );
     else
       return (
-        <Day {...props} setModal={setModal} setScheduleType={setScheduleType} />
+        <Day
+          {...props}
+          setModal={setModal}
+          setScheduleType={setScheduleType}
+          saveType={saveType}
+          setSaveType={setSaveType}
+        />
       );
   }
 
@@ -44,7 +91,6 @@ export default function Schedule() {
       >
         {scheduleType} {dropDownView === true ? '^' : 'v'}
       </button>
-
       {dropDownView && (
         <DropDown
           scheduleType={scheduleType}
@@ -52,28 +98,8 @@ export default function Schedule() {
           setDropDownView={setDropDownView}
         />
       )}
-
       <ViewYear date={date} setDate={setDate} scheduleType={scheduleType} />
-      <div>{randerSchedule({ date: date, setDate: Date })}</div>
+      <div>{randerSchedule({ date, setDate })}</div>
     </div>
   );
 }
-
-// 월간,주간 -> 일정
-// 연간 -> 월간 (에러 수정 필요) !fix
-
-// API
-// 구독 그룹 데이터 호출 (로그인 상태 확인 / 사용자 구독 그룹)
-// 해당 그룹 일정 호출 (모든 구독 그룹을 한 일정에?)
-// 월간, 주간 (그룹 / 일정타이틀 / 일정갯수)
-// 연간 (일정갯수?)
-// 클릭 시 해당 일정의 세부일정 확인 (해당 일정 호출) -> Day > * 
-// 일정 조회 T_UserGroupScheduleSearch -> 여기 index에서 추가
-// 특정 일정 조회 T_UserGroupSchedule -> 일정조회 id를 토대로 day에서 추가
-// (type.ts 중복 타입 수정 필요) !fix
-// 일정 추가 -> T_GroupScheduleAdd / T_GroupMember
-// 일정 수정 -> T_GroupScheduleModify / T_GroupMember
-// 일정 삭제 -> T_GroupScheduleDelete
-// 따로 유틸로 빼서 추가
-// day -> viewDay,buttons 이하 컴포넌트에 다 전달 (일정조회/그룹 등)
-// api 연결 후 전체적 체크

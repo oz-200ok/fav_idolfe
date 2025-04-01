@@ -5,7 +5,7 @@ import {
   T_use_View,
 } from '../type';
 import './Day.scss';
-import { data } from './data';
+import { data } from '../data';
 
 type T_ViewDay_Props = T_use_Date &
   T_use_Modal &
@@ -18,8 +18,9 @@ export default function Buttons(props: T_ViewDay_Props) {
       <button
         className="button_back"
         onClick={() => {
-          if (!props.setScheduleType) return;
-          props.setScheduleType('월');
+          if (!props.setScheduleType || !props.setSaveType || !props.saveType)
+            return;
+          props.setScheduleType(props.saveType);
         }}
       >{`<`}</button>
       {data?.length !== 0 ? (

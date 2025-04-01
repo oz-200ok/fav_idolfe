@@ -2,14 +2,15 @@ import { T_GroupScheduleAdd } from '@/types/typeAPI';
 import { viewTime } from '@/utils/viewTime';
 import { T_use_Date, T_use_View } from '../type';
 
-type T_ViewSchedule_Props = T_use_Date & T_use_View & {
-  value: T_GroupScheduleAdd[];
-};
+type T_ViewSchedule_Props = T_use_Date &
+  T_use_View & {
+    value: T_GroupScheduleAdd[];
+  };
 
 export default function ViewSchedule(props: T_ViewSchedule_Props) {
   if (!props.setDate) return;
   return (
-    <div className='div_ViewSchedule-centainer'>
+    <div className="div_ViewSchedule-centainer">
       {props.value.map((item, index) => {
         return (
           <button
@@ -17,7 +18,8 @@ export default function ViewSchedule(props: T_ViewSchedule_Props) {
             onClick={() => {
               if (!props.setView) return;
               // props.setDate(new Date(2025, 1, 1));
-              props.setView(!props.view);
+              props.setView(true);
+              console.log('view true');
             }}
             key={index}
           >
