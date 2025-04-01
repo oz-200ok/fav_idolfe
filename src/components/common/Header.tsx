@@ -10,6 +10,7 @@ import { useAuth } from '@/context/AuthContext';
 import UserInstance from '@/utils/UserInstance';
 import { apiConfig } from '@/utils/apiConfig';
 import { getRegExp } from 'korean-regexp';
+import { logout } from '@/api/accountApi';
 
 //헤더 컴포넌트 정의
 function Header() {
@@ -137,9 +138,15 @@ function Header() {
   };
 
   //로그아웃: 토큰 삭제 후 로그인 페이지로 이동
-  const handleLogout = () => {
-    markLoggedOut();
-    setUserRole('guest');
+  const handleLogout = async () => {
+    try {
+      await logout();
+      markLoggedOut();
+      setUserRole('guest');
+      navigate('/');
+    } catch (error) {
+      alert('로그아웃이 실패했습니다.');
+    }
   };
 
   return (

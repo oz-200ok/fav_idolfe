@@ -1,8 +1,5 @@
-import axios from 'axios';
-import { apiConfig } from '../utils/apiConfig';
 import UserInstance from '@/utils/UserInstance';
-
-const GuestInstance = axios.create(apiConfig);
+import GuestInstance from '@/utils/GuestInstance';
 
 export const DuplicateCheck = async (
   type: 'email' | 'username' | 'phone',
@@ -44,4 +41,13 @@ export const signup = (data: SignupRequest) => {
 export const updateProfile = (data: UpdateProfileRequest) => {
   console.log('백엔드로 넘어가는', data);
   return UserInstance.patch('/account/profile/', data);
+};
+
+export const logout = async () => {
+  try {
+    await UserInstance.post('/account/logout/');
+  } catch (error) {
+    console.error('❌ 로그아웃 실패:', error);
+    throw error;
+  }
 };
