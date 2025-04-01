@@ -12,6 +12,7 @@ $MAIN_COLOR: #6a5096;
 
   .div_viewDay {
     display: flex;
+    flex-direction: column;
     flex-grow: 1;
     width: 100%;
     height: 100%;
@@ -22,21 +23,11 @@ $MAIN_COLOR: #6a5096;
       margin: auto;
     }
 
-    .div_ViewSchedule-centainer {
-      flex-grow: 1;
-      .button_DAYschedule {
-        border: none;
-        border-radius: 2px;
-        background-color: white;
-        padding: 5px;
-      }
-    }
-
-    .div_ViewDetail-centainer {
+    .div_viewSchedule-centainer {
       display: flex;
       flex-direction: column;
       width: 40%;
-      height: 108.5%;
+      height: 100%;
 
       > * {
         background-color: white;
@@ -112,11 +103,5 @@ $MAIN_COLOR: #6a5096;
     .button_add_undefind {
       width: 200px;
     }
-  }
-
-  .test {
-    justify-content: start;
-    width: 60%;
-    padding-right: 10px;
   }
 }
