@@ -180,9 +180,9 @@ const SearchPage = () => {
               <div className="group_info">
                 <h1 className="group_name">{group.name}</h1>
                 <p className="group_mem">
-                  {Array.isArray(group.idol)
-                    ? group.idol.join(', ')
-                    : group.idol}
+                  {Array.isArray(group.idol_name)
+                    ? group.idol_name.join(', ')
+                    : group.idol_name}
                 </p>
                 <p className="group_agency">{group.agency}</p>
 
@@ -230,9 +230,9 @@ const SearchPage = () => {
                 <div className="group_info">
                   <h1 className="group_name">{group.name}</h1>
                   <p className="group_mem">
-                    {Array.isArray(group.idol)
-                      ? group.idol.join(', ')
-                      : group.idol}
+                    {Array.isArray(group.idol_name)
+                      ? group.idol_name.join(', ')
+                      : group.idol_name}
                   </p>
                   <p className="group_agency">{group.agency}</p>
 
