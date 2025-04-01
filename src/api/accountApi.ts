@@ -52,7 +52,7 @@ export const logout = async (access_token: string, refresh_token: string) => {
     await UserInstance.post(
       '/account/logout/',
       {
-        refresh_token,
+        refresh_token: refresh_token,
       },
       {
         headers: {
