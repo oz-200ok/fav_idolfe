@@ -47,9 +47,19 @@ export const updateProfile = (data: UpdateProfileRequest) => {
 };
 
 /* 로그아웃 */
-export const logout = async () => {
+export const logout = async (access_token: string, refresh_token: string) => {
   try {
-    await UserInstance.post('/account/logout/');
+    await UserInstance.post(
+      '/account/logout/',
+      {
+        refresh_token,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      },
+    );
   } catch (error) {
     console.error('❌ 로그아웃 실패:', error);
     throw error;
