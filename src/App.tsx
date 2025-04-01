@@ -20,6 +20,7 @@ import './App.scss';
 import Alarm from './pages/Alarm/index.tsx';
 import AdminUpload from './pages/AdminUpload/index.tsx';
 import EditProfilePage from './pages/EditProfilePage/index.tsx';
+import GroupEdit from './components/admin/Group/GroupEdit.tsx';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           path="/group_management_page"
           element={<GroupManagementPage />}
         />
+        <Route path="/group_edit/:groupId" element={<GroupEdit/>} />
         <Route path="/schedule_alarm" element={<Alarm />} />
         <Route path="/admin_upload" element={<AdminUpload />} />
         <Route path="/edit_profile_page" element={<EditProfilePage />} />

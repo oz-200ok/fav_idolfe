@@ -3,11 +3,14 @@ import './index.scss';
 import App from './App.tsx';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.tsx';
+import { GroupProvider } from './context/GroupContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <AuthProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <GroupProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </GroupProvider>
   </AuthProvider>,
 );

@@ -1,50 +1,53 @@
 import { useState, useEffect } from 'react';
 import LabeledInput from './LabeledInput';
 import './GroupEdit.scss';
-import { MemberType } from './GroupEdit';
+import { MemberType } from '../../../types/groupFormData';
 import { saveGroup, getGroup } from '@/utils/group';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const AGENCIES = [
-  { id: '5', name: 'SM' },
-  { id: '6', name: 'JYP' },
-  { id: '7', name: 'HYBE' },
+  { id: 5, name: 'SM' },
+  { id: 6, name: 'JYP' },
+  { id: 7, name: 'HYBE' },
 ];
 
 const GroupEdit = () => {
   const navigate = useNavigate();
   const [groupName, setGroupName] = useState('');
-  const [agencyId, setAgencyId] = useState('');
+  const [agencyId, setAgencyId] = useState<number | ''>('');
   const [snsLink, setSnsLink] = useState('');
-  const [groupImage, setGroupImage] = useState<string | null>(null);
-  const [groupImageFile, setGroupImageFile] = useState<File | null>(null);
+
+  const [groupImageData, setGroupImageData] = useState({
+    url: null as string | null,
+    file: null as File | null,
+  });
 
   const [memberName, setMemberName] = useState('');
-  const [memberImage, setMemberImage] = useState<string | null>(null);
-  const [memberImageFile, setMemberImageFile] = useState<File | null>(null);
+  const [memberImageData, setMemberImageData] = useState({
+    url: null as string | null,
+    file: null as File | null,
+  });
+
   const [members, setMembers] = useState<MemberType[]>([]);
 
-  const accessToken =
-  'AcesToken';
-  const groupId = 1;
+  const groupId = 1; // 추후 props로 대체
 
   useEffect(() => {
     const fetchGroup = async () => {
       try {
-        const data = await getGroup(groupId, accessToken);
+        const data = await getGroup(groupId);
         setGroupName(data.group_name);
         const agencyObj = AGENCIES.find((a) => a.name === data.agency_name);
-        setAgencyId(agencyObj?.id || '');
+        setAgencyId(agencyObj ? agencyObj.id : '');
         setSnsLink(data.sns_links?.instagram || '');
-        setGroupImage(data.group_image);
+        setGroupImageData({ url: data.group_image, file: null });
         setMembers(
           data.members.map((m: any, idx: number) => ({
             id: idx,
             name: m.name,
-            image: m.image,
+            image: m.image as string,
             imageFile: null,
-          })),
+          }))
         );
       } catch (error) {
         console.error('불러오기 실패:', error);
@@ -52,38 +55,43 @@ const GroupEdit = () => {
     };
 
     fetchGroup();
-  }, [accessToken]);
+  }, []);
 
   const handleGroupImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      const file = e.target.files[0];
-      setGroupImage(URL.createObjectURL(file));
-      setGroupImageFile(file);
+    const file = e.target.files?.[0];
+    if (file) {
+      setGroupImageData({
+        url: URL.createObjectURL(file),
+        file,
+      });
     }
   };
 
   const handleMemberImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      const file = e.target.files[0];
-      setMemberImage(URL.createObjectURL(file));
-      setMemberImageFile(file);
+    const file = e.target.files?.[0];
+    if (file) {
+      setMemberImageData({
+        url: URL.createObjectURL(file),
+        file,
+      });
     }
   };
 
-  const handleAddMember = () => {
-    if (!memberName.trim() || !memberImage) return;
-    setMembers((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        name: memberName,
-        image: memberImage,
-        imageFile: memberImageFile,
-      },
-    ]);
+  const resetMemberInput = () => {
     setMemberName('');
-    setMemberImage(null);
-    setMemberImageFile(null);
+    setMemberImageData({ url: null, file: null });
+  };
+
+  const handleAddMember = () => {
+    if (!memberName.trim() || !memberImageData.url) return;
+    const newMember: MemberType = {
+      id: Date.now(),
+      name: memberName,
+      image: memberImageData.url || '',
+      imageFile: memberImageData.file,
+    };
+    setMembers((prev): MemberType[] => [...prev, newMember]);
+    resetMemberInput();
   };
 
   const handleRemoveMember = (id: number) => {
@@ -102,40 +110,19 @@ const GroupEdit = () => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('name', groupName);
-    formData.append('agency', agencyId);
-    formData.append('sns', snsUrl);
-    formData.append('color', '#C88DDD');
-    formData.append('member_count', String(members.length));
-    if (groupImageFile) formData.append('image_file', groupImageFile);
-
-    members.forEach((member, idx) => {
-      formData.append(`member_name_${idx + 1}`, member.name);
-      if (member.imageFile) {
-        formData.append(`member_image_${idx + 1}`, member.imageFile);
-      }
-    });
-
     try {
-      await saveGroup(
-        {
-          name: groupName,
-          agency: agencyId,
-          sns: snsLink.trim(),
-          color: '#C88DDD',
-          imageFile: groupImageFile,
-        },
-        accessToken,
-      );
+      await saveGroup({
+        name: groupName,
+        agency: agencyId,
+        sns: snsUrl,
+        color: '#C88DDD',
+        imageFile: groupImageData.file,
+      });
 
       alert('그룹 저장 성공!');
       navigate('/group_management_page');
     } catch (error) {
       console.error('❌ 저장 실패:', error);
-      if (axios.isAxiosError(error)) {
-        console.log('서버 응답:', error.response?.data);
-      }
       alert('저장 실패');
     }
   };
@@ -145,10 +132,10 @@ const GroupEdit = () => {
       <div className="group_edit_left">
         <div className="group_edit_image">
           <label htmlFor="groupImageUpload">
-            {!groupImage && (
+            {!groupImageData.url && (
               <div className="group_edit_placeholder">이미지 추가</div>
             )}
-            {groupImage && <img src={groupImage} alt="Group" />}
+            {groupImageData.url && <img src={groupImageData.url} alt="Group" />}
           </label>
           <input
             type="file"
@@ -168,7 +155,7 @@ const GroupEdit = () => {
           <label>소속사</label>
           <select
             value={agencyId}
-            onChange={(e) => setAgencyId(e.target.value)}
+            onChange={(e) => setAgencyId(Number(e.target.value))}
           >
             <option value="">소속사를 선택해주세요</option>
             {AGENCIES.map((agency) => (
@@ -192,8 +179,8 @@ const GroupEdit = () => {
         <div className="member_add">
           <div className="member_add_image">
             <label htmlFor="memberImageUpload">
-              {!memberImage && <div className="member_add_placeholder">+</div>}
-              {memberImage && <img src={memberImage} alt="Member" />}
+              {!memberImageData.url && <div className="member_add_placeholder">+</div>}
+              {memberImageData.url && <img src={memberImageData.url} alt="Member" />}
             </label>
             <input
               type="file"

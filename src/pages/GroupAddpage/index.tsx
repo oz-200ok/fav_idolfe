@@ -1,4 +1,4 @@
-import GroupEdit from '../../components/admin/GroupEdit';
+import GroupEdit from '@/components/admin/Group/GroupCreate';
 import './GroupAddpage.scss';
 
 const GroupAddpage = () => {

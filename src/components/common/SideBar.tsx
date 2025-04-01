@@ -1,61 +1,80 @@
-import { useState } from 'react';
-import './common.scss'; // 변경된 부분
+import { useState, useEffect } from 'react';
+import './common.scss';
 import down from '../../assets/chevron-down.png';
 import up from '../../assets/chevron-up.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { fetchGroupList } from '@/utils/group';
+
+type Group = {
+  id: number;
+  name: string;
+  image: string;
+};
 
 function SideBar() {
-  // 🔥 타입 없이 상태 관리 (초기값: 'guest' 그 외 user / admin)
-  // 상태값에 _(언더스코어) 를 붙이면 아직 사용 안 하지만 나중에 사용할거야! 라고 알려주는 느낌임
   const navigate = useNavigate();
-  const [userType, _setUserType] = useState('admin');
-
+  const location = useLocation();
+  const [userType] = useState('admin');
   const isAdmin = userType === 'admin';
   const [isListOpen, setIsListOpen] = useState(true);
+  const [groupList, setGroupList] = useState<Group[]>([]);
+
+  const fetchGroups = async () => {
+    try {
+      const data = await fetchGroupList();
+      setGroupList(data);
+    } catch (error) {
+      console.error('❌ 그룹 목록 불러오기 실패:', error);
+    }
+  };
+
+  const handleEdit = (groupId: number) => {
+    navigate(`/group_edit/${groupId}`);
+  };
+
+  useEffect(() => {
+    if (isAdmin) {
+      fetchGroups();
+    }
+  }, [isAdmin, location.pathname]); // ✅ location이 변경될 때마다 fetch
 
   return (
     <aside className="sidebar">
       <div className="sidebar_header">
-        <span>{isAdmin ? '그룹 관리' : '최애 캘린더'}</span>
+        <span>그룹 관리</span>
         <button
           className="sidebar_toggle"
           onClick={() => setIsListOpen(!isListOpen)}
         >
-          {isListOpen ? (
-            <img src={down} alt="down" />
-          ) : (
-            <img src={up} alt="up" />
-          )}
+          <img src={isListOpen ? down : up} alt="toggle" />
         </button>
       </div>
 
-      {isListOpen && (
+      {isAdmin && isListOpen && (
         <ul className="sidebar_list">
-          {isAdmin ? (
-            <>
-              <li className="sidebar_item">
-                그룹 1 <button className="sidebar_edit">그룹 정보 수정</button>
-              </li>
-              <li className="sidebar_item">
-                그룹 2 <button className="sidebar_edit">그룹 정보 수정</button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="sidebar_item">구독한 아이돌 1</li>
-              <li className="sidebar_item">구독한 아이돌 2</li>
-              <li className="sidebar_item">구독한 아이돌 3</li>
-            </>
-          )}
+          {groupList.map((group) => (
+            <li key={group.id} className="sidebar_item with_image">
+              <img
+                src={group.image}
+                alt={group.name}
+                className="sidebar_thumb"
+              />
+              <span className="sidebar_group_name">{group.name}</span>
+              <button
+                className="sidebar_edit"
+                onClick={() => handleEdit(group.id)}
+              >
+                수정
+              </button>
+            </li>
+          ))}
         </ul>
       )}
 
       {isAdmin && (
         <button
           className="sidebar_view"
-          onClick={() => {
-            navigate('/group_management_page');
-          }}
+          onClick={() => navigate('/group_management_page')}
         >
           관리 그룹 보기
         </button>
@@ -63,4 +82,5 @@ function SideBar() {
     </aside>
   );
 }
+
 export default SideBar;

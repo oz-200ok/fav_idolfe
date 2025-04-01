@@ -13,7 +13,7 @@ const GroupManagement = () => {
   const navigate = useNavigate();
   const [groups, setGroups] = useState<GroupType[]>([]);
   const accessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzMzU0NDUwLCJpYXQiOjE3NDMyNjgwNTAsImp0aSI6ImUxZmI1ODY4MmI0YTRiMzI4ODg4YTE3MWM3YjI3OGEzIiwidXNlcl9pZCI6MX0.AKSSoE4bvMpFAWhVwGIKGn_z3_u3vHSGMFbVk7B0tyU';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQzNDc1MzE4LCJpYXQiOjE3NDMzODg5MTgsImp0aSI6IjY3NDljN2ZjYTNmMjQ4OWRhMGI0ZmQ2Y2MwMTVhN2RhIiwidXNlcl9pZCI6MX0.pcs8WpaAQtj4x0owzy6E8OdhhTSO_tWRT-U87oSGQXs';
 
   //그룹 정보 불러오기
   useEffect(() => {
