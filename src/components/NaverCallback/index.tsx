@@ -35,9 +35,9 @@ function NaverCallback() {
 
       markLoggedIn(access_token, refresh_token);
 
-      const res = await UserInstance.get('/account/me/');
+      //const res = await UserInstance.get('/account/me/');
 
-      console.log(res);
+      //console.log(res);
 
       navigate('/');
     } catch (error) {
