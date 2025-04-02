@@ -131,7 +131,7 @@ function Header() {
     if (event) event.preventDefault();
     if (searchQuery.trim() === '') return; //검색어가 없으면 작업x
     //검색결과 페이지로 이동
-    navigate(`/search_page/${searchQuery}`);
+    navigate('/search_page', { state: { query: searchQuery } })
     //드롭다운 닫기
     setShowDropdown(false);
   };
