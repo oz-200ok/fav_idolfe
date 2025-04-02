@@ -96,7 +96,7 @@ const GroupCreate = () => {
       console.log('✅ 저장된 그룹:', savedGroup);
 
       alert('그룹 저장 성공!');
-      navigate(`/group_edit_page/${savedGroup.id}`);
+      navigate(`/group_edit_page`);
     } catch (error) {
       console.error('❌ 저장 실패:', error);
       alert('저장 실패');
@@ -203,7 +203,10 @@ const GroupCreate = () => {
       </div>
 
       <div className="group_edit_actions">
-        <button className="delete" onClick={() => navigate(-1)}>
+        <button
+          className="delete"
+          onClick={() => navigate('/group_management_page')}
+        >
           취소
         </button>
         <button className="save" onClick={handleSaveGroup}>
