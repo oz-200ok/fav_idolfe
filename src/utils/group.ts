@@ -1,7 +1,6 @@
 import UserInstance from './UserInstance';
 import { GroupFormData } from '@/types/groupFormData';
 
-
 // 그룹 생성
 export const saveGroup = async (groupData: GroupFormData) => {
   const formData = new FormData();

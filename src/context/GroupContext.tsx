@@ -67,11 +67,6 @@ export const GroupProvider = ({ children }: { children: ReactNode }) => {
     setGroups((prev) => prev.filter((group) => group.id !== id));
   };
 
-  useEffect(() => {
-    fetchGroups();
-    fetchAgencies();
-  }, []);
-
   return (
     <GroupContext.Provider
       value={{ groups, agencies, fetchGroups, fetchAgencies, removeGroup }}

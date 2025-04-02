@@ -4,7 +4,6 @@ import { GroupFormState } from '@/types/groupFormData';
 import { AgencyType } from '@/types/agencyType';
 import './GroupEdit.scss';
 
-
 interface Props {
   groupData: GroupFormState;
   onChange: (field: keyof GroupFormState, value: any) => void;
