@@ -4,10 +4,10 @@ import axios from 'axios';
 import UserInstance from '@/utils/UserInstance';
 import { apiConfig } from '@/utils/apiConfig';
 import searchIcon from '../../assets/search.png';
-import instaImg from '@assets/instagram.png';
 import './SearchPage.scss';
 import { IdolGroup } from './type';
 import toggleImg from '@assets/chevron-down.png';
+import GroupCard from './GroupCard';
 
 const SUBSCRIPTION_KEY = 'user_subscriptions'; // 로컬 스토리지 키
 
@@ -213,46 +213,6 @@ export default SearchPage;
 // --------------------------
 // 🔹 **컴포넌트 분리**
 // --------------------------
-
-// 그룹 카드 컴포넌트
-const GroupCard = ({
-  group,
-  onSubscribe,
-}: {
-  group: IdolGroup;
-  onSubscribe: (id: number, isSubscribed: boolean) => void;
-}) => (
-  <div className="group_card">
-    <img src={group.image} alt={group.name} className="group_img" />
-    <div className="group_info">
-      <h1 className="group_name">{group.name}</h1>
-      <p className="group_mem">
-        {Array.isArray(group.idol_names)
-          ? group.idol_names.join(', ')
-          : group.idol_names}
-      </p>
-      <p className="group_agency">{group.agency}</p>
-
-      {/* 인스타그램 링크 */}
-      <a
-        href={group.sns}
-        className="group_sns"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img src={instaImg} alt="인스타그램" className="insta_icon" />
-      </a>
-
-      {/* 구독 버튼 */}
-      <button
-        className={`sub_button ${group.isSubscribed ? 'subscribed' : ''}`}
-        onClick={() => onSubscribe(group.id, group.isSubscribed)}
-      >
-        {group.isSubscribed ? '구독 중' : '구독하기'}
-      </button>
-    </div>
-  </div>
-);
 
 // 더보기 버튼 컴포넌트
 const LoadMoreButton = ({ onClick }: { onClick: () => void }) => (
