@@ -96,7 +96,7 @@ const GroupCreate = () => {
       console.log('✅ 저장된 그룹:', savedGroup);
 
       alert('그룹 저장 성공!');
-      navigate(`/group_edit_page`);
+      navigate(`/group_management_page`);
     } catch (error) {
       console.error('❌ 저장 실패:', error);
       alert('저장 실패');
