@@ -46,12 +46,7 @@ export const getGroup = async (groupId: number) => {
     agency_id: data.agency,
     group_image: data.image,
     instagram: data.sns, // 또는 data.sns_links?.instagram
-    members: (data.idol_names || []).map((idol: any, idx: number) => ({
-      id: idx,
-      name: idol.name,
-      image: idol.image,
-      imageFile: null,
-    })),
+    members: data.members || [],
   };
 };
 

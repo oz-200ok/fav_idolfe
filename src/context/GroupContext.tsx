@@ -1,4 +1,3 @@
-// ✅ context/GroupContext.tsx
 import {
   createContext,
   useContext,
@@ -8,10 +7,19 @@ import {
 } from 'react';
 import { fetchGroupList } from '@/utils/group';
 
+const AGENCY_MAP: { [key: number]: string } = {
+  5: 'SM',
+  6: 'JYP',
+  7: 'HYBE',
+};
+
 export interface GroupItem {
   id: number;
   name: string;
   image: string;
+  members: string[];
+  agency: string;
+  sns: string;
 }
 
 interface GroupContextType {
@@ -27,18 +35,22 @@ export const GroupProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchGroups = async () => {
     try {
-      const data = await fetchGroupList();
-      const normalized = data.map((g: any) => ({
+      const res = await fetchGroupList();
+      console.log('📦 서버 응답:', res);
+
+      const normalized = res.map((g: any) => ({
         id: g.id,
-        name: g.group_name, // ✅ 필드명 맞추기
-        image: g.group_image, // ✅ 필드명 맞추기
+        name: g.name, // ← g.group_name 이 아니라 g.name 이어야 할 수도 있음
+        image: g.image,
+        agency: g.agency_name || AGENCY_MAP[Number(g.agency)] || '알 수 없음',
+        sns: g.sns,
       }));
+
       setGroups(normalized);
     } catch (err) {
-      console.error('그룹 목록 불러오기 실패:', err);
+      console.error('❌ 그룹 목록 불러오기 실패:', err);
     }
   };
-
   const removeGroup = (id: number) => {
     setGroups((prev) => prev.filter((group) => group.id !== id));
   };

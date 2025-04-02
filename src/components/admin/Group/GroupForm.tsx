@@ -1,12 +1,6 @@
 import LabeledInput from './LabeledInput';
 import { GroupFormState } from '@/types/groupFormData';
-
-export interface MemberType {
-  id: number;
-  name: string;
-  image: string;
-  imageFile: File | null;
-}
+import './GroupEdit.scss';
 
 interface Props {
   groupData: GroupFormState;

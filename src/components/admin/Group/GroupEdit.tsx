@@ -23,7 +23,6 @@ const GroupEdit = () => {
       if (!groupId) return;
       try {
         const data = await getGroup(Number(groupId));
-        console.log('멤버 데이터 확인 👉', data.members);
         setGroupData({
           groupName: data.group_name,
           agencyId: Number(data.agency_id),
@@ -31,9 +30,13 @@ const GroupEdit = () => {
           groupImage: { url: data.group_image, file: null },
           memberName: '',
           memberImage: { url: null, file: null },
-          members: data.members ?? [],
+          members: data.members.map((m: any, idx: number) => ({
+            id: idx,
+            name: m.name,
+            image: m.image,
+            imageFile: null,
+          })),
         });
-        console.log(data.members);
       } catch (error) {
         console.error('그룹 불러오기 실패:', error);
       }
