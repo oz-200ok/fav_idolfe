@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LabeledInput from './LabeledInput';
 import './GroupEdit.scss';
 import { MemberType } from '@/types/groupFormData';
@@ -8,7 +8,7 @@ import { useGroupContext } from '@/context/GroupContext';
 
 const GroupCreate = () => {
   const navigate = useNavigate();
-  const { agencies } = useGroupContext();
+  const { agencies, fetchAgencies } = useGroupContext();
   console.log(agencies);
 
   const [groupName, setGroupName] = useState('');
@@ -27,6 +27,10 @@ const GroupCreate = () => {
   });
 
   const [members, setMembers] = useState<MemberType[]>([]);
+
+  useEffect(() => {
+    fetchAgencies();
+  }, []);
 
   const handleGroupImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
