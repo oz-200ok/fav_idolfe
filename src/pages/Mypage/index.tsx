@@ -4,8 +4,10 @@ import AdminInfo from '../../components/UserInfo/adminInfo';
 import UserInfo from '@/components/UserInfo/userInfo';
 import UserInstance from '@/utils/UserInstance';
 import { useNavigate } from 'react-router-dom';
+
 function Mypage() {
   const [userRole, setUserRole] = useState<boolean | null>(null);
+
   const navigate = useNavigate();
   useEffect(() => {
     const GetUserInfo = async () => {
