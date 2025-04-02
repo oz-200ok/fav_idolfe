@@ -42,8 +42,8 @@ export const GroupProvider = ({ children }: { children: ReactNode }) => {
       const data = await fetchGroupList();
       const normalized = data.map((g: any) => ({
         id: g.id,
-        name: g.name, 
-        image: g.image, 
+        name: g.name,
+        image: g.image,
         agency: g.agency_name,
         sns: g.sns,
       }));
@@ -56,7 +56,7 @@ export const GroupProvider = ({ children }: { children: ReactNode }) => {
   const fetchAgencies = async () => {
     try {
       const res = await UserInstance.get('idol/agencies/');
-      setAgencies(res.data);
+      setAgencies(res.data.data);
     } catch (err) {
       console.error('❌ 소속사 목록 불러오기 실패:', err);
     }
