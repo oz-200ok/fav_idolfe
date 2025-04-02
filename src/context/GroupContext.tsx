@@ -56,6 +56,7 @@ export const GroupProvider = ({ children }: { children: ReactNode }) => {
   const fetchAgencies = async () => {
     try {
       const res = await UserInstance.get('idol/agencies/');
+      console.log(res.data.data);
       setAgencies(res.data.data);
     } catch (err) {
       console.error('❌ 소속사 목록 불러오기 실패:', err);

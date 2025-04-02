@@ -129,12 +129,12 @@ const GroupCreate = () => {
             onChange={(e) => setAgencyId(Number(e.target.value))}
           >
             <option value="">소속사를 선택해주세요</option>
-            {agencies?.length > 0 ? (
-              agencies.map((agency) => (
-                <option key={agency.id} value={agency.id}>
-                  {agency.name}
-                </option>
-              ))
+            {Array.isArray(agencies) && agencies.length > 0 ? (
+                agencies.map((agency) => (
+                  <option key={agency.id} value={agency.id}>
+                    {agency.name}
+                  </option>
+                ))
             ) : (
               <option disabled>소속사 목록이 없습니다</option>
             )}
