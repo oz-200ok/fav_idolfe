@@ -93,6 +93,7 @@ const GroupCreate = () => {
         color: '#C88DDD',
         imageFile: groupImageData.file,
       });
+      console.log('✅ 저장된 그룹:', savedGroup);
 
       alert('그룹 저장 성공!');
       navigate(`/group_edit_page/${savedGroup.id}`);
