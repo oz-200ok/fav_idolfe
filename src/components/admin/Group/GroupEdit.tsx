@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import GroupForm from './GroupForm';
 import { GroupFormState } from '@/types/groupFormData';
-import { getGroup, updateGroup, deleteGroup } from '@/utils/group';
+import { getGroup, deleteGroup } from '@/utils/group';
 import { useGroupContext } from '@/context/GroupContext';
+import UserInstance from '@/utils/UserInstance';
 
 const GroupEdit = () => {
   const navigate = useNavigate();
@@ -83,31 +84,42 @@ const GroupEdit = () => {
     );
   };
 
-  const handleUpdate = async () => {
-    if (!groupId) return;
-    try {
-      const formData = new FormData();
-      formData.append('name', groupData.groupName);
-      formData.append('agency', String(groupData.agencyId));
-      formData.append('sns', groupData.snsLink);
-      formData.append('color', '#C88DDD');
-      if (groupData.groupImage.file) {
-        formData.append('image_file', groupData.groupImage.file);
-      }
-      formData.append('member_count', String(groupData.members.length));
-      groupData.members.forEach((member, idx) => {
-        formData.append(`member_name_${idx + 1}`, member.name);
-        if (member.imageFile) {
-          formData.append(`member_image_${idx + 1}`, member.imageFile);
-        }
-      });
+  const handleUpdateGroupInfo = async () => {
+    const formData = new FormData();
+    formData.append('name', groupData.groupName);
+    formData.append('agency', String(groupData.agencyId));
+    formData.append('sns', groupData.snsLink);
+    formData.append('color', '#C88DDD');
+    if (groupData.groupImage.file) {
+      formData.append('image_file', groupData.groupImage.file);
+    }
 
-      await updateGroup(Number(groupId), formData);
-      alert('수정 완료');
-      navigate('/group_management_page');
+    try {
+      await UserInstance.patch(`/idol/groups/${groupId}/info/`, formData);
+      alert('그룹 정보 수정 완료!');
     } catch (err) {
-      console.error('❌ 수정 실패:', err);
-      alert('수정 실패');
+      console.error('❌ 그룹 정보 수정 실패:', err);
+      alert('그룹 정보 수정 실패');
+    }
+  };
+
+  const handleUpdateMembers = async () => {
+    const formData = new FormData();
+    formData.append('member_count', String(groupData.members.length));
+
+    groupData.members.forEach((member, idx) => {
+      formData.append(`member_name_${idx + 1}`, member.name);
+      if (member.imageFile) {
+        formData.append(`member_image_${idx + 1}`, member.imageFile);
+      }
+    });
+
+    try {
+      await UserInstance.patch(`/idol/groups/${groupId}/info/`, formData);
+      alert('멤버 수정 완료!');
+    } catch (err) {
+      console.error('❌ 멤버 수정 실패:', err);
+      alert('멤버 수정 실패');
     }
   };
 
@@ -140,8 +152,11 @@ const GroupEdit = () => {
         <button className="delete" onClick={handleDelete}>
           삭제
         </button>
-        <button className="save" onClick={handleUpdate}>
-          수정 완료
+        <button className="edit_group_info" onClick={handleUpdateGroupInfo}>
+          그룹 정보만 수정
+        </button>
+        <button className="edit_members" onClick={handleUpdateMembers}>
+          멤버만 수정
         </button>
       </div>
     </>
