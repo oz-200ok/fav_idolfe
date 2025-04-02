@@ -9,6 +9,8 @@ import { DuplicateCheck } from '@/api/accountApi';
 import { signup } from '@/api/accountApi';
 import { useNavigate } from 'react-router-dom';
 
+import { I_JoinFormValues } from './joinpage';
+
 import {
   passwordStrength,
   strengthClass,
@@ -23,15 +25,6 @@ import {
   usernameValidation,
 } from '@/validations/validationRule';
 
-export interface JoinFormValues {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  username: string;
-  phone: string;
-}
-
 function JoinPage() {
   const [isChecked, setIsChecked] = useState({
     email: false,
@@ -44,7 +37,7 @@ function JoinPage() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<JoinFormValues>({ mode: 'onChange' });
+  } = useForm<I_JoinFormValues>({ mode: 'onChange' });
 
   const password = watch('password', '');
   const email = watch('email', '');
@@ -91,7 +84,7 @@ function JoinPage() {
       setIsChecked((prev) => ({ ...prev, [type]: false }));
     }
   };
-  const onSubmit = async (data: JoinFormValues) => {
+  const onSubmit = async (data: I_JoinFormValues) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
 

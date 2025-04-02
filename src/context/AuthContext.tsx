@@ -6,7 +6,7 @@ import { useContext, useState, createContext } from 'react';
 type T_AuthContextType = {
   isLoggedIn: boolean;
   markLoggedIn: (access_token: string, refresh_token: string) => void;
-  markLoggedOut: () => void;
+  markLoggedOut: (options?: { skipApi?: boolean }) => void;
 };
 
 const defaultAuthContext: T_AuthContextType = {
@@ -27,12 +27,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem('refresh_token', refresh_token);
   };
 
-  const markLoggedOut = async () => {
+  const markLoggedOut = async (options?: { skipApi?: boolean }) => {
+    const { skipApi = false } = options ?? {};
+
     const access_token = localStorage.getItem('access_token');
     const refresh_token = localStorage.getItem('refresh_token');
 
     try {
-      if (access_token && refresh_token) {
+      if (!skipApi && access_token && refresh_token) {
         await logout(access_token, refresh_token);
       }
     } catch (error) {
