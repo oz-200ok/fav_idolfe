@@ -78,7 +78,7 @@ function Header() {
       location.pathname.startsWith(path),
     );
     if (userRole === 'guest' && !isAllowed) navigate('/guest');
-  }, [navigate, location.pathname]);
+  }, [userRole, navigate, location.pathname]);
 
   // 검색창 입력 이벤트
   const handleSearchChange = async (
