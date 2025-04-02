@@ -41,7 +41,7 @@ const SearchDropdown = ({ searchResults, onSearch }: any) => (
 
 // 헤더 컴포넌트
 function Header() {
-  const [userRole, setUserRole] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<boolean | 'guest' | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -54,11 +54,14 @@ function Header() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       const token = localStorage.getItem('access_token');
-      if (!token) return setUserRole('guest');
+      if (!token) {
+        setUserRole('guest');
+        return;
+      }
 
       try {
         const { data } = await UserInstance.get('/account/me/');
-        setUserRole(data.is_Admin ? 'admin' : 'user');
+        setUserRole(data.data.is_admin);
       } catch (error) {
         console.error('사용자 정보를 가져오지 못했습니다.', error);
         setUserRole('guest');
@@ -75,7 +78,7 @@ function Header() {
       location.pathname.startsWith(path),
     );
     if (userRole === 'guest' && !isAllowed) navigate('/guest');
-  }, [userRole, navigate, location.pathname]);
+  }, [navigate, location.pathname]);
 
   // 검색창 입력 이벤트
   const handleSearchChange = async (
@@ -171,19 +174,14 @@ function Header() {
         </div>
 
         {/* 일반 사용자 버튼 */}
-        {userRole === 'user' && (
-          <>
-            <button
-              className="page_Button"
-              onClick={() => navigate('/my_page')}
-            >
-              마이페이지
-            </button>
-          </>
+        {userRole === false && (
+          <button className="page_Button" onClick={() => navigate('/my_page')}>
+            마이페이지
+          </button>
         )}
 
         {/* 관리자 버튼 */}
-        {userRole === 'admin' && (
+        {userRole === true && (
           <>
             <button className="add_Button" onClick={() => navigate('/add')}>
               일정추가
