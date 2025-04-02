@@ -99,6 +99,7 @@ const SearchPage = () => {
       setRecommendedIdols(recommendedFilteredResult);
     } catch (error) {
       console.error('추천 아이돌 가져오기 오류:', error);
+      console.log(error);
     }
   };
 
