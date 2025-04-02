@@ -22,6 +22,7 @@ function SideBar() {
   const fetchGroups = async () => {
     try {
       const data = await fetchGroupList();
+      console.log('✅ groupList API 응답:', data);
       setGroupList(data);
     } catch (error) {
       console.error('❌ 그룹 목록 불러오기 실패:', error);

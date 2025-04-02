@@ -6,25 +6,28 @@ import {
   ReactNode,
 } from 'react';
 import { fetchGroupList } from '@/utils/group';
-
-const AGENCY_MAP: { [key: number]: string } = {
-  5: 'SM',
-  6: 'JYP',
-  7: 'HYBE',
-};
+import UserInstance from '@/utils/UserInstance';
 
 export interface GroupItem {
   id: number;
   name: string;
   image: string;
-  members: string[];
-  agency: string;
-  sns: string;
+  agency?: string;
+  sns?: string;
+}
+
+export interface AgencyType {
+  id: number;
+  name: string;
+  contact?: string;
+  image?: string;
 }
 
 interface GroupContextType {
   groups: GroupItem[];
+  agencies: AgencyType[];
   fetchGroups: () => Promise<void>;
+  fetchAgencies: () => Promise<void>;
   removeGroup: (id: number) => void;
 }
 
@@ -32,35 +35,46 @@ const GroupContext = createContext<GroupContextType | undefined>(undefined);
 
 export const GroupProvider = ({ children }: { children: ReactNode }) => {
   const [groups, setGroups] = useState<GroupItem[]>([]);
+  const [agencies, setAgencies] = useState<AgencyType[]>([]);
 
   const fetchGroups = async () => {
     try {
-      const res = await fetchGroupList();
-      console.log('📦 서버 응답:', res);
-
-      const normalized = res.map((g: any) => ({
+      const data = await fetchGroupList();
+      const normalized = data.map((g: any) => ({
         id: g.id,
-        name: g.name, // ← g.group_name 이 아니라 g.name 이어야 할 수도 있음
-        image: g.image,
-        agency: g.agency_name || AGENCY_MAP[Number(g.agency)] || '알 수 없음',
+        name: g.name, 
+        image: g.image, 
+        agency: g.agency_name,
         sns: g.sns,
       }));
-
       setGroups(normalized);
     } catch (err) {
       console.error('❌ 그룹 목록 불러오기 실패:', err);
     }
   };
+
+  const fetchAgencies = async () => {
+    try {
+      const res = await UserInstance.get('idol/agencies/');
+      setAgencies(res.data);
+    } catch (err) {
+      console.error('❌ 소속사 목록 불러오기 실패:', err);
+    }
+  };
+
   const removeGroup = (id: number) => {
     setGroups((prev) => prev.filter((group) => group.id !== id));
   };
 
   useEffect(() => {
     fetchGroups();
+    fetchAgencies();
   }, []);
 
   return (
-    <GroupContext.Provider value={{ groups, fetchGroups, removeGroup }}>
+    <GroupContext.Provider
+      value={{ groups, agencies, fetchGroups, fetchAgencies, removeGroup }}
+    >
       {children}
     </GroupContext.Provider>
   );

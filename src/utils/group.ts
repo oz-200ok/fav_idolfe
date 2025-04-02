@@ -1,6 +1,7 @@
 import UserInstance from './UserInstance';
 import { GroupFormData } from '@/types/groupFormData';
 
+
 // 그룹 생성
 export const saveGroup = async (groupData: GroupFormData) => {
   const formData = new FormData();
@@ -12,6 +13,9 @@ export const saveGroup = async (groupData: GroupFormData) => {
 
   if (groupData.imageFile) {
     formData.append('image_file', groupData.imageFile);
+  }
+  for (const pair of formData.entries()) {
+    console.log(`${pair[0]}:`, pair[1]);
   }
 
   try {
@@ -39,6 +43,7 @@ export const saveGroup = async (groupData: GroupFormData) => {
 // };
 export const getGroup = async (groupId: number) => {
   const response = await UserInstance.get(`/idol/groups/${groupId}/`);
+  console.log('📦 서버 응답:', response.data);
   const data = response.data;
 
   return {
@@ -73,9 +78,10 @@ export const deleteGroup = async (groupId: number) => {
 // 그룹 목록 조회
 export const fetchGroupList = async () => {
   const response = await UserInstance.get('/idol/groups/');
+  console.log('📦 서버 응답:', response.data);
   if (!response.status.toString().startsWith('2'))
     throw new Error('그룹 목록 불러오기 실패');
-  return response.data;
+  return response.data.data;
 };
 
 // 일정 추가 (그룹 ID 기반)

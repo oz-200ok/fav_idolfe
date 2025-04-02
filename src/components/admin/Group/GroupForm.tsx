@@ -1,6 +1,9 @@
+import { useGroupContext } from '@/context/GroupContext';
 import LabeledInput from './LabeledInput';
 import { GroupFormState } from '@/types/groupFormData';
+import { AgencyType } from '@/types/agencyType';
 import './GroupEdit.scss';
+
 
 interface Props {
   groupData: GroupFormState;
@@ -9,13 +12,8 @@ interface Props {
   onMemberImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onAddMember: () => void;
   onRemoveMember: (id: number) => void;
+  agencies: AgencyType[];
 }
-
-const AGENCIES = [
-  { id: 5, name: 'SM' },
-  { id: 6, name: 'JYP' },
-  { id: 7, name: 'HYBE' },
-];
 
 const GroupForm = ({
   groupData,
@@ -25,6 +23,8 @@ const GroupForm = ({
   onAddMember,
   onRemoveMember,
 }: Props) => {
+  const { agencies } = useGroupContext();
+
   return (
     <div className="group_edit">
       <div className="group_edit_left">
@@ -54,7 +54,7 @@ const GroupForm = ({
             onChange={(e) => onChange('agencyId', Number(e.target.value))}
           >
             <option value="">소속사를 선택해주세요</option>
-            {AGENCIES.map((agency) => (
+            {agencies.map((agency) => (
               <option key={agency.id} value={agency.id}>
                 {agency.name}
               </option>
