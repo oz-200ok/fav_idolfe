@@ -3,11 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import GroupForm from './GroupForm';
 import { GroupFormState } from '@/types/groupFormData';
 import { getGroup, updateGroup, deleteGroup } from '@/utils/group';
+import { useGroupContext } from '@/context/GroupContext';
 
 const GroupEdit = () => {
   const navigate = useNavigate();
   const { groupId } = useParams<{ groupId: string }>();
-
+  const { agencies } = useGroupContext();
   const [groupData, setGroupData] = useState<GroupFormState>({
     groupName: '',
     agencyId: Number(),
@@ -25,7 +26,7 @@ const GroupEdit = () => {
         const data = await getGroup(Number(groupId));
         setGroupData({
           groupName: data.group_name,
-          agencyId: Number(data.agency_id),
+          agencyId: data.agency_id,
           snsLink: data.instagram || '',
           groupImage: { url: data.group_image, file: null },
           memberName: '',
@@ -103,7 +104,7 @@ const GroupEdit = () => {
 
       await updateGroup(Number(groupId), formData);
       alert('수정 완료');
-      navigate('/group_management_page'); // ✅ 페이지 이동
+      navigate('/group_management_page');
     } catch (err) {
       console.error('❌ 수정 실패:', err);
       alert('수정 실패');
@@ -133,6 +134,7 @@ const GroupEdit = () => {
         onMemberImageUpload={handleMemberImageUpload}
         onAddMember={handleAddMember}
         onRemoveMember={handleRemoveMember}
+        agencies={agencies}
       />
       <div className="group_edit_actions">
         <button className="delete" onClick={handleDelete}>

@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import LabeledInput from './LabeledInput';
 import './GroupEdit.scss';
 import { MemberType } from '@/types/groupFormData';
-import { saveGroup, getGroup } from '@/utils/group';
+import { saveGroup } from '@/utils/group';
 import { useNavigate } from 'react-router-dom';
+import { useGroupContext } from '@/context/GroupContext';
 
-const AGENCIES = [
-  { id: 5, name: 'SM' },
-  { id: 6, name: 'JYP' },
-  { id: 7, name: 'HYBE' },
-];
-
-const GroupEdit = () => {
+const GroupCreate = () => {
   const navigate = useNavigate();
+  const { agencies } = useGroupContext();
+  console.log(agencies);
+
   const [groupName, setGroupName] = useState('');
   const [agencyId, setAgencyId] = useState<number | ''>('');
   const [snsLink, setSnsLink] = useState('');
@@ -29,33 +27,6 @@ const GroupEdit = () => {
   });
 
   const [members, setMembers] = useState<MemberType[]>([]);
-
-  const groupId = 1; // 추후 props로 대체
-
-  useEffect(() => {
-    const fetchGroup = async () => {
-      try {
-        const data = await getGroup(groupId);
-        setGroupName(data.group_name);
-        const agencyObj = AGENCIES.find((a) => a.name === data.agency_id);
-        setAgencyId(agencyObj ? agencyObj.id : '');
-        setSnsLink(data.instagram || '');
-        setGroupImageData({ url: data.group_image, file: null });
-        setMembers(
-          data.members.map((m: any, idx: number) => ({
-            id: idx,
-            name: m.name,
-            image: m.image as string,
-            imageFile: null,
-          })),
-        );
-      } catch (error) {
-        console.error('불러오기 실패:', error);
-      }
-    };
-
-    fetchGroup();
-  }, []);
 
   const handleGroupImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -99,7 +70,7 @@ const GroupEdit = () => {
   };
 
   const handleSaveGroup = async () => {
-    if (!groupName.trim() || !agencyId || !snsLink.trim()) {
+    if (!groupName.trim() || agencyId === '' || !snsLink.trim()) {
       alert('모든 필드를 입력해주세요.');
       return;
     }
@@ -111,16 +82,16 @@ const GroupEdit = () => {
     }
 
     try {
-      await saveGroup({
+      const savedGroup = await saveGroup({
         name: groupName,
-        agency: agencyId,
+        agency: Number(agencyId),
         sns: snsUrl,
         color: '#C88DDD',
         imageFile: groupImageData.file,
       });
 
       alert('그룹 저장 성공!');
-      navigate('/group_management_page');
+      navigate(`/group_edit_page/${savedGroup.id}`);
     } catch (error) {
       console.error('❌ 저장 실패:', error);
       alert('저장 실패');
@@ -158,11 +129,15 @@ const GroupEdit = () => {
             onChange={(e) => setAgencyId(Number(e.target.value))}
           >
             <option value="">소속사를 선택해주세요</option>
-            {AGENCIES.map((agency) => (
-              <option key={agency.id} value={agency.id}>
-                {agency.name}
-              </option>
-            ))}
+            {agencies?.length > 0 ? (
+              agencies.map((agency) => (
+                <option key={agency.id} value={agency.id}>
+                  {agency.name}
+                </option>
+              ))
+            ) : (
+              <option disabled>소속사 목록이 없습니다</option>
+            )}
           </select>
         </div>
 
@@ -234,4 +209,4 @@ const GroupEdit = () => {
   );
 };
 
-export default GroupEdit;
+export default GroupCreate;

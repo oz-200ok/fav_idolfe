@@ -42,6 +42,7 @@ function App() {
         <Route path="/schedule_alarm" element={<Alarm />} />
         <Route path="/admin_upload" element={<AdminUpload />} />
         <Route path="/edit_profile_page" element={<EditProfilePage />} />
+        <Route path="/group_edit_page" element={<GroupEdit />} />
       </Route>
       {/* ✅ 전체화면 전용, Layout 없이! */}
       <Route path="/email_redirect" element={<EmailRedirect />} />
