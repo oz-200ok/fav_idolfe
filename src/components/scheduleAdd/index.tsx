@@ -6,9 +6,6 @@ import PushButton from './pushButton';
 import { T_use_Modal } from '../Schedule/type';
 
 export default function Modal(props: T_use_Modal) {
-  // 제목, 세부일정 미입력 시 에러띄울 것
-  // 시간은 기본값으로 현재 시간을 표시할 것
-  // 시간은 input으로 변경
   return (
     <div className="dev_overlay">
       <div className="dev_centainer">

@@ -1,43 +1,21 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './Groupmanagement.scss';
-import instagramIcon from '../../../assets/instagram.png';
-import type { GroupType } from './GroupManagement.types';
-import {
-  fetchGroupList,
-  addGroupSchedule,
-  downloadGroupSchedule,
-} from '@/utils/group';
+import instagramIcon from '@/assets/instagram.png';
+import { addGroupSchedule, downloadGroupSchedule } from '@/utils/group';
+import { useGroupContext } from '@/context/GroupContext';
 
 const GroupManagement = () => {
   const navigate = useNavigate();
-  const [groups, setGroups] = useState<GroupType[]>([]);
-  const accessToken = 'your-access-token'; // 실제 토큰 대체 필요
+  const { groups, fetchGroups } = useGroupContext(); // ✅ 전역 상태에서 불러오기
 
   useEffect(() => {
-    const loadGroups = async () => {
-      try {
-        const data = await fetchGroupList(accessToken);
-        setGroups(
-          data.map((group: any) => ({
-            id: group.group_id,
-            name: group.group_name,
-            members: group.members.map((m: any) => m.name),
-            agency: group.agency_name,
-            sns: group.sns_links?.instagram || '',
-            image: group.group_image,
-          })),
-        );
-      } catch (error) {
-        console.error('그룹 목록 불러오기 실패:', error);
-      }
-    };
-    loadGroups();
+    fetchGroups(); // ✅ 전역 상태에서 그룹 목록 갱신
   }, []);
 
   const handleScheduleAdd = async (groupId: number) => {
     try {
-      await addGroupSchedule(groupId, accessToken);
+      await addGroupSchedule(groupId);
       alert('일정이 추가되었습니다.');
     } catch (err) {
       console.error(err);
@@ -47,7 +25,7 @@ const GroupManagement = () => {
 
   const handleScheduleDownload = async (groupId: number) => {
     try {
-      await downloadGroupSchedule(groupId, accessToken);
+      await downloadGroupSchedule(groupId);
     } catch (err) {
       console.error(err);
       alert('일정 다운로드 실패');
@@ -75,7 +53,6 @@ const GroupManagement = () => {
 
             <div className="group_management_card_info">
               <h3>{group.name}</h3>
-              <p>{group.members.join(', ')}</p>
               <p>소속사: {group.agency}</p>
               <a href={group.sns} target="_blank" rel="noopener noreferrer">
                 <img
@@ -85,7 +62,6 @@ const GroupManagement = () => {
                 />
               </a>
             </div>
-
             <div className="group_management_card_btns">
               <button
                 className="schedule_add"
