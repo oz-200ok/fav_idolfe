@@ -6,6 +6,7 @@ import DropDown from './DropDown';
 import ViewYear from './ViewYear';
 import Modal from '../scheduleAdd';
 import Day from './Day';
+import "./schedule.scss"
 
 import { T_ScheduleType, T_use_Date } from './type';
 import UserInstance from '@/utils/UserInstance';
@@ -91,8 +92,6 @@ export default function Schedule() {
           day={day}
           setModal={setModal}
           setScheduleType={setScheduleType}
-          saveType={saveType}
-          setSaveType={setSaveType}
         />
       );
     else
@@ -119,6 +118,7 @@ export default function Schedule() {
       >
         {scheduleType} {dropDownView === true ? '^' : 'v'}
       </button>
+
       {dropDownView && (
         <DropDown
           scheduleType={scheduleType}
@@ -126,8 +126,9 @@ export default function Schedule() {
           setDropDownView={setDropDownView}
         />
       )}
+
       <ViewYear date={date} setDate={setDate} scheduleType={scheduleType} />
-      <div>{randerSchedule({ date, setDate })}</div>
+      <div>{randerSchedule({ date: date, setDate: Date })}</div>
     </div>
   );
 }

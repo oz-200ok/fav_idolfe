@@ -1,5 +1,6 @@
 import { T_GroupScheduleAdd } from '@/types/typeAPI';
 import { Dispatch, SetStateAction } from 'react';
+//d
 
 export type T_ScheduleType = '월' | '주' | '연' | '일정';
 

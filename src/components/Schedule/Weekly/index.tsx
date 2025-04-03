@@ -20,13 +20,6 @@ export default function Weekly(props: T_Weekly_Props) {
         value={props.date}
         showNeighboringMonth={false}
         calendarType="gregory"
-        onClickDay={(value) => {
-          if (!props.setSaveType || !props.setScheduleType || !props.setDate)
-            return;
-          props.setSaveType('주');
-          props.setScheduleType('일정');
-          props.setDate(new Date(value));
-        }}
         tileContent={({ date }) => {
           const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
           const dayOfWeek = date.getDay(); // 0 - 6 (일 - 토)

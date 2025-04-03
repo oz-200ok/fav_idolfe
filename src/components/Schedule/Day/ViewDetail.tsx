@@ -1,5 +1,6 @@
 import { T_GroupScheduleAdd } from '@/types/typeAPI';
 import { viewTime } from '@/utils/viewTime';
+import './Day.scss';
 
 type T_ViewDetail_Props = { data: T_GroupScheduleAdd | null };
 
