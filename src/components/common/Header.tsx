@@ -10,6 +10,7 @@ import { useAuth } from '@/context/AuthContext';
 import UserInstance from '@/utils/UserInstance';
 import { apiConfig } from '@/utils/apiConfig';
 import { getRegExp } from 'korean-regexp';
+import useUserStore from '@/store/useUserStore';
 
 // 게스트 접근 허용 경로
 const GUEST_ALLOWED_PATHS = [
@@ -45,7 +46,7 @@ function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
-
+  const { resetUser } = useUserStore();
   const { markLoggedOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -127,6 +128,7 @@ function Header() {
     try {
       await markLoggedOut();
       setUserRole('guest');
+      resetUser();
       navigate('/');
     } catch (error) {
       alert('로그아웃이 실패했습니다.');

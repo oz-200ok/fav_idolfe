@@ -5,6 +5,7 @@ import UserInstance from '@/utils/UserInstance';
 interface I_UserState {
   user: T_UserInfo | null;
   fetchUser: () => Promise<void>;
+  resetUser: () => void;
 }
 
 const useUserStore = create<I_UserState>((set) => ({
@@ -19,6 +20,7 @@ const useUserStore = create<I_UserState>((set) => ({
       console.log('유저 정보 불러오기 실패😨', error);
     }
   },
+  resetUser: () => set({ user: null }),
 }));
 
 export default useUserStore;
