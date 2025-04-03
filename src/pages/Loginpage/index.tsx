@@ -48,13 +48,12 @@ function Loginpage() {
     }
 
     try {
-      console.log('email:', email);
-      console.log('password:', password);
+
       const res = await login({ email, password });
 
       const data: T_LoginData = res.data;
 
-      console.log('📌데이터확인', data);
+
       markLoggedIn(data.access_token, data.refresh_token);
 
       setError(null); // 에러 초기화 (성공 시)
