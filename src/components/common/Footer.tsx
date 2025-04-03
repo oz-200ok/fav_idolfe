@@ -12,7 +12,8 @@ const Footer: React.FC = () => {
         popupRef.current.document.getElementById('auth-popup');
       if (alreadyHasContent) return;
 
-      console.log('백업')    }
+      console.log('백업');
+    }
     const width = 600;
     const height = 250;
 

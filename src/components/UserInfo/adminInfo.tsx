@@ -5,9 +5,8 @@ import { useEffect } from 'react';
 import useUserStore from '@/store/useUserStore';
 
 const AdminInfo = () => {
-  const navigate = useNavigate();
-
   const { user, fetchUser } = useUserStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) fetchUser();

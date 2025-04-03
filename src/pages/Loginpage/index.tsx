@@ -60,7 +60,7 @@ function Loginpage() {
       setError(null); // 에러 초기화 (성공 시)
       navigate('/');
     } catch (error: any) {
-      if (error.response?.status === 401) {
+      if (error.response?.status === 400) {
         setError({ message: '이메일 또는 비밀번호가 틀렸습니다.' });
       } else {
         setError({ message: '서버 오류가 발생했습니다.' });
