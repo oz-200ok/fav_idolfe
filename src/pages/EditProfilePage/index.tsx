@@ -24,6 +24,7 @@ import {
   usernameValidation,
 } from '@/validations/editUserInfoValidation';
 import UserInstance from '@/utils/UserInstance';
+
 import useUserStore from '@/store/useUserStore';
 
 function EditProfilePage() {

@@ -186,10 +186,6 @@ export type T_GroupScheduleCheck = {
 /**
  * 추가된 멤버 타입
  */
-type T_GroupMember = {
-  member_id: number;
-  name: string;
-};
 
 /**
  * 그룹 일정 추가 API 타입
@@ -203,7 +199,7 @@ export type T_GroupScheduleAdd = {
   location: string;
   start_time: string;
   end_time: string;
-  participating_members: T_GroupMember[];
+  participating_members: string[];
 };
 
 /**
@@ -216,7 +212,7 @@ export type T_GroupScheduleModify = {
   location: string;
   start_time: string;
   end_time: string;
-  participating_members: T_GroupMember[];
+  participating_members: string[];
 };
 
 /**

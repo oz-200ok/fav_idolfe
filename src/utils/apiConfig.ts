@@ -6,3 +6,10 @@ export const apiConfig = {
     'Content-Type': 'application/json',
   },
 };
+
+// export const apiConfig = {
+//   baseURL: 'http://localhost:8000/ilog/',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+// };

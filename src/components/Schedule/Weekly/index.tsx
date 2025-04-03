@@ -3,9 +3,9 @@ import 'react-calendar/dist/Calendar.css';
 import '../schedule.scss';
 import './weekly.scss';
 
-import { T_use_Date, T_use_ScheduleType } from '../type';
+import { T_use_Date, T_use_Day, T_use_ScheduleType } from '../type';
 
-type T_Weekly_Props = T_use_Date & T_use_ScheduleType;
+type T_Weekly_Props = T_use_Date & T_use_ScheduleType & T_use_Day;
 
 export default function Weekly(props: T_Weekly_Props) {
   if (!props.setDate) return;
