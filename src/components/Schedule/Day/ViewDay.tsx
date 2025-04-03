@@ -1,4 +1,4 @@
-import { T_use_clickSchedule, T_use_Date, T_use_Day, T_use_View } from '../type';
+import { T_use_Date, T_use_Day, T_use_View } from '../type';
 import ViewSchedule from './ViewSchedule';
 import ViewDetail from './ViewDetail';
 import './Day.scss';

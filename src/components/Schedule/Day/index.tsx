@@ -34,6 +34,7 @@ export default function Day(props: T_Day_Props) {
         setScheduleType={props.setScheduleType}
         setModal={props.setModal}
         view={view}
+        day={props.day}
         saveType={props.saveType}
         setSaveType={props.setSaveType}
       />
