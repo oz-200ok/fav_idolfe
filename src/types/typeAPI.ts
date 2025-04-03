@@ -120,7 +120,7 @@ export type T_GroupAdd = {
   group_color: string;
   group_image: string;
   member_count: number;
-  members: T_GroupMemberAdd[];
+  members: string[];
 };
 
 /**
@@ -130,10 +130,6 @@ export type T_GroupAdd = {
 /**
  * 그룹에 추가할 멤버 타입
  */
-type T_GroupMemberAdd = {
-  name: string;
-  image: string; //실제 파일 데이터가 아니라 URL로 저장된다고 가정
-};
 // T_GroupMember -> T_GroupMemberAdd 로 변경 (사유:아래 비슷한 타입의 변수명 짓기 어려워서)
 
 /**
@@ -148,7 +144,7 @@ export type T_GroupAddtype = {
   group_color: string;
   group_image: string;
   member_count: number;
-  members: T_GroupMemberAdd[];
+  members: string[];
 };
 
 /**
@@ -163,7 +159,7 @@ export type T_GroupModify = {
   group_color: string;
   group_image: string;
   member_count: number;
-  members: T_GroupMemberAdd[];
+  members: string[];
 };
 
 /**
@@ -186,10 +182,10 @@ export type T_GroupScheduleCheck = {
 /**
  * 추가된 멤버 타입
  */
-type T_GroupMember = {
-  member_id: number;
-  name: string;
-};
+// type T_GroupMember = {
+//   member_id: number;
+//   name: string;
+// };
 
 /**
  * 그룹 일정 추가 API 타입
@@ -203,7 +199,7 @@ export type T_GroupScheduleAdd = {
   location: string;
   start_time: string;
   end_time: string;
-  participating_members: T_GroupMember[];
+  participating_members: string[];
 };
 
 /**
@@ -216,7 +212,7 @@ export type T_GroupScheduleModify = {
   location: string;
   start_time: string;
   end_time: string;
-  participating_members: T_GroupMember[];
+  participating_members: string[];
 };
 
 /**

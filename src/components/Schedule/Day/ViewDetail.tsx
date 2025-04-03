@@ -1,29 +1,28 @@
 import { T_GroupScheduleAdd } from '@/types/typeAPI';
+import { viewTime } from '@/utils/viewTime';
 
-type T_ViewDetail_Props = {
-  value: T_GroupScheduleAdd;
-};
-
-function viewTime(value: string): string {
-  const time = value.split(' ')[1].slice(0, 5);
-  return time;
-}
+type T_ViewDetail_Props = { data: T_GroupScheduleAdd | null };
 
 export default function ViewDetail(props: T_ViewDetail_Props) {
+  console.log(props.data);
   return (
     <div className="div_ViewDetail-centainer">
       <div className="div_memberList-box">
         <h1>관련 멤버</h1>
         <hr />
         <ul className="ul_members_img">
-          {props.value.participating_members.map((item) => {
+          {props?.data?.participating_members.map((item) => {
+            console.log(item);
             return (
-              <img
-                src="아이템"
-                className="img_member"
-                alt={item.name}
-                key={item.member_id}
-              />
+              <>
+                <img
+                  src="아이템"
+                  className="img_member"
+                  alt={item}
+                  key={item}
+                />
+                <p>{item}</p>
+              </>
             );
           })}
         </ul>
@@ -33,12 +32,12 @@ export default function ViewDetail(props: T_ViewDetail_Props) {
         <div>
           <h1>세부 일정</h1>
           <p>
-            {viewTime(props.value.start_time)} ~{' '}
-            {viewTime(props.value.end_time)}
+            {props.data?.start_time && viewTime(props.data.start_time)} ~{' '}
+            {props.data?.end_time && viewTime(props.data.end_time)}
           </p>
         </div>
         <hr />
-        <p>{props.value.description}</p>
+        <p>{props?.data?.description}</p>
       </div>
     </div>
   );
