@@ -2,26 +2,22 @@ import { useEffect, useState } from 'react';
 import './mypage.scss';
 import AdminInfo from '../../components/UserInfo/adminInfo';
 import UserInfo from '@/components/UserInfo/userInfo';
-import UserInstance from '@/utils/UserInstance';
-import { useNavigate } from 'react-router-dom';
 
+import { useNavigate } from 'react-router-dom';
+import useUserStore from '@/store/useUserStore';
 function Mypage() {
   const [userRole, setUserRole] = useState<boolean | null>(null);
 
   const navigate = useNavigate();
-  useEffect(() => {
-    const GetUserInfo = async () => {
-      try {
-        const response = await UserInstance.get('/account/me/');
-        const userState = response.data.data.is_admin;
 
-        setUserRole(userState);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    GetUserInfo();
-  }, []);
+  const { user, fetchUser } = useUserStore();
+  useEffect(() => {
+    if (!user) {
+      fetchUser();
+    } else {
+      setUserRole(user.is_admin);
+    }
+  }, [user]);
 
   useEffect(() => {
     if (userRole === null) return;

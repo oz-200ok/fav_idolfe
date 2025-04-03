@@ -20,6 +20,7 @@ import Alarm from './pages/Alarm/index.tsx';
 import AdminUpload from './pages/AdminUpload/index.tsx';
 import EditProfilePage from './pages/EditProfilePage';
 import EmailRedirect from '@/pages/EmailRedirect';
+import GroupEdit from './components/admin/Group/GroupEdit.tsx';
 import SearchPage from './pages/SearchPage/index.tsx';
 
 function App() {
@@ -37,9 +38,11 @@ function App() {
           path="/group_management_page"
           element={<GroupManagementPage />}
         />
+        <Route path="/group_edit/:groupId" element={<GroupEdit />} />
         <Route path="/schedule_alarm" element={<Alarm />} />
         <Route path="/admin_upload" element={<AdminUpload />} />
         <Route path="/edit_profile_page" element={<EditProfilePage />} />
+        <Route path="/group_edit_page" element={<GroupEdit />} />
       </Route>
       {/* ✅ 전체화면 전용, Layout 없이! */}
       <Route path="/email_redirect" element={<EmailRedirect />} />

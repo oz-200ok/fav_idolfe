@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 
 import {
   T_EditProfile,
-  I_UpdateProfileRequest,
   I_EditInfoValues,
+  I_UpdateProfileRequest,
 } from './EditProfilePage';
 import { DuplicateCheck } from '@/api/accountApi';
 import { updateProfile } from '@/api/accountApi';
@@ -24,6 +24,7 @@ import {
   usernameValidation,
 } from '@/validations/editUserInfoValidation';
 import UserInstance from '@/utils/UserInstance';
+
 import useUserStore from '@/store/useUserStore';
 
 function EditProfilePage() {
@@ -57,6 +58,7 @@ function EditProfilePage() {
 
   const navigate = useNavigate();
   const { fetchUser } = useUserStore();
+
   const [userInfo, setUserInfo] = useState<T_EditProfile | null>(null);
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import right from '../../assets/chevron-right.png';
+
 import { useEffect } from 'react';
 import useUserStore from '@/store/useUserStore';
 
@@ -7,11 +8,13 @@ const AdminInfo = () => {
   const { user, fetchUser } = useUserStore();
   const navigate = useNavigate();
 
+  const { user, fetchUser } = useUserStore();
+
   useEffect(() => {
     if (!user) fetchUser();
   }, []);
 
-  if (!user) return <p> 로딩 중 </p>;
+  if (!user) return <p>로딩 중...</p>;
 
   return (
     <>

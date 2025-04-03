@@ -1,4 +1,4 @@
-import GroupEdit from '../../components/admin/GroupEdit';
+import GroupCreate from '@/components/admin/Group/GroupCreate';
 import './GroupAddpage.scss';
 
 const GroupAddpage = () => {
@@ -8,7 +8,7 @@ const GroupAddpage = () => {
         <h1>관리 그룹 추가</h1>
         <p>관리하시는 그룹과 멤버를 추가해주세요</p>
       </div>
-      <GroupEdit />
+      <GroupCreate />
     </div>
   );
 };
