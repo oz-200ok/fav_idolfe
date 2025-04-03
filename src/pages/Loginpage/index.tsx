@@ -48,11 +48,9 @@ function Loginpage() {
     }
 
     try {
-
       const res = await login({ email, password });
 
       const data: T_LoginData = res.data;
-
 
       markLoggedIn(data.access_token, data.refresh_token);
 

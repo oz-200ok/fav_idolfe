@@ -9,7 +9,9 @@ import { T_GroupScheduleAdd } from '@/types/typeAPI';
 type T_ViewDay_Props = T_use_Date & T_use_View & T_use_Day;
 
 export default function ViewDay(props: T_ViewDay_Props) {
-  const [clickSchedule, setClickSchedule] = useState<T_GroupScheduleAdd | null>(null)
+  const [clickSchedule, setClickSchedule] = useState<T_GroupScheduleAdd | null>(
+    null,
+  );
   // props로 받아온 일정에서 스케줄 ID가 동일한 일정을 표시
   // ViewSchedule에선 시간과 타이틀만
   // ViewDetail에선 모든 세부 일정을 표시

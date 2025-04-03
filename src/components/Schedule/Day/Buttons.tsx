@@ -1,16 +1,16 @@
 import {
   T_use_Date,
+  T_use_Day,
   T_use_Modal,
   T_use_ScheduleType,
   T_use_View,
 } from '../type';
 import './Day.scss';
-import { data } from '../data';
 
 type T_ViewDay_Props = T_use_Date &
   T_use_Modal &
   T_use_ScheduleType &
-  T_use_View;
+  T_use_View & T_use_Day;
 
 export default function Buttons(props: T_ViewDay_Props) {
   return (
@@ -23,7 +23,7 @@ export default function Buttons(props: T_ViewDay_Props) {
           props.setScheduleType(props.saveType);
         }}
       >{`<`}</button>
-      {data?.length !== 0 ? (
+      {props.day?.length !== 0 ? (
         <>
           <button
             className="button_defult button_add"

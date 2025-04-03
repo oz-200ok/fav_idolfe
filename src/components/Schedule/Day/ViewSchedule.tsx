@@ -3,7 +3,8 @@ import { T_use_clickSchedule, T_use_Date, T_use_View } from '../type';
 import { T_GroupScheduleAdd } from '@/types/typeAPI';
 
 type T_ViewSchedule_Props = T_use_Date &
-  T_use_View & T_use_clickSchedule & {
+  T_use_View &
+  T_use_clickSchedule & {
     data?: T_GroupScheduleAdd[];
   };
 
@@ -19,7 +20,7 @@ export default function ViewSchedule(props: T_ViewSchedule_Props) {
               if (!props.setView || !props.setClickSchedule) return;
               // props.setDate(new Date(2025, 1, 1));
               props.setView(true);
-              props.setClickSchedule(item)
+              props.setClickSchedule(item);
             }}
             key={index}
           >

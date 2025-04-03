@@ -57,9 +57,9 @@ export type T_use_View = {
 export type T_use_Day = {
   day?: T_useState_day_s;
   setDay?: T_useState_setDay_s;
-}
+};
 
 export type T_use_clickSchedule = {
   clickSchedule?: T_useState_ClickSchedule_s;
   setClickSchedule?: T_useState_setClickSchedule_s;
-}
+};
