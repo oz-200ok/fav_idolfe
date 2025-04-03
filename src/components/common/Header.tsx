@@ -94,7 +94,10 @@ function Header() {
         `/idol/groups/?name=${query}`,
         apiConfig,
       );
-      setSearchResults(filterDataByKoreanQuery(data, query));
+
+      const idolSearch = data.data;
+
+      setSearchResults(filterDataByKoreanQuery(idolSearch, query));
       setShowDropdown(true);
     } catch (error) {
       console.error('검색 제안 API 실패:', error);

@@ -8,8 +8,6 @@ const AdminInfo = () => {
   const { user, fetchUser } = useUserStore();
   const navigate = useNavigate();
 
-  const { user, fetchUser } = useUserStore();
-
   useEffect(() => {
     if (!user) fetchUser();
   }, []);

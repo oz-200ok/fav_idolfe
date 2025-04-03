@@ -47,8 +47,10 @@ const SearchPage = () => {
         apiConfig,
       );
 
+      const groupName = response.data.data;
+
       // 필터링 후 최대 10개 제한
-      const filteredResults = response.data
+      const filteredResults = groupName
         .filter((group: any) =>
           group.name.toLowerCase().includes(query.toLowerCase()),
         )
@@ -84,7 +86,9 @@ const SearchPage = () => {
         apiConfig,
       );
 
-      const recommendedFilteredResult = response.data
+      const recommendedGroups = response.data.data;
+
+      const recommendedFilteredResult = recommendedGroups
         .filter(
           (g: any) =>
             g.agency === agencyId &&
