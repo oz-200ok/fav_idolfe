@@ -48,19 +48,16 @@ function Loginpage() {
     }
 
     try {
-      console.log('email:', email);
-      console.log('password:', password);
       const res = await login({ email, password });
 
       const data: T_LoginData = res.data;
 
-      console.log('📌데이터확인', data);
       markLoggedIn(data.access_token, data.refresh_token);
 
       setError(null); // 에러 초기화 (성공 시)
       navigate('/');
     } catch (error: any) {
-      if (error.response?.status === 401) {
+      if (error.response?.status === 400) {
         setError({ message: '이메일 또는 비밀번호가 틀렸습니다.' });
       } else {
         setError({ message: '서버 오류가 발생했습니다.' });

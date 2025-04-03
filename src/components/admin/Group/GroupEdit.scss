@@ -278,3 +278,28 @@
     }
   }
 }
+.agency_select {
+  margin-bottom: 20px;
+
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D'10'%20height%3D'6'%20viewBox%3D'0%200%2010%206'%20xmlns%3D'http%3A//www.w3.org/2000/svg'%3E%3Cpath%20d%3D'M0%200l5%206%205-6H0z'%20fill%3D'%236a5096'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    cursor: pointer;
+
+    &:focus {
+      border-color: #6a5096;
+      box-shadow: 0px 0px 5px rgba(106, 80, 150, 0.4);
+    }
+  }
+}

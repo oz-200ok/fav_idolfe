@@ -12,7 +12,6 @@ import JoinPage from './pages/Joinpage/index.tsx';
 
 import QuitPage from './pages/Quit/index.tsx';
 import QuitModal from './pages/QuitModal/index.tsx';
-// import SearchPage from './pages/SearchPage/index.tsx';
 import GroupManagementPage from './pages/GroupManagementPage/index.tsx';
 import Modal from './components/scheduleAdd/index.tsx';
 import GuestPage from './pages/GuestPage/index.tsx';
@@ -21,6 +20,8 @@ import Alarm from './pages/Alarm/index.tsx';
 import AdminUpload from './pages/AdminUpload/index.tsx';
 import EditProfilePage from './pages/EditProfilePage';
 import EmailRedirect from '@/pages/EmailRedirect';
+import GroupEdit from './components/admin/Group/GroupEdit.tsx';
+import SearchPage from './pages/SearchPage/index.tsx';
 
 function App() {
   return (
@@ -30,16 +31,18 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/my_page" element={<Mypage />} />
         <Route path="/quit_modal" element={<QuitModal />} />
-        {/* <Route path="/search_page" element={<SearchPage />} /> */}
         <Route path="/privacy_policy" element={<PrivacyPolicy />} />
         <Route path="/group_add_page" element={<GroupAddpage />} />
+        <Route path="/search_page" element={<SearchPage />} />
         <Route
           path="/group_management_page"
           element={<GroupManagementPage />}
         />
+        <Route path="/group_edit/:groupId" element={<GroupEdit />} />
         <Route path="/schedule_alarm" element={<Alarm />} />
         <Route path="/admin_upload" element={<AdminUpload />} />
         <Route path="/edit_profile_page" element={<EditProfilePage />} />
+        <Route path="/group_edit_page" element={<GroupEdit />} />
       </Route>
       {/* ✅ 전체화면 전용, Layout 없이! */}
       <Route path="/email_redirect" element={<EmailRedirect />} />

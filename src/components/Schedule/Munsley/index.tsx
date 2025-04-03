@@ -17,10 +17,8 @@ export default function Munsley(props: T_Munsley_Props) {
         onChange={() => props.setDate}
         value={props.date}
         calendarType="gregory"
-        onClickDay={(value) => {
-          if (!props.setSaveType || !props.setScheduleType || !props.setDate)
-            return;
-          props.setSaveType('월');
+        onClickDay={() => {
+          if (!props.setScheduleType) return;
           props.setScheduleType('일정');
           props.setDate(new Date(value));
         }}
@@ -29,7 +27,3 @@ export default function Munsley(props: T_Munsley_Props) {
     </div>
   );
 }
-// cenlendar content props 추가할 것
-// setData가 null에서 변경될 경우
-// 리랜더링되면서 해당 일정에 간단한 일정 표시 (타이틀과 컬러 표시 overflow 적용)
-// 만약 리스트가 2~3개 이상이라면 하단 ... 표시로 할 것
