@@ -10,9 +10,11 @@ type T_ViewSchedule_Props = T_use_Date &
 
 export default function ViewSchedule(props: T_ViewSchedule_Props) {
   if (!props.setDate) return;
+  console.log('여어어어기이이이', props.date);
   return (
     <div className="div_ViewSchedule-centainer">
       {props?.data?.map((item, index) => {
+        console.log('item~~~~~', item);
         return (
           <button
             className="button_DAYschedule"

@@ -12,7 +12,7 @@ import { useState } from 'react';
 type T_Day_Props = T_use_Date & T_use_Modal & T_use_ScheduleType & T_use_Day;
 
 export default function Day(props: T_Day_Props) {
-  const [view, setView] = useState(false)
+  const [view, setView] = useState(false);
 
   return (
     <div className="div_dayContainer">

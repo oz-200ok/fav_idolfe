@@ -38,7 +38,7 @@ $MAIN_COLOR: #6a5096;
       width: 40%;
       height: 108.5%;
 
-> * {
+      > * {
         background-color: white;
         padding: 10px;
       }
@@ -71,10 +71,10 @@ $MAIN_COLOR: #6a5096;
       .div_detailContent-box {
         flex-grow: 1;
 
-> div {
+        > div {
           display: flex;
           align-items: center;
-> p {
+          > p {
             color: rgb(124, 124, 124);
             margin: 0 5px;
           }

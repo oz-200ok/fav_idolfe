@@ -19,11 +19,13 @@ type T_Munsley_Props = T_use_Date &
 
 export default function Munsley(props: T_Munsley_Props) {
   function day(date: Date, celendar?: T_useState_day_s) {
+    // console.log('dateeeeeee==', date);
     return (
       <>
         {celendar?.map((item, index) => {
           const month = plus0(date.getMonth() + 1);
           const day = plus0(date.getDate());
+          // console.log('monthhhhh', month);
           if (index >= 3) {
             // 리스트가 3개 이상일 때
           }
@@ -38,7 +40,7 @@ export default function Munsley(props: T_Munsley_Props) {
       </>
     );
   }
-  console.log(props);
+  console.log('여기에용', props);
   return (
     <div>
       <Calendar
@@ -51,10 +53,13 @@ export default function Munsley(props: T_Munsley_Props) {
         }
         value={props.date}
         calendarType="gregory"
-        onClickDay={() => {
-          if (!props.setScheduleType || !props.setDate) return;
+        onClickDay={(value) => {
+          if (!props.setScheduleType || !props.setDate || !props.setSaveType)
+            return;
+          props.setSaveType('월');
           props.setScheduleType('일정');
-          props.setDate((value) => new Date(value));
+          console.log('onclickday~~', value);
+          props.setDate(new Date(value));
         }}
         tileContent={({ date }) => day(date, props.day)}
         key={new Date().setMilliseconds(1)} // 리렌더링을 위한 임의의 key 입력 (값은 중복될 확률이 적은 값으로 지정한 것)

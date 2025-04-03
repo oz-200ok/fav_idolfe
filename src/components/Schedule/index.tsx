@@ -6,7 +6,7 @@ import DropDown from './DropDown';
 import ViewYear from './ViewYear';
 import Modal from '../scheduleAdd';
 import Day from './Day';
-import "./schedule.scss"
+import './schedule.scss';
 
 import { T_ScheduleType, T_use_Date } from './type';
 import UserInstance from '@/utils/UserInstance';
@@ -25,26 +25,6 @@ export default function Schedule() {
   const [modal, setModal] = useState(false);
 
   const [day, setDay] = useState<T_GroupScheduleAdd[]>([]);
-  // const [scheduleID, setScheduleID] = useState<number | null>(null);
-  // const [groupID, setGroupID] = useState<number | null>(1);
-
-  // useEffect(() => {
-  //   const dataa = {
-  //     group: 1,
-  //     title: '잠자기',
-  //     description: '드르렁',
-  //     location: '집',
-  //     start_time: '2025-03-26T07:10:16.951Z',
-  //     end_time: '2025-03-26T08:10:16.951Z',
-  //     participating_member_ids: [1, 2],
-  //   };
-  //   const api = async () => {
-  //     const respones = await UserInstance.post('/idol/groups/1', dataa);
-  //     const respone = respones.data;
-  //     console.log(respone);
-  //   };
-  // api();
-  // }, []);
 
   useEffect(() => {
     console.log('date값 변경되어 일정 재로드');
@@ -53,7 +33,6 @@ export default function Schedule() {
       // /ilog/service/schedules (사용자가 구독한 그룹의 일정목록 조회) 사용자일 때
       // /ilog/schedule (관리중인 그룹 일정 조회) 어드민일 때 -> 당장은 모든 일정 조회로 대체
 
-      // 현재 달에 맞는 값 필터임다 네!
       const respones = (await UserInstance.get('/schedule/')).data;
       const nowMonth = respones.filter((item: T_GroupScheduleAdd) => {
         const Month = date.getMonth() + 1 >= 10 || `0${date.getMonth() + 1}`;
@@ -62,6 +41,7 @@ export default function Schedule() {
       setDay(nowMonth);
     };
     APIrespones();
+    console.log('date 변경됨 ======== ', date);
   }, [date]);
 
   useEffect(() => {
@@ -91,6 +71,7 @@ export default function Schedule() {
           {...props}
           day={day}
           setModal={setModal}
+          setSaveType={setSaveType}
           setScheduleType={setScheduleType}
         />
       );

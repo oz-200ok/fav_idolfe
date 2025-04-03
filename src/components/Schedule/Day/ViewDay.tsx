@@ -23,7 +23,7 @@ export default function ViewDay(props: T_ViewDay_Props) {
     const day = plus0(props.date.getDate());
     if (item.start_time.includes(`${month}-${day}`)) return item;
   });
-
+  console.log('view 콘솔로그', data);
   return (
     <div className="div_viewDay">
       {data?.length !== 0 ? (
